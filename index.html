@@ -29,6 +29,85 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--brown);ov
 .mobile-phase-cta button{width:100%;background:var(--blush);color:white;border:none;border-radius:100px;padding:0.85rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;}
 @media(max-width:768px){.mobile-phase-cta{display:block;}}
 
+  /* ═══ THEME TOGGLE ═══ */
+:root{
+  --bg-primary:#FAF7F2;
+  --bg-warm:#FFFCF8;
+  --bg-beige:#EAE0D5;
+  --text-main:#3D2E2E;
+  --text-muted:#8C7B75;
+}
+html.dark-theme{
+  --bg-primary:#1A1210;
+  --bg-warm:#231816;
+  --bg-beige:#2C1F1C;
+  --text-main:#FAF7F2;
+  --text-muted:#B0A09A;
+}
+html.dark-theme body{
+  background:var(--bg-primary);
+  color:var(--text-main);
+}
+html.dark-theme nav{
+  background:rgba(26,18,16,0.93);
+  border-bottom-color:rgba(100,70,60,0.3);
+}
+html.dark-theme .hero-left,
+html.dark-theme .why-section,
+html.dark-theme .phase-block,
+html.dark-theme .food-table-block,
+html.dark-theme .phase-banner,
+html.dark-theme .phase-calc{
+  background:var(--bg-warm);
+}
+html.dark-theme .float-card,
+html.dark-theme .hero-visual-card,
+html.dark-theme .wpl-item,
+html.dark-theme .fc,
+html.dark-theme .scs-food,
+html.dark-theme .cheat-card{
+  background:var(--bg-warm);
+  border-color:rgba(255,255,255,0.07);
+}
+html.dark-theme .phase-selector{background:var(--bg-beige);}
+html.dark-theme footer{background:#0D0908;}
+
+/* The toggle button */
+#themeToggle{
+  display:none; /* desktop: hidden */
+  position:fixed;
+  top:72px;
+  right:1rem;
+  z-index:350;
+  align-items:center;
+  gap:0.4rem;
+  background:rgba(61,46,46,0.88);
+  border:1px solid rgba(242,196,206,0.3);
+  border-radius:100px;
+  padding:0.38rem 0.85rem;
+  font-family:'Jost',sans-serif;
+  font-size:0.65rem;
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  color:#FAF7F2;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:background 0.2s,border-color 0.2s;
+  box-shadow:0 4px 16px rgba(0,0,0,0.25);
+}
+html.dark-theme #themeToggle{
+  background:rgba(250,247,242,0.92);
+  color:#3D2E2E;
+  border-color:rgba(61,46,46,0.2);
+}
+#themeToggle .tt-sun{display:none;}
+html.dark-theme #themeToggle .tt-moon{display:none;}
+html.dark-theme #themeToggle .tt-sun{display:inline;}
+
+@media(max-width:768px){
+  #themeToggle{ display:flex; }
+}
+
 /* LOGO */
 .lunea-logo{display:inline-flex;align-items:center;gap:0.5rem;cursor:pointer;text-decoration:none;}
 .lunea-logo-wordmark{display:flex;flex-direction:column;line-height:1;}
@@ -63,6 +142,89 @@ nav.scrolled{box-shadow:0 2px 24px rgba(61,46,46,0.08);}
 .nav-drawer a{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--brown);text-decoration:none;cursor:pointer;transition:color 0.2s;}
 .nav-drawer a:hover{color:var(--blush);}
 .nav-drawer .drawer-cta{background:var(--blush);color:white;padding:0.9rem 2.5rem;border-radius:100px;font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:400;margin-top:0.5rem;}
+
+  /* Recipes drawer sub-menu */
+.drawer-recipes-wrap{ position:relative; text-align:center; }
+.drawer-recipes-toggle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;
+  font-weight:300;
+  color:var(--brown);
+  text-decoration:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:0.4rem;
+  transition:color 0.2s;
+}
+.drawer-recipes-toggle:hover{ color:var(--blush); }
+#drawerRecipesArrow{
+  font-size:1.2rem;
+  display:inline-block;
+  transition:transform 0.25s;
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+}
+.drawer-recipes-wrap.open #drawerRecipesArrow{ transform:rotate(90deg); }
+
+.drawer-sub{
+  display:none;
+  flex-direction:column;
+  gap:0.6rem;
+  padding:0.6rem 0 0.2rem;
+  animation:subSlide 0.25s ease;
+}
+.drawer-sub.open{ display:flex; }
+.drawer-sub a{
+  font-family:'Jost',sans-serif !important;
+  font-size:1rem !important;
+  font-weight:400;
+  color:var(--taupe);
+  text-decoration:none;
+  cursor:pointer;
+  transition:color 0.2s;
+  letter-spacing:0.04em;
+}
+.drawer-sub a:hover{ color:var(--blush); }
+@keyframes subSlide{
+  from{ opacity:0; transform:translateY(-8px); }
+  to{   opacity:1; transform:translateY(0); }
+}
+
+  /* Desktop nav sub-menu */
+.nav-has-sub{ position:relative; }
+.nav-has-sub .nav-recipes-toggle{ cursor:pointer; }
+.nav-sub-menu{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(250,247,242,0.97);
+  border:1px solid var(--beige);
+  border-radius:16px;
+  padding:0.6rem 0;
+  list-style:none;
+  min-width:180px;
+  box-shadow:0 12px 40px rgba(61,46,46,0.12);
+  backdrop-filter:blur(12px);
+  z-index:400;
+}
+.nav-has-sub:hover .nav-sub-menu{ display:block; }
+.nav-sub-menu li a{
+  display:block;
+  padding:0.5rem 1.2rem;
+  font-size:0.74rem;
+  letter-spacing:0.06em;
+  color:var(--taupe);
+  text-decoration:none;
+  transition:color 0.2s, background 0.2s;
+  white-space:nowrap;
+}
+.nav-sub-menu li a:hover{
+  color:var(--brown);
+  background:rgba(242,196,206,0.15);
+}
 
  /* ── PHASE BANNER QUICK-NAV ── */
 .phase-banner-nav {
@@ -702,6 +864,13 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 </style>
 </head>
 <body>
+  <!-- THEME BUTTON -->
+<button id="themeToggle" aria-label="Toggle theme" onclick="toggleTheme()">
+  <span class="tt-moon">🌙</span>
+  <span class="tt-sun">☀️</span>
+  <span class="tt-label"></span>
+</button>
+  
 <!-- BACK BUTTON -->
 <button id="backBtn" onclick="showPage('home')">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -717,9 +886,23 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 <div class="nav-drawer" id="navDrawer">
   <a onclick="navGo('home')" id="drawerHomeLink">Home</a>
   <a onclick="navGo('mycycle')">My Cycle</a>
-  <a onclick="navGo('cheatsheet')">Cheat Sheets</a>
-  <a onclick="navGo('recipes')">Recipes</a>
-  <a onclick="navGo('sweets')">Healthy Sweets</a>
+  <a onclick="navGo('cheatsheet')">Nutrition Guide</a>
+
+  <!-- ── Recipes with expandable sub-menu ── -->
+  <div class="drawer-recipes-wrap">
+    <a onclick="toggleRecipesDrawer(event)" class="drawer-recipes-toggle">
+      Recipes <span id="drawerRecipesArrow">›</span>
+    </a>
+    <div class="drawer-sub" id="drawerRecipesSub">
+      <a onclick="navGoRecipe('breakfast')">☀️ Breakfast</a>
+      <a onclick="navGoRecipe('lunch')">🥗 Lunch</a>
+      <a onclick="navGoRecipe('dinner')">🍲 Dinner</a>
+      <a onclick="navGoRecipe('snack')">🫙 Snacks & Healthy Sweets</a>
+      <a onclick="navGoRecipe('dessert')">🍫 Desserts</a>
+      <a onclick="navGo('recipes')" style="opacity:0.5;font-size:0.9em">All recipes →</a>
+    </div>
+  </div>
+
   <a onclick="navGo('faq')">FAQ</a>
   <a onclick="navGo('mycycle')" class="drawer-cta">What's my phase ? →</a>
 </div>
@@ -741,9 +924,18 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   <ul class="nav-links">
     <li><a onclick="showPage('home')" data-page="home" class="active-nav">Home</a></li>
     <li><a onclick="showPage('mycycle')" data-page="mycycle">My Cycle</a></li>
-    <li><a onclick="showPage('cheatsheet')" data-page="cheatsheet">Cheat Sheets</a></li>
-    <li><a onclick="showPage('recipes')" data-page="recipes">Recipes</a></li>
-    <li><a onclick="showPage('sweets')" data-page="sweets">Healthy Sweets</a></li>
+    <li><a onclick="showPage('cheatsheet')" data-page="cheatsheet">Nutrition Guide</a></li>
+    <li class="nav-has-sub">
+  <a data-page="recipes" class="nav-recipes-toggle">Recipes ›</a>
+  <ul class="nav-sub-menu">
+    <li><a onclick="navGoRecipe('breakfast')">☀️ Breakfast</a></li>
+    <li><a onclick="navGoRecipe('lunch')">🥗 Lunch</a></li>
+    <li><a onclick="navGoRecipe('dinner')">🍲 Dinner</a></li>
+    <li><a onclick="navGoRecipe('snack')">🫙 Snacks & Sweets</a></li>
+    <li><a onclick="navGoRecipe('dessert')">🍫 Desserts</a></li>
+    <li><a onclick="showPage('recipes')">All recipes</a></li>
+  </ul>
+</li>
     <li><a onclick="showPage('faq')" data-page="faq">FAQ</a></li>
     <li><a onclick="showPage('mycycle')" class="nav-cta">What's my phase ?</a></li>
   </ul>
@@ -776,8 +968,8 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <div class="hero-left">
       <p class="hero-eyebrow">Cycle-aware nutrition for women</p>
       <h1 class="hero-title">Eat with your cycle.<br><em>Feel like yourself again.</em></h1>
-      <p class="hero-question">"Exercising regularly, eating well, staying hydrated, maintaining a social life, and getting enough sleep… so why does my energy and mood still feel inconsistent"
-       <p class="hero-sub"> Does it sound like something you could say ? <br> Some days, you feel completely depleted for no clear reason. Other days, you’re full of energy—like you could take on the world.<br>What if there’s a natural rhythm behind it all?</p>
+      <p class="hero-question">"Exercising regularly, eating well, staying hydrated, maintaining a social life, and getting enough sleep… so why does my energy still feel inconsistent"
+       <p class="hero-sub"> Does it sound like something you could say ? <br> Some days, you feel completely depleted for no clear reason. Other days, you feel unstoppable.<br>What if there’s a natural rhythm behind it all?</p>
 
       <p class="hero-sub">Your hormones shift all month long. Your food should too.<br> Because the fatigue, the cravings, the bloating, the mood shifts<br><strong>—> they all have a nutritional reason.</strong></p>
         
@@ -851,20 +1043,24 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <div class="why-inner">
       <div class="why-text fade-up">
         <p class="section-label" style="text-align:left;margin-bottom:0.8rem;">Why nutrition actually matters</p>
-        <h2 class="why-title">You're not broken.<br>You're just eating the<br><em>same thing every day.</em></h2>
-        <p class="why-body">You feel you're doing everything right. You eat well, you exercise, you sleep and you drink your water. And yet, week three hits and you're exhausted, craving sugar, and wondering what's wrong with you.</p> 
-        
-         <p class="why-body">Quick answer: Nothing is wrong with you. Your hormones are shifting, and your food hasn't shifted with them.
-</p>
-        <p class="why-body">Every symptom you've written off as "just how things are" — the fatigue, the bloating, the low mood before your period, the energy crash in week four — has a nutritional root. And nutritional roots have nutritional solutions.</p>
-        <p class="why-body">Iron, magnesium, omega-3, B6 — these aren't supplements you need to add to your routine. They're foods you're probably already eating. You're just not eating the right ones at the right time. <strong>That's the only thing Lunéa changes.</strong></p>
+        <h2 class="why-title">The right foods<br><em>at the right time.</em></h2>
+        <p class="why-body">Your body isn’t the problem, it is simply evolving throughout the month.
+Even when your habits stay consistent, your nutritional needs naturally change.
 
-<p class="why-body">This isn't a diet. There's nothing to restrict. It's simply the nutritionnal knowledge your body has been waiting for.</p>
+
+</p> 
+        
+         <p class="why-body">By aligning your food with those shifts, your energy, mood, and cravings start to feel effortless.
+</p>
+        <p class="why-body">It’s not about adding more. This isn't a diet. It’s about timing what you already eat and understanding the impacts of nutrition on your symptoms.</p>
+        <p class="why-body"> <strong>That’s the simple shift Lunéa brings.</strong></p>
+
+
         
         <div class="why-quote">
-          <p>"Lunéa was created by a community of women tired of feeling like a different person every week, and to have no control of it. What we discovered is simple: our bodies aren’t inconsistent, they’re cyclical.
-            <br>And often, small nutritional shifts make a real difference to be more aligned with our body.</p>
-          <cite>— The real reason Lunéa exists</cite>
+          <p>"Lunéa was created by women who realized we’re not inconsistent but cyclical, and small shifts in how we nourish our bodies can make a real difference.
+            </p>
+          <cite>— Why Lunéa exists</cite>
         </div>
       </div>
       <div class="why-pillars fade-up">
@@ -897,7 +1093,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <p class="section-sub">You shouldn't have to research your own body at 7am after a sleepless night or how to avoid these bad cramps that keep you curl up on the couch. Lunéa does the work for you — phase guides, nutrient cards, filtered recipes — everything organised around where you are in your cycle right now, so you can go live your life.</p>
     <div class="onespace-grid">
       <div class="onespace-card" onclick="showPage('mycycle')"><span class="onespace-icon">🌀</span><p class="onespace-name">My Cycle Guide</p><p class="onespace-desc">Not just what to eat — why your body needs it right now. Hormones, symptoms & foods, all in one place. </p></div>
-      <div class="onespace-card" onclick="showPage('cheatsheet')"><span class="onespace-icon">📋</span><p class="onespace-name">Cheat Sheets</p><p class="onespace-desc">Screenshot-ready cards for iron, magnesium, omega-3 and more. Save them to your camera roll and save time next time you go shopping.</p></div>
+      <div class="onespace-card" onclick="showPage('cheatsheet')"><span class="onespace-icon">📋</span><p class="onespace-name">Nutrition Guide</p><p class="onespace-desc">Screenshot-ready cards for iron, magnesium, omega-3 and more. Save them to your camera roll and save time next time you go shopping.</p></div>
       <div class="onespace-card" onclick="showPage('recipes')"><span class="onespace-icon">🍽️</span><p class="onespace-name">Recipes</p><p class="onespace-desc">Filter by your phase, meal type, or what you want to boost. Cook something that actually supports your body.</p></div>
     </div>
   </section>
@@ -938,7 +1134,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
       <ul class="footer-links">
         <li><a onclick="showPage('home')">Home</a></li>
         <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-        <li><a onclick="showPage('cheatsheet')">Cheat Sheets</a></li>
+        <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
         <li><a onclick="showPage('recipes')">Recipes</a></li>
         <li><a onclick="showPage('sweets')">Healthy Sweets</a></li>
         <li><a onclick="showPage('faq')">FAQ</a></li>
@@ -996,7 +1192,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <div>
             <p class="phase-banner-label">Phase 1 · Days 1–5</p>
             <h2 class="phase-banner-title">Menstrual — <em>Rest & Replenish</em></h2>
-            <h2 class="phase-banner-title-sub" style="margin-bottom:0.4rem">Your body is working inclredy hard right now, support it with some warm and iron-rich meals, and allow for some rest.</h2>
+            <h2 class="phase-banner-title-sub" style="margin-bottom:0.4rem">Your body is working incredibly hard right now, support it with some warm and iron-rich meals, and allow for some rest.</h2>
           </div>
           
 <!-- ═══ MENSTRUAL - CTA 3X BUTTONS ═══ -->
@@ -1105,6 +1301,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <button class="ftab" onclick="switchFtab('m-symp','inflam',this)">🔥 Inflammation</button>
           <button class="ftab" onclick="switchFtab('m-symp','fatigue',this)">😴 Fatigue</button>
           <button class="ftab" onclick="switchFtab('m-symp','mood',this)">🧠 Mood</button>
+          <button class="ftab" onclick="switchFtab('m-symp','acne',this)">✨ Acne</button>
         </div>
         <div id="m-symp-cramps" class="ftab-panel active">
           <div class="fc"><span class="fc-emoji">🐟</span><div class="fc-text"><p class="fc-name">Salmon & mackerel</p><p class="fc-why">EPA/DHA directly reduce prostaglandins causing cramps</p></div></div>
@@ -1142,6 +1339,28 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <div class="fc"><span class="fc-emoji">🫖</span><div class="fc-text"><p class="fc-name">Saffron tea</p><p class="fc-why">Clinical evidence for mood-lifting effects — 30mg/day effective</p></div></div>
         </div>
     </div>
+      <div id="m-symp-acne" class="ftab-panel">
+  <div class="fc"><span class="fc-emoji">🐟</span><div class="fc-text">
+    <p class="fc-name">Salmon & sardines</p>
+    <p class="fc-why">EPA reduces prostaglandin-driven inflammation — the direct cause of period-linked breakouts</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🌰</span><div class="fc-text">
+    <p class="fc-name">Pumpkin seeds</p>
+    <p class="fc-why">Zinc regulates sebum and reduces P. acnes bacteria activity</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🫘</span><div class="fc-text">
+    <p class="fc-name">Lentils & legumes</p>
+    <p class="fc-why">Fiber binds excess estrogen for elimination — reduces hormonal acne load</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🫚</span><div class="fc-text">
+    <p class="fc-name">Turmeric</p>
+    <p class="fc-why">Curcumin reduces systemic inflammation that worsens acne during menstruation</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">💧</span><div class="fc-text">
+    <p class="fc-name">3 litres water daily</p>
+    <p class="fc-why">Flushes prostaglandins and supports kidney filtration of excess hormones</p>
+  </div></div>
+</div>
 <!-- GENTLY LIMIT — full width -->
       <div class="avoid-block-wide">
         <p class="phase-block-title"><span>⚠️</span> Gently limit this week</p>
@@ -1274,6 +1493,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <button class="ftab" onclick="switchFtab('f-symp','skin',this)">✨ Skin & glow</button>
           <button class="ftab" onclick="switchFtab('f-symp','focus',this)">🧠 Focus</button>
           <button class="ftab" onclick="switchFtab('f-symp','mood',this)">😊 Mood</button>
+          <button class="ftab" onclick="switchFtab('f-symp','acne',this)">✨ Acne</button>
         </div>
         <div id="f-symp-lowenergy" class="ftab-panel active">
           <div class="fc"><span class="fc-emoji">🌾</span><div class="fc-text"><p class="fc-name">Quinoa & oat groats</p><p class="fc-why">Complex carbs fuel a steady rise in energy as estrogen climbs</p></div></div>
@@ -1311,6 +1531,28 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <div class="fc"><span class="fc-emoji">🫐</span><div class="fc-text"><p class="fc-name">Berries & citrus</p><p class="fc-why">Vitamin C reduces cortisol — the follicular phase mood lifter</p></div></div>
         </div>
       </div>
+      <div id="f-symp-acne" class="ftab-panel">
+  <div class="fc"><span class="fc-emoji">🥦</span><div class="fc-text">
+    <p class="fc-name">Cruciferous vegetables</p>
+    <p class="fc-why">DIM supports liver clearance of androgens that trigger follicular breakouts</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🫙</span><div class="fc-text">
+    <p class="fc-name">Fermented foods (kefir, kimchi)</p>
+    <p class="fc-why">Gut microbiome diversity directly reduces skin inflammation and sebum production</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🌰</span><div class="fc-text">
+    <p class="fc-name">Brazil nuts & walnuts</p>
+    <p class="fc-why">Selenium + zinc — the two minerals most directly linked to skin clarity</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🍎</span><div class="fc-text">
+    <p class="fc-name">Apples & pears</p>
+    <p class="fc-why">Pectin fiber binds and removes excess estrogen — key for follicular-phase skin balance</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🍵</span><div class="fc-text">
+    <p class="fc-name">Green tea</p>
+    <p class="fc-why">EGCG inhibits IGF-1 — the growth factor most linked to hormonal acne severity</p>
+  </div></div>
+</div>
 <!-- GENTLY LIMIT — full width — FOLLICULAR -->
       <div class="avoid-block-wide">
         <p class="phase-block-title"><span>⚠️</span> Gently limit this week</p>
@@ -1441,6 +1683,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <button class="ftab" onclick="switchFtab('o-symp','sensitivity',this)">⚡ Sensitivity</button>
           <button class="ftab" onclick="switchFtab('o-symp','energy',this)">🔥 Energy</button>
           <button class="ftab" onclick="switchFtab('o-symp','mood',this)">✨ Mood</button>
+          <button class="ftab" onclick="switchFtab('o-symp','acne',this)">✨ Acne</button>
         </div>
         <div id="o-symp-heat" class="ftab-panel active">
           <div class="fc"><span class="fc-emoji">🍉</span><div class="fc-text"><p class="fc-name">Watermelon & cucumber</p><p class="fc-why">92% water content — the best natural cooling foods available</p></div></div>
@@ -1478,6 +1721,25 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <div class="fc"><span class="fc-emoji">🍫</span><div class="fc-text"><p class="fc-name">Dark chocolate</p><p class="fc-why">Phenylethylamine boosts dopamine — enhances the natural euphoria of ovulation</p></div></div>
         </div>
       </div>
+      <div id="o-symp-acne" class="ftab-panel">
+  <div class="fc"><span class="fc-emoji">🥑</span><div class="fc-text">
+    <p class="fc-name">Avocado</p>
+    <p class="fc-why">Vitamin E + healthy fats maintain skin barrier against peak estrogen-driven sebum</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🌻</span><div class="fc-text">
+    <p class="fc-name">Sunflower & pumpkin seeds</p>
+    <p class="fc-why">Zinc + selenium at peak estrogen — prevents LH-surge acne around ovulation day</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🍓</span><div class="fc-text">
+    <p class="fc-name">Berries & pomegranate</p>
+    <p class="fc-why">Antioxidants neutralise the oxidative spike that coincides with ovulation</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🥦</span><div class="fc-text">
+    <p class="fc-name">Broccoli & cruciferous veg</p>
+    <p class="fc-why">DIM clears the estrogen peak via the liver before it can trigger breakouts</p>
+  </div></div>
+</div>
+
 
       <!-- GENTLY LIMIT — full width OVULATORY—  -->
       <div class="avoid-block-wide">
@@ -1608,6 +1870,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <button class="ftab" onclick="switchFtab('l-symp','bloating',this)">💧 Bloating</button>
           <button class="ftab" onclick="switchFtab('l-symp','fatigue',this)">😴 Fatigue</button>
           <button class="ftab" onclick="switchFtab('l-symp','sleep',this)">🌙 Sleep</button>
+          <button class="ftab" onclick="switchFtab('l-symp','acne',this)">✨ Acne</button>
         </div>
         <div id="l-symp-pms" class="ftab-panel active">
           <div class="fc"><span class="fc-emoji">🥜</span><div class="fc-text"><p class="fc-name">Almonds & cashews</p><p class="fc-why">Magnesium directly reduces PMS anxiety, irritability and cramps within days</p></div></div>
@@ -1645,6 +1908,28 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
           <div class="fc"><span class="fc-emoji">🍌</span><div class="fc-text"><p class="fc-name">Banana</p><p class="fc-why">B6 + magnesium + tryptophan — eat one an hour before bed for better sleep</p></div></div>
         </div>
       </div>
+      <div id="l-symp-acne" class="ftab-panel">
+  <div class="fc"><span class="fc-emoji">🌰</span><div class="fc-text">
+    <p class="fc-name">Brazil nuts (2–3/day)</p>
+    <p class="fc-why">Selenium regulates the androgen-sebum pathway — most active in the luteal phase</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🍠</span><div class="fc-text">
+    <p class="fc-name">Sweet potato</p>
+    <p class="fc-why">B6 reduces androgen activity + steady complex carbs prevent insulin spikes that drive acne</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🫘</span><div class="fc-text">
+    <p class="fc-name">Lentils & chickpeas</p>
+    <p class="fc-why">Low-glycaemic protein + fiber — the combination most proven to reduce hormonal acne long-term</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🥦</span><div class="fc-text">
+    <p class="fc-name">Cruciferous vegetables</p>
+    <p class="fc-why">DIM compound clears excess androgens via the liver — critical in late luteal</p>
+  </div></div>
+  <div class="fc"><span class="fc-emoji">🐟</span><div class="fc-text">
+    <p class="fc-name">Salmon 3×/week</p>
+    <p class="fc-why">EPA reduces the inflammatory cascade behind cystic acne — works best over 3–4 consistent weeks</p>
+  </div></div>
+</div>
 
       <!-- GENTLY LIMIT — full width — LUTEAL -->
       <div class="avoid-block-wide">
@@ -1665,7 +1950,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-      <li><a onclick="showPage('cheatsheet')">Cheat Sheets</a></li>
+      <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
       <li><a onclick="showPage('recipes')">Recipes</a></li>
       <li><a onclick="showPage('faq')">FAQ</a></li>
     </ul>
@@ -1678,7 +1963,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 <div id="page-cheatsheet" class="page">
   <section class="cheat-hero">
     <p class="section-label">Your pocket reference</p>
-    <h1 class="cycle-hero-title">Nutrient <em>Cheat Sheets</em></h1>
+    <h1 class="cycle-hero-title">Nutrient <em>Nutrition Guide</em></h1>
     <p class="cycle-hero-sub">Screenshot-ready. Tap any card to open it full-screen. Save the ones that feel most relevant to your body right now.</p>
     <p class="cheat-hint">👆 Tap a card to open full screen</p>
   </section>
@@ -1868,7 +2153,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-      <li><a onclick="showPage('cheatsheet')">Cheat Sheets</a></li>
+      <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
       <li><a onclick="showPage('recipes')">Recipes</a></li>
       <li><a onclick="showPage('faq')">FAQ</a></li>
     </ul>
@@ -1885,9 +2170,32 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <p class="cycle-hero-sub">Filter by your phase, what you want to boost, and any dietary conditions. The right recipe for your body, right now — not next week, today.</p>
   </section>
   <div class="recipe-filter-panel">
+    
     <div class="rfp-group"><p class="rfp-label">🍽️ Meal Type <span class="rfp-rule">choose one</span></p><div class="rfp-buttons" id="filter-meal" data-max="1"><button class="rfp-btn" data-filter="meal" data-value="breakfast">☀️ Breakfast</button><button class="rfp-btn" data-filter="meal" data-value="lunch">🥗 Lunch</button><button class="rfp-btn" data-filter="meal" data-value="dinner">🍲 Dinner</button><button class="rfp-btn" data-filter="meal" data-value="snack">🫙 Snack</button><button class="rfp-btn" data-filter="meal" data-value="dessert">🍫 Dessert</button></div></div>
+    
     <div class="rfp-group"><p class="rfp-label">🌀 Cycle Phase <span class="rfp-rule">choose one</span></p><div class="rfp-buttons" id="filter-phase" data-max="1"><button class="rfp-btn" data-filter="phase" data-value="menstrual">🌑 Menstrual</button><button class="rfp-btn" data-filter="phase" data-value="follicular">🌱 Follicular</button><button class="rfp-btn" data-filter="phase" data-value="ovulatory">🌕 Ovulatory</button><button class="rfp-btn" data-filter="phase" data-value="luteal">🍂 Luteal</button></div></div>
+    
     <div class="rfp-group"><p class="rfp-label">✨ Nutrients to Boost <span class="rfp-rule">up to 3</span></p><div class="rfp-buttons" id="filter-nutrient" data-max="3"><button class="rfp-btn" data-filter="nutrient" data-value="iron">🩸 Iron</button><button class="rfp-btn" data-filter="nutrient" data-value="magnesium">🥜 Magnesium</button><button class="rfp-btn" data-filter="nutrient" data-value="fiber">🌿 Fiber</button><button class="rfp-btn" data-filter="nutrient" data-value="omega3">🐟 Omega-3</button><button class="rfp-btn" data-filter="nutrient" data-value="vitaminD">☀️ Vitamin D</button><button class="rfp-btn" data-filter="nutrient" data-value="b6">💊 B6</button><button class="rfp-btn" data-filter="nutrient" data-value="calcium">🦴 Calcium</button></div></div>
+
+<div class="rfp-group" id="rfp-symptom-group">
+  <p class="rfp-label">🎯 Filter by Symptom
+    <span class="rfp-rule">up to 3</span>
+    <span class="rfp-rule" style="background:rgba(181,201,177,0.2);color:#5A8055">
+      works independently from nutrients
+    </span>
+  </p>
+  <div class="rfp-buttons" id="filter-symptom" data-max="3">
+    <button class="rfp-btn" data-filter="symptom" data-value="fatigue">😴 Fatigue</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="cramps">🌡️ Cramps</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="pms">😔 PMS</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="bloating">💧 Bloating</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="mood">🧠 Mood</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="acne">✨ Acne</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="sleep">🌙 Sleep</button>
+    <button class="rfp-btn" data-filter="symptom" data-value="lowenergy">⚡ Low Energy</button>
+  </div>
+</div>
+    
     <div class="rfp-group"><p class="rfp-label">🛡️ Dietary Conditions <span class="rfp-rule">select all that apply</span></p><div class="rfp-buttons" id="filter-condition" data-max="3"><button class="rfp-btn" data-filter="condition" data-value="autoimmune">🛡️ Autoimmune</button><button class="rfp-btn" data-filter="condition" data-value="glutenfree">🚫🌾 Gluten-Free</button><button class="rfp-btn" data-filter="condition" data-value="lactosefree">🥛 Lactose-Free</button><button class="rfp-btn" data-filter="condition" data-value="vegan">🌿 Vegan</button><button class="rfp-btn" data-filter="condition" data-value="vegetarian">🥦 Vegetarian</button></div></div>
     <div class="rfp-actions"><button class="btn-rose" onclick="applyRecipeFilters()">Show Recipes</button><button class="btn-ghost" onclick="clearRecipeFilters()">Clear filters</button></div>
   </div>
@@ -1909,7 +2217,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-      <li><a onclick="showPage('cheatsheet')">Cheat Sheets</a></li>
+      <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
       <li><a onclick="showPage('recipes')">Recipes</a></li>
       <li><a onclick="showPage('faq')">FAQ</a></li>
     </ul>
@@ -2056,7 +2364,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-      <li><a onclick="showPage('cheatsheet')">Cheat Sheets</a></li>
+      <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
       <li><a onclick="showPage('recipes')">Recipes</a></li>
       <li><a onclick="showPage('sweets')">Healthy Sweets</a></li>
       <li><a onclick="showPage('FAQ')">FAQ</a></li>
@@ -2099,7 +2407,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-      <li><a onclick="showPage('cheatsheet')">Cheat Sheets</a></li>
+      <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
       <li><a onclick="showPage('recipes')">Recipes</a></li>
       <li><a onclick="showPage('faq')">FAQ</a></li>
     </ul>
@@ -2109,6 +2417,75 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 
 <!-- ══════════ MAIN JS ══════════ -->
 <script>
+function toggleTheme(){
+  var isDark=document.documentElement.classList.toggle('dark-theme');
+  localStorage.setItem('lunea-theme', isDark ? 'dark' : 'light');
+  document.querySelector('#themeToggle .tt-label').textContent = isDark ? ' Light' : ' Dark';
+}
+/* Restore on load */
+(function(){
+  if(localStorage.getItem('lunea-theme')==='dark'){
+    document.documentElement.classList.add('dark-theme');
+  }
+})();
+
+  /* Symptom → nutrient map
+   Logic: each symptom is caused by deficiencies in specific nutrients.
+   A recipe qualifies for a symptom if it contains ≥1 of its mapped nutrients.
+
+   Reasoning:
+   - fatigue      → iron (oxygen transport), magnesium (mitochondria), vitaminD, b6
+   - cramps       → magnesium (muscle relax), omega3 (anti-prostaglandin), calcium
+   - pms          → magnesium, b6 (serotonin synthesis), calcium, omega3
+   - bloating     → fiber (gut motility), calcium (gut contraction)
+   - mood         → b6 (serotonin), omega3 (brain DHA), magnesium (GABA)
+   - acne         → omega3 (anti-sebum inflam.), zinc (mapped via iron tag), fiber (estrogen clearance)
+   - sleep        → magnesium (GABA activation), b6 (melatonin), calcium
+   - lowenergy    → iron, vitaminD, b6, fiber (blood sugar)
+*/
+var SYMPTOM_NUTRIENT_MAP = {
+  fatigue:   ['iron','magnesium','vitaminD','b6'],
+  cramps:    ['magnesium','omega3','calcium'],
+  pms:       ['magnesium','b6','calcium','omega3'],
+  bloating:  ['fiber','calcium'],
+  mood:      ['b6','omega3','magnesium'],
+  acne:      ['omega3','fiber','iron'],
+  sleep:     ['magnesium','b6','calcium'],
+  lowenergy: ['iron','vitaminD','b6','fiber']
+};
+
+  /* Navigate to recipes page with a meal pre-filter */
+function navGoRecipe(mealType){
+  /* Reset all filters first */
+  filterState.meal = mealType;
+  filterState.phase = null;
+  filterState.nutrient = [];
+  filterState.condition = [];
+  showPage('recipes');
+  setTimeout(function(){
+    /* Visually highlight the correct button */
+    document.querySelectorAll('#filter-meal .rfp-btn').forEach(function(b){
+      b.classList.toggle('selected', b.dataset.value === mealType);
+    });
+    /* Include sweets page content if snack selected */
+    if(mealType === 'snack'){
+      /* healthy sweets are tagged as snack/dessert — both show */
+      filterState.meal = null; /* show all, user sees snack buttons active */
+    }
+    renderRecipes();
+    closeDrawer();
+  }, 80);
+}
+
+/* Toggle sub-menu in mobile drawer */
+function toggleRecipesDrawer(e){
+  e.preventDefault();
+  var wrap = document.querySelector('.drawer-recipes-wrap');
+  var sub  = document.getElementById('drawerRecipesSub');
+  var isOpen = wrap.classList.toggle('open');
+  sub.classList.toggle('open', isOpen);
+}
+  
 function switchScs(key,btn){document.querySelectorAll('.scs-tab').forEach(function(b){b.classList.remove('active');});document.querySelectorAll('.scs-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');var t=document.getElementById('scs-'+key);if(t)t.classList.add('active');}
 function switchFtab(tableId,panelKey,btn){var strip=document.querySelector('.ftab-strip[data-table="'+tableId+'"]');if(!strip)return;strip.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});strip.closest('.food-table-block').querySelectorAll('.ftab-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');var t=document.getElementById(tableId+'-'+panelKey);if(t)t.classList.add('active');}
 function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');document.querySelectorAll('.nav-links a[data-page]').forEach(function(a){a.classList.toggle('active-nav',a.dataset.page===id);});window.scrollTo({top:0,behavior:'smooth'});if(id==='recipes'||id==='sweets'){setTimeout(function(){if(window.renderRecipes)window.renderRecipes();},50);}closeDrawer();updateBackBtn(id);}
@@ -2116,6 +2493,7 @@ function updateBackBtn(id){
   var btn = document.getElementById('backBtn');
   if (!btn) return;
   btn.style.display = (id === 'home') ? 'none' : 'flex';
+  
   /* When on the article page, clicking back goes to FAQ */
   btn.onclick = function() {
     showPage(id === 'faqarticle' ? (window._faqReturnPage || 'faq') : 'home');
@@ -2235,9 +2613,43 @@ const RECIPE_DETAILS={
 },
 };
 
-const filterState={meal:null,phase:null,nutrient:[],condition:[]};
+const filterState={meal:null,phase:null,nutrient:[],condition:[],symptom:[]};
 
-function scoreRecipe(r){var f=filterState;if(!f.meal&&!f.phase&&!f.nutrient.length&&!f.condition.length)return 1;if(f.meal&&r.meal!==f.meal)return -1;if(f.phase&&r.phase!==f.phase)return -1;var score=0;f.nutrient.forEach(function(n){if(r.nutrients.includes(n))score+=2;});f.condition.forEach(function(c){if(r.conditions.includes(c))score+=1;});if((f.nutrient.length||f.condition.length)&&score===0)return -1;return score;}
+function scoreRecipe(r){
+  var f = filterState;
+  var hasAnyFilter = f.meal || f.phase || f.nutrient.length || f.condition.length || f.symptom.length;
+  if(!hasAnyFilter) return 1;
+
+  /* Hard filters — must match */
+  if(f.meal  && r.meal  !== f.meal)  return -1;
+  if(f.phase && r.phase !== f.phase) return -1;
+
+  var score = 0;
+
+  /* Nutrient filter — independent block */
+  /* ↓ You can delete from here to END-NUTRIENT without affecting symptom logic */
+  f.nutrient.forEach(function(n){ if(r.nutrients.includes(n)) score += 2; });
+  if(f.nutrient.length && score === 0 && !f.symptom.length) return -1;
+  /* END-NUTRIENT ↑ */
+
+  /* Symptom filter — independent block */
+  var symptomScore = 0;
+  f.symptom.forEach(function(sym){
+    var mapped = SYMPTOM_NUTRIENT_MAP[sym] || [];
+    var hits = mapped.filter(function(n){ return r.nutrients.includes(n); });
+    if(hits.length) symptomScore += hits.length;
+  });
+  if(f.symptom.length){
+    if(symptomScore === 0) return -1;
+    score += symptomScore * 2;
+  }
+
+  /* Condition filter */
+  f.condition.forEach(function(c){ if(r.conditions.includes(c)) score += 1; });
+  if(f.condition.length && score === 0) return -1;
+
+  return score || 1;
+}
 
 function renderRecipes(){
   var grid=document.getElementById('recipeGrid');if(!grid)return;
@@ -2318,7 +2730,7 @@ window._openRecipeModal=function(recipeName){
 };
 
 window._clearFilters=function(){
-  filterState.meal=null;filterState.phase=null;filterState.nutrient=[];filterState.condition=[];
+  filterState.meal=null;filterState.phase=null;filterState.nutrient=[];filterState.condition=[];filterState.symptom=[];
   document.querySelectorAll('.rfp-btn').forEach(function(b){b.classList.remove('selected','at-limit');});
   var bar=document.getElementById('activeFilters');if(bar)bar.style.display='none';
   renderRecipes();
@@ -2430,7 +2842,7 @@ var FAQ_ARTICLES = {
         content: `<p class="faq-article-p">For women with endometriosis, PCOS, Hashimoto's, or other autoimmune conditions, the nutritional lever is even more powerful — because inflammation is a central mechanism in all of these.</p><p class="faq-article-p">Removing gluten and dairy for 30 days is the single intervention that consistently shows the most dramatic subjective improvement in women with Hashimoto's and endometriosis. Not because these foods are universally harmful — but because in inflammatory conditions, they are common triggers. <strong>The experiment costs nothing except 30 days.</strong></p>`
       }
     ],
-    cta: { text: `See the nutrient cheat sheets`, action: `showPage('cheatsheet')` }
+    cta: { text: `See the Nutrition Guide`, action: `showPage('cheatsheet')` }
   }
 };
 
