@@ -27,7 +27,200 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--brown);ov
 /* MOBILE STICKY CTA */
 .mobile-phase-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:280;padding:0.8rem 1.2rem;background:rgba(250,247,242,0.97);border-top:1px solid var(--beige);backdrop-filter:blur(10px);}
 .mobile-phase-cta button{width:100%;background:var(--blush);color:white;border:none;border-radius:100px;padding:0.85rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;}
-@media(max-width:768px){.mobile-phase-cta{display:block;}}
+@media(max-width:768px){.mobile-phase-cta{display:block;};/* ── MOBILE HOME: HERO FIRST SCREEN ── */
+@media(max-width:768px){
+  .hero-left{
+    padding:2rem 1.5rem 1.5rem;
+    justify-content:flex-start;
+    text-align:center;
+    align-items:center;
+  }
+  .hero-eyebrow{ justify-content:center; }
+  .hero-title{
+    font-size:clamp(1.9rem,7vw,2.8rem);
+    text-align:center;
+    margin-bottom:0.9rem;
+  }
+  .hero-question{ display:none; } /* hide italic question */
+  /* show only first hero-sub (the 3 lines), hide second */
+  .hero-sub:nth-of-type(2){ display:none; }
+  .hero-sub{
+    font-size:0.82rem;
+    line-height:1.7;
+    text-align:center;
+    margin-bottom:0;
+  }
+  /* hide the secondary ghost button + trust items on first screen */
+  .btn-ghost.hero-ghost{ display:none; }
+  .hero-trust{ display:none; }
+  /* compact the hero actions */
+  .hero-actions{
+    flex-direction:column;
+    align-items:center;
+    gap:0.6rem;
+    margin-bottom:0.6rem;
+  }
+  .hero-actions .btn-primary{
+    width:100%;
+    text-align:center;
+    padding:0.9rem 1rem;
+    font-size:0.82rem;
+  }
+  /* "start today" caption below button */
+  .hero-start-caption{
+    font-size:0.72rem;
+    color:var(--taupe);
+    text-align:center;
+    line-height:1.6;
+    margin-top:0.3rem;
+  }
+  /* ── HERO RIGHT: phase wheel section ── */
+  .hero-right{
+    padding:1.5rem 1.2rem 5rem;
+    flex-direction:column;
+    align-items:center;
+  }
+  .hero-visual-card{
+    width:100%;
+    max-width:360px;
+    padding:1.4rem 1.2rem;
+    position:relative;
+    z-index:2;
+  }
+  /* Bigger wheel on mobile */
+  .phase-wheel{ width:220px; height:220px; }
+  /* Phase list: show descriptions again */
+  .wpl-desc{ display:block; font-size:0.64rem; }
+  .wpl-name{ font-size:0.85rem; }
+  /* Float cards: keep inside bounds */
+  .float-card{
+    position:relative;
+    top:auto!important; right:auto!important;
+    left:auto!important; bottom:auto!important;
+    animation:none;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    padding:0.45rem 0.8rem;
+    border-radius:100px;
+    box-shadow:0 4px 12px rgba(61,46,46,0.1);
+    font-size:0.7rem;
+  }
+  .float-card.float-1,.float-card.float-2,.float-card.float-3,.float-card.float-4{ display:none; }
+  .float-card .float-label{ font-size:0.68rem; }
+  .float-card .float-sub{ font-size:0.6rem; }
+  .hero-blob{ display:none; }
+  /* Float cards row above/below wheel */
+  .float-cards-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.45rem;
+    justify-content:center;
+    margin-bottom:0.8rem;
+  }
+  /* ── SYMPTOM BUBBLES: denser layout ── */
+  .symptom-bubbles{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.5rem;
+    padding:0 1rem;
+    margin-bottom:1.5rem;
+  }
+  .sym-bubble{
+    font-size:0.72rem;
+    padding:0.5rem 0.6rem;
+    border-radius:14px;
+    text-align:center;
+    line-height:1.35;
+  }
+  /* ── WHY SECTION: card-style mobile banner ── */
+  .why-section{ padding:2.5rem 1.2rem; }
+  .why-inner{ grid-template-columns:1fr; gap:0; }
+  .why-text{ display:none; } /* hide left text column on mobile */
+  .why-mobile-banner{
+    display:block; /* shown only on mobile */
+    background:white;
+    border-radius:22px;
+    box-shadow:0 8px 32px rgba(61,46,46,0.1);
+    overflow:hidden;
+    border:1px solid var(--beige);
+  }
+  .why-mobile-banner-header{
+    background:linear-gradient(135deg,#FAE8EB,#FFF5F7);
+    padding:2rem 1.5rem 1.5rem;
+    text-align:center;
+    position:relative;
+  }
+  .why-mobile-banner-header::after{
+    content:'';
+    display:block;
+    width:50px;height:3px;
+    background:var(--blush);
+    border-radius:2px;
+    margin:1rem auto 0;
+  }
+  .why-mobile-banner-label{
+    font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--moss);margin-bottom:0.7rem;
+  }
+  .why-mobile-banner-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.9rem;font-weight:300;line-height:1.2;
+    color:var(--brown);margin-bottom:0.9rem;
+  }
+  .why-mobile-banner-title em{ font-style:italic;color:var(--blush); }
+  .why-mobile-banner-body{
+    font-size:0.83rem;color:var(--taupe);
+    line-height:1.8;font-weight:300;
+  }
+  .why-mobile-pillar-list{ padding:1.2rem 1.2rem; }
+  .why-mobile-pillar-item{
+    display:flex;align-items:flex-start;gap:0.8rem;
+    padding:0.8rem 0;border-bottom:1px solid var(--beige);
+  }
+  .why-mobile-pillar-item:last-child{ border-bottom:none; }
+  .why-mobile-pillar-icon{
+    width:38px;height:38px;border-radius:11px;
+    flex-shrink:0;display:flex;align-items:center;
+    justify-content:center;font-size:1rem;
+  }
+  .why-mobile-pillar-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:0.97rem;font-weight:500;
+    color:var(--brown);margin-bottom:0.2rem;
+  }
+  .why-mobile-pillar-desc{
+    font-size:0.73rem;color:var(--taupe);
+    line-height:1.55;font-weight:300;
+  }
+  .why-mobile-cta{
+    padding:1.2rem 1.2rem 1.5rem;text-align:center;
+  }
+  /* Hide desktop pillar cards on mobile */
+  .why-pillars{ display:none; }
+  /* Hide the italic why-quote on mobile */
+  .why-quote{ display:none; }
+}
+/* Desktop: hide mobile-only elements */
+@media(min-width:769px){
+  .why-mobile-banner{ display:none; }
+  .hero-start-caption{ display:none; }
+  .float-cards-row{ display:none; }
+  .symptom-cta-btn-wrap{ display:none; }
+}
+/* Always show symptom CTA on mobile */
+@media(max-width:768px){
+  .symptom-cta-btn-wrap{
+    display:flex;
+    justify-content:center;
+    padding:0 1rem 0.5rem;
+  }
+  .symptom-cta-btn-wrap .btn-rose{
+    width:100%;
+    max-width:340px;
+    font-size:0.78rem;
+  }
+}}
 
   /* ═══ THEME TOGGLE ═══ */
 :root{
@@ -967,26 +1160,34 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   <section class="hero">
     <div class="hero-left">
       <p class="hero-eyebrow">Cycle-aware nutrition for women</p>
-      <h1 class="hero-title">Eat with your cycle.<br><em>Feel like yourself again.</em></h1>
-      <p class="hero-question">"Exercising, eating well, hydrating, socializing, taking your pills,..  and still feeling inconsistent ?"
-       <p class="hero-sub"> Some days you’re unstoppable, others completely drained or under the spell of a tough PMS.<br><strong>What if there was a natural rhythm behind it all?</strong>
+      <h1 class="hero-title">A simple, nutrition-based approach to your menstrual cycle.</h1>
+      
+       <p class="hero-sub"> Learn how to align your food and energy with each phase,
+Nourish your body based on what it truly needs,
+And ease your symptoms.
        
-<p class="hero-sub">Your hormones shift all month, and your nutrition should too to support your body cycle and help you manage these fluctuating and cyclical symptoms.</p>
 
-<p class="hero-sub">Lunéa shows you exactly what your body needs, week by week, without the overwhelm.</p>
+
+<p class="hero-sub">Lunéa shows you exactly what your body needs, week by week, based on your natural rhythm.</p>
+
       <div class="hero-actions">
         <button class="btn-primary" onclick="showPage('mycycle')">What's my phase ? →</button>
-        <button class="btn-ghost" onclick="showPage('recipes')">Explore recipes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <button class="btn-ghost hero-ghost" onclick="showPage('recipes')">Explore recipes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
       </div>
-      <div class="hero-trust">
-        <span class="trust-item"><span class="trust-dot"></span>Your 4 phases decoded</span>
-        <span class="trust-item"><span class="trust-dot"></span>Symptom-specific</span>
-        <span class="trust-item"><span class="trust-dot"></span>No supplements needed</span>
-      </div>
+      <p class="hero-start-caption">Start today, wherever you are in your cycle right now.</p>
+      
     </div>
     <div class="hero-right">
       <div class="hero-blob"></div>
-      <div class="float-card float-1"><div class="float-icon">🌿</div><div class="float-label">Iron boost</div><div class="float-sub">Menstrual phase</div></div>
+      <!-- Mobile: cards shown in a flex row above wheel -->
+      <div class="float-cards-row">
+        <div class="float-card"><div class="float-icon">🌿</div><div class="float-label">Iron boost</div><div class="float-sub">Menstrual</div></div>
+        <div class="float-card"><div class="float-icon">🔥</div><div class="float-label">Peak energy</div><div class="float-sub">Ovulatory</div></div>
+        <div class="float-card"><div class="float-icon">✨</div><div class="float-label">Zinc & glow</div><div class="float-sub">Follicular</div></div>
+        <div class="float-card"><div class="float-icon">🍫</div><div class="float-label">Mg craving</div><div class="float-sub">Luteal</div></div>
+      </div>
+      <!-- Desktop: absolute positioned cards (hidden on mobile via CSS) -->
+      <div class="float-card float-1" style=""><div class="float-icon">🌿</div><div class="float-label">Iron boost</div><div class="float-sub">Menstrual phase</div></div>
       <div class="float-card float-2"><div class="float-icon">🔥</div><div class="float-label">Peak energy</div><div class="float-sub">Ovulatory phase</div></div>
       <div class="float-card float-3"><div class="float-icon">✨</div><div class="float-label">Zinc & glow</div><div class="float-sub">Follicular phase</div></div>
       <div class="float-card float-4"><div class="float-icon">🍫</div><div class="float-label">Magnesium craving</div><div class="float-sub">Luteal phase</div></div>
@@ -998,13 +1199,13 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
             <path d="M100,100 L100,190 A90,90 0 0,1 10,100 Z" fill="#F2D5A0" opacity="0.85"/>
             <path d="M100,100 L10,100 A90,90 0 0,1 100,10 Z" fill="#C9B8D8" opacity="0.85"/>
             <circle cx="100" cy="100" r="35" fill="#FAF7F2"/>
-            <text x="142" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#9B3A50">Menstrual</text>
+           <a onclick="showPhase('menstrual')" style="cursor:pointer"><text x="142" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#9B3A50" text-decoration="underline">Menstrual</text></a>
             <text x="142" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#C07080">Days 1–5</text>
-            <text x="143" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#2d5a27">Follicular</text>
+            <a onclick="showPhase('follicular')" style="cursor:pointer"><text x="143" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#2d5a27" text-decoration="underline">Follicular</text></a>
             <text x="143" y="149" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#5A8055">Days 6–13</text>
-            <text x="57" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#7a5000">Ovulatory</text>
-            <text x="57" y="149" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#A07840">Days 14–16</text>
-            <text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#3d1f6b">Luteal</text>
+            <a onclick="showPhase('ovulatory')" style="cursor:pointer"><text x="57" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#7a5000" text-decoration="underline">Ovulatory</text></a>
+            <a onclick="showPhase('luteal')" style="cursor:pointer"><text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#3d1f6b" text-decoration="underline">Luteal</text></a>
+            <a onclick="showPhase('luteal')" style="cursor:pointer"><text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#3d1f6b" text-decoration="underline">Luteal</text></a>
             <text x="57" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#7060A0">Days 17–28</text>
             <text x="100" y="97" text-anchor="middle" font-size="7" font-family="Cormorant Garamond,serif" fill="#8C7B75">Your</text>
             <text x="100" y="107" text-anchor="middle" font-size="7" font-family="Cormorant Garamond,serif" fill="#8C7B75">cycle</text>
@@ -1024,6 +1225,10 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   <section style="padding:3rem 4rem 0;background:var(--cream);">
     <p class="section-label">Any of these symptons sound familiar?</p>
     <p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--taupe);margin-bottom:2rem;">Tap what you're feeling — we've got you covered</p>
+    <p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--taupe);margin-bottom:2rem;">Learn how to align your food and energy 
+with each phase, to ease your symptoms.
+</p>
+    
     <div class="symptom-bubbles">
       <span class="sym-bubble" onclick="goToSymptom('fatigue')">😴 My energy crashes mid-week for no reason</span>
       <span class="sym-bubble" onclick="goToSymptom('bloating')">💧 I'm bloated every month before my period</span>
@@ -1034,6 +1239,10 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
       <span class="sym-bubble" onclick="goToSymptom('sleep')">🌙 I can't sleep properly the week before my period</span>
       <span class="sym-bubble" onclick="goToSymptom('fatigue')">⚡ I feel amazing one week and depleted the next</span>
       <span class="sym-bubble" onclick="goToSymptom('mood')">🥺 I feel depressive just before my period starts</span>
+   </div>
+    <!-- Mobile CTA after symptoms -->
+    <div class="symptom-cta-btn-wrap">
+      <button class="btn-rose" onclick="showPage('cheatsheet')">Explore food based on my symptoms →</button>
     </div>
   </section>
 
@@ -1043,23 +1252,20 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
       <div class="why-text fade-up">
         <p class="section-label" style="text-align:left;margin-bottom:0.8rem;">Why nutrition actually matters</p>
         <h2 class="why-title">The right foods<br><em>at the right time.</em></h2>
-        <p class="why-body">Your body isn’t the problem, it is simply evolving throughout the month.
-Even when your habits stay consistent, your nutritional needs naturally change.
-
-
+        <p class="why-body">Because your body is evolving throughout the month,
+<br>So even when your habits stay consistent, your nutritional needs naturally change.
 </p> 
         
-         <p class="why-body">By aligning your food with those shifts, your energy, mood, and cravings start to feel effortless.
+         <p class="why-body">By aligning your food with your phase, your symptoms such as energy, mood, cravings will feel effortless to manage - and to understand.
 </p>
-        <p class="why-body">It’s not about adding more. This isn't a diet. It’s about timing what you already eat and understanding the impacts of nutrition on your symptoms.</p>
-        <p class="why-body"> <strong>That’s the simple shift Lunéa brings.</strong></p>
-
-
         
         <div class="why-quote">
           <p>"Lunéa was created by women who realized we’re not inconsistent but cyclical, and small shifts in how we nourish our bodies can make a real difference.
             </p>
           <cite>— Why Lunéa exists</cite>
+        </div>
+         <div class="why-mobile-cta">
+          <button class="btn-rose" onclick="showPage('cheatsheet')">Understand my nutrition needs →</button>
         </div>
       </div>
       <div class="why-pillars fade-up">
