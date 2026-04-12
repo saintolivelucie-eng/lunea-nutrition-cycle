@@ -20,6 +20,61 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--brown);ov
 #backBtn:hover{color:var(--brown);border-color:var(--blush);}
 #backBtn svg{width:14px;height:14px;}
 
+  #backToTop{
+  position:fixed;
+  bottom:1.4rem;
+  right:1.4rem;
+  z-index:400;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid var(--beige-mid);
+  background:rgba(250,247,242,0.92);
+  color:var(--taupe);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 16px rgba(61,46,46,0.12);
+  backdrop-filter:blur(8px);
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity 0.3s, transform 0.3s, background 0.2s, color 0.2s;
+  pointer-events:none;
+}
+#backToTop.visible{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+#backToTop:hover{
+  background:var(--blush);
+  color:white;
+  border-color:var(--blush);
+}
+#backToTop svg{
+  width:18px;
+  height:18px;
+}
+/* Mobile: lift above the sticky CTA bar */
+@media(max-width:768px){
+  #backToTop{
+    bottom:5.2rem;
+    right:1rem;
+    width:38px;
+    height:38px;
+  }
+}
+html.dark-theme #backToTop{
+  background:rgba(80,55,45,0.95);
+  border-color:rgba(140,100,80,0.4);
+  color:#FAF7F2;
+}
+html.dark-theme #backToTop:hover{
+  background:var(--blush);
+  border-color:var(--blush);
+}
+
   /* HOME BUTTON */
   #drawerHomeLink{position:relative;}
 #drawerHomeLink::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:24px;height:1.5px;background:var(--blush);border-radius:2px;}
@@ -27,7 +82,8 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--brown);ov
 /* MOBILE STICKY CTA */
 .mobile-phase-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:280;padding:0.8rem 1.2rem;background:rgba(250,247,242,0.97);border-top:1px solid var(--beige);backdrop-filter:blur(10px);}
 .mobile-phase-cta button{width:100%;background:var(--blush);color:white;border:none;border-radius:100px;padding:0.85rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;}
-@media(max-width:768px){.mobile-phase-cta{display:block;};/* ── MOBILE HOME: HERO FIRST SCREEN ── */
+@media(max-width:768px){
+  .mobile-phase-cta{display:block;}/* ── MOBILE HOME: HERO FIRST SCREEN ── */
 @media(max-width:768px){
   .hero-left{
     padding:2rem 1.5rem 1.5rem;
@@ -81,14 +137,12 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--brown);ov
     align-items:center;
   }
   .hero-visual-card{
-    width:100%;
-    max-width:360px;
-    padding:1.4rem 1.2rem;
-    position:relative;
-    z-index:2;
+     position: relative; z-index: 2; width: 420px;
+  background: var(--warm-white); border-radius: 24px;
+  padding: 2rem; box-shadow: 0 20px 60px rgba(61,46,46,0.1), 0 4px 16px rgba(61,46,46,0.06);
   }
   /* Bigger wheel on mobile */
-  .phase-wheel{ width:220px; height:220px; }
+  .phase-wheel{ width:280px; height:280px; }
   /* Phase list: show descriptions again */
   .wpl-desc{ display:block; font-size:0.64rem; }
   .wpl-name{ font-size:0.85rem; }
@@ -186,11 +240,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--brown);ov
   }
   .why-mobile-pillar-name{
     font-family:'Cormorant Garamond',serif;
-    font-size:0.97rem;font-weight:500;
+    font-size:1.2rem;font-weight:500;
     color:var(--brown);margin-bottom:0.2rem;
   }
   .why-mobile-pillar-desc{
-    font-size:0.73rem;color:var(--taupe);
+    font-size:1rem;color:var(--taupe);
     line-height:1.55;font-weight:300;
   }
   .why-mobile-cta{
@@ -242,16 +296,68 @@ html.dark-theme body{
   color:var(--text-main);
 }
 html.dark-theme nav{
-  background:rgba(26,18,16,0.93);
-  border-bottom-color:rgba(100,70,60,0.3);
+  background:rgba(80,55,45,0.97);
+  border-bottom-color:rgba(140,100,80,0.4);
 }
+
+html.dark-theme .lunea-logo-name{
+  color:#FAF7F2;
+}
+html.dark-theme .nav-links a{
+  color:rgba(250,247,242,0.7);
+}
+html.dark-theme .nav-links a:hover,
+html.dark-theme .nav-links a.active-nav{
+  color:#FAF7F2;
+}
+  
 html.dark-theme .hero-left,
 html.dark-theme .why-section,
-html.dark-theme .phase-block,
-html.dark-theme .food-table-block,
-html.dark-theme .phase-banner,
+html.dark-theme .phase-block{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
+
+  
+
+  html.dark-theme .autoimmune-conditions{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
+html.dark-theme .food-table-block{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
+
+  html.dark-theme .avoid-tag-wide{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
+
+  html.dark-theme .ftab-strip{
+  background:rgba(80,55,45,0.5);
+}
+html.dark-theme .ftab{
+  color:rgba(250,247,242,0.6);
+}
+html.dark-theme .ftab:hover{
+  color:#FAF7F2;
+}
+html.dark-theme .ftab.active{
+  background:rgba(255,255,255,0.07);
+  color:#FAF7F2;
+  box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+
+
+html.dark-theme .phase-banner{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
 html.dark-theme .phase-calc{
-  background:var(--bg-warm);
+  bbackground:var(--beige);
+  border-color:rgba(255,255,255,0.07);
 }
 html.dark-theme .float-card,
 html.dark-theme .hero-visual-card,
@@ -259,10 +365,22 @@ html.dark-theme .wpl-item,
 html.dark-theme .fc,
 html.dark-theme .scs-food,
 html.dark-theme .cheat-card{
-  background:var(--bg-warm);
+  background:var(--beige);
   border-color:rgba(255,255,255,0.07);
 }
-html.dark-theme .phase-selector{background:var(--bg-beige);}
+
+  html.dark-theme .cycle-hero{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
+
+  html.dark-theme .cheat-hero{
+  background:var(--beige);
+  border-color:rgba(255,255,255,0.07);
+}
+
+ 
+html.dark-theme .phase-selector{background:rgba(140,123,117,0.11);}
 html.dark-theme footer{background:#0D0908;}
 
 /* The toggle button */
@@ -438,7 +556,7 @@ nav.scrolled{box-shadow:0 2px 24px rgba(61,46,46,0.08);}
   background: rgba(140,123,117,0.11);
   color: var(--taupe);
   font-family: 'Jost', sans-serif;
-  font-size: 0.67rem;
+  font-size: 0.8rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   cursor: pointer;
@@ -464,13 +582,13 @@ nav.scrolled{box-shadow:0 2px 24px rgba(61,46,46,0.08);}
 }
 
 /* SHARED */
-.section-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss);text-align:center;margin-bottom:1rem;}
+.section-label{font-size:1.2rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss);text-align:center;margin-bottom:1rem;}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;text-align:center;color:var(--brown);line-height:1.25;margin-bottom:1rem;max-width:640px;margin-left:auto;margin-right:auto;}
 .section-title em{font-style:italic;color:var(--blush);}
 .section-sub{text-align:center;font-size:0.93rem;font-weight:300;color:var(--taupe);line-height:1.8;max-width:540px;margin:0 auto 4rem;}
 .btn-primary{background:var(--brown);color:var(--cream);padding:0.9rem 2rem;border-radius:100px;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:none;font-family:'Jost',sans-serif;transition:background 0.25s,transform 0.2s;display:inline-block;}
 .btn-primary:hover{background:var(--blush);transform:translateY(-2px);}
-.btn-rose{background:var(--blush);color:white;padding:0.95rem 2.2rem;border-radius:100px;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:none;transition:background 0.25s,transform 0.2s;display:inline-block;}
+.btn-rose{background:var(--blush);color:white;padding:0.95rem 2.2rem;border-radius:100px;font-family:'Jost',sans-serif;font-size:1.2rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:none;transition:background 0.25s,transform 0.2s;display:inline-block;}
 .btn-rose:hover{background:var(--brown);transform:translateY(-2px);}
 .btn-ghost{color:var(--brown);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:gap 0.25s;background:none;border:none;font-family:'Jost',sans-serif;}
 .btn-ghost:hover{gap:0.9rem;}
@@ -492,23 +610,45 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.8rem);font-weight:300;line-height:1.1;color:var(--brown);margin-bottom:1.4rem;}
 .hero-title em{font-style:italic;color:var(--blush);}
 .hero-question{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--taupe);margin-bottom:1.8rem;line-height:1.6;max-width:400px;}
-.hero-sub{font-size:0.95rem;font-weight:300;line-height:1.8;color:var(--taupe);max-width:420px;margin-bottom:2.5rem;}
+.hero-sub{font-size:1.2rem;font-weight:300;line-height:1.8;color:var(--taupe);max-width:420px;margin-bottom:2.5rem;}
 .hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
 .hero-trust{margin-top:3rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
 .trust-item{display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;color:var(--taupe);}
 .trust-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);}
 .hero-right{position:relative;display:flex;align-items:center;justify-content:center;padding:4rem 3rem 4rem 0;}
+  .hero-right .hero-visual-card { position: relative; }
 .hero-blob{position:absolute;width:500px;height:500px;border-radius:60% 40% 55% 45%/50% 60% 40% 50%;background:linear-gradient(135deg,var(--rose) 0%,var(--beige) 60%,var(--sage) 100%);opacity:0.3;animation:morph 8s ease-in-out infinite;right:-40px;top:50%;transform:translateY(-50%);}
 @keyframes morph{0%,100%{border-radius:60% 40% 55% 45%/50% 60% 40% 50%;}33%{border-radius:40% 60% 45% 55%/60% 40% 60% 40%;}66%{border-radius:55% 45% 60% 40%/40% 55% 45% 60%;}}
-.float-card{position:absolute;background:white;border-radius:14px;padding:0.7rem 1rem;box-shadow:0 8px 24px rgba(61,46,46,0.1);z-index:3;animation:float 4s ease-in-out infinite;}
+.float-card-1{position:absolute;background:white;border-radius:14px;padding:0.55rem 0.85rem;box-shadow:0 6px 18px rgba(61,46,46,0.12);z-index:3;animation:float 4s ease-in-out infinite;display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;}
+  
+  .float-card-2{position:absolute;background:white;border-radius:14px;padding:0.55rem 0.85rem;box-shadow:0 6px 18px rgba(61,46,46,0.12);z-index:3;animation:float 4s ease-in-out infinite;display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;}
+  
+  .float-card-3{position:absolute;background:white;border-radius:14px;padding:0.55rem 0.85rem;box-shadow:0 6px 18px rgba(61,46,46,0.12);z-index:3;animation:float 4s ease-in-out infinite;display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;}
+.float-card-4{position:absolute;background:white;border-radius:14px;padding:0.55rem 0.85rem;box-shadow:0 6px 18px rgba(61,46,46,0.12);z-index:3;animation:float 4s ease-in-out infinite;display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;}
+
+  .float-card-1{top:5%;right:40px;}.float-card-2{bottom:55%;left:10px;}.float-card-3{bottom:55%;right:40px;}.float-card-4{top:5%;left:10px;}
+  
 .float-card:nth-child(3){animation-delay:-2s;}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.float-1{top:15%;right:0px;}.float-2{bottom:50%;left:-10px;}.float-3{bottom:50%;right:0px;}.float-4{top:15%;left:-30px;}
+  .hero-visual-card { overflow: visible; }
+.float-1{top:15%;right:40px;}.float-2{bottom:50%;left:-10px;}.float-3{bottom:50%;right:40px;}.float-4{top:15%;left:10px;}
 .float-icon{font-size:1.2rem;margin-bottom:0.2rem;}
 .float-label{font-weight:500;font-size:0.65rem;color:var(--brown);}
 .float-sub{color:var(--taupe);font-size:0.6rem;}
 .hero-visual-card{position:relative;z-index:2;width:360px;background:var(--warm-white);border-radius:24px;padding:2rem;box-shadow:0 20px 60px rgba(61,46,46,0.1),0 4px 16px rgba(61,46,46,0.06);}
-.phase-wheel{width:230px;height:230px;margin:0 auto 1.4rem;}
+.phase-wheel{width:300px;height:300px;margin:0 auto 1.4rem;}
 .phase-wheel svg{width:100%;height:100%;overflow:visible;}
 .wheel-phases-list{display:flex;flex-direction:column;gap:0.45rem;}
 .wpl-item{display:flex;align-items:flex-start;gap:0.6rem;padding:0.55rem 0.75rem;border-radius:11px;cursor:pointer;transition:transform 0.2s;border:1px solid transparent;}
@@ -518,12 +658,12 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .wpl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:0.35rem;}
 .wpl-m .wpl-dot{background:#E8A5B0;}.wpl-f .wpl-dot{background:#7A9E76;}
 .wpl-o .wpl-dot{background:#C09040;}.wpl-l .wpl-dot{background:#8070A8;}
-.wpl-name{font-family:'Cormorant Garamond',serif;font-size:0.83rem;font-weight:500;color:var(--brown);display:block;}
-.wpl-desc{font-size:0.65rem;color:var(--taupe);line-height:1.4;font-weight:300;display:block;}
+.wpl-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown);display:block;}
+.wpl-desc{font-size:1rem;color:var(--taupe);line-height:1.4;font-weight:300;display:block;}
 
 /* SYMPTOM BUBBLES */
 .symptom-bubbles{display:flex;flex-wrap:wrap;gap:0.7rem;justify-content:center;max-width:760px;margin:0 auto 3rem;padding:0 2rem;}
-.sym-bubble{background:white;border:1px solid var(--beige);border-radius:100px;padding:0.6rem 1.1rem;font-size:0.78rem;color:var(--brown);cursor:pointer;transition:all 0.2s;line-height:1.4;text-align:center;}
+.sym-bubble{background:white;border:1px solid var(--beige);border-radius:100px;padding:0.6rem 1.1rem;font-size:1rem;color:var(--brown);cursor:pointer;transition:all 0.2s;line-height:1.4;text-align:center;}
 .sym-bubble:hover{background:var(--blush);color:white;border-color:var(--blush);transform:translateY(-2px);}
 
 /* WHY SECTION — human rewrite */
@@ -531,7 +671,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .why-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
 .why-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:300;line-height:1.2;color:var(--brown);margin-bottom:1.8rem;}
 .why-title em{font-style:italic;color:var(--blush);}
-.why-body{font-size:0.88rem;font-weight:300;line-height:1.95;color:var(--taupe);margin-bottom:1.2rem;}
+.why-body{font-size:1.2rem;font-weight:300;line-height:1.95;color:var(--taupe);margin-bottom:1.2rem;}
 .why-quote{background:linear-gradient(135deg,#FAE8EB,#F5F0E8);border-left:3px solid var(--blush);border-radius:0 16px 16px 0;padding:1.5rem 1.8rem;margin-top:2rem;}
 .why-quote p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--brown);line-height:1.7;margin-bottom:0.6rem;}
 .why-quote cite{font-size:0.68rem;letter-spacing:0.08em;color:var(--taupe);text-transform:uppercase;}
@@ -541,8 +681,8 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .pillar-icon{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
 .pillar-icon.rose{background:#FAE8EB;}.pillar-icon.green{background:#E8F0E5;}
 .pillar-icon.amber{background:#FAF0E0;}.pillar-icon.purple{background:#EDE8F5;}
-.pillar-name{font-family:'Cormorant Garamond',serif;font-size:1.03rem;font-weight:500;color:var(--brown);margin-bottom:0.3rem;}
-.pillar-desc{font-size:0.76rem;color:var(--taupe);line-height:1.6;font-weight:300;}
+.pillar-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown);margin-bottom:0.3rem;}
+.pillar-desc{font-size:1rem;color:var(--taupe);line-height:1.6;font-weight:300;}
 
 /* PHASES INTRO */
 .phases-intro{padding:6rem 4rem;background:var(--cream);}
@@ -612,23 +752,23 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .cycle-hero{padding:8rem 4rem 3rem;text-align:center;}
 .cycle-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4.5vw,4rem);font-weight:300;line-height:1.15;color:var(--brown);margin-bottom:1rem;}
 .cycle-hero-title em{font-style:italic;color:var(--blush);}
-.cycle-hero-sub{font-size:0.92rem;font-weight:300;color:var(--taupe);max-width:500px;margin:0 auto 3rem;line-height:1.8;}
+.cycle-hero-sub{font-size:1rem;font-weight:300;color:var(--taupe);max-width:500px;margin:0 auto 3rem;line-height:1.8;}
 .phase-selector{display:flex;justify-content:center;max-width:760px;margin:0 auto;background:var(--beige);border-radius:100px;padding:5px;}
-.phase-tab{flex:1;padding:0.7rem 0.5rem;border-radius:100px;border:none;background:transparent;cursor:pointer;transition:all 0.3s;font-family:'Jost',sans-serif;font-size:0.66rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--taupe);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.15rem;white-space:nowrap;}
+.phase-tab{flex:1;padding:0.7rem 0.5rem;border-radius:100px;border:none;background:transparent;cursor:pointer;transition:all 0.3s;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--taupe);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.15rem;white-space:nowrap;}
 .phase-tab:hover{color:var(--brown);}
 .phase-tab.active{color:white;box-shadow:0 4px 16px rgba(61,46,46,0.15);}
 .phase-tab[data-phase="menstrual"].active{background:#D4788A;}
 .phase-tab[data-phase="follicular"].active{background:#7A9E76;}
 .phase-tab[data-phase="ovulatory"].active{background:#C09040;}
 .phase-tab[data-phase="luteal"].active{background:#8070A8;}
-.phase-tab-days{font-size:0.58rem;font-style:italic;opacity:0.8;font-weight:300;text-transform:none;letter-spacing:0;}
+.phase-tab-days{font-size:0.8rem;font-style:italic;opacity:0.8;font-weight:300;text-transform:none;letter-spacing:0;}
 
 /* PHASE CALCULATOR */
-.phase-calc{background:white;border-radius:20px;border:1px solid var(--beige);padding:1.5rem 2rem;max-width:760px;margin:1.5rem auto 0;text-align:left;}
-.phase-calc-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:0.8rem;display:block;}
+.phase-calc{background:beige;border-radius:20px;border:1px solid var(--beige);padding:1.5rem 2rem;max-width:760px;margin:1.5rem auto 0;text-align:left;}
+.phase-calc-label{font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:0.8rem;display:block;}
 .phase-calc-row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
-.phase-calc-intro{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--taupe);flex-shrink:0;}
-.phase-calc input[type="date"]{background:var(--cream);border:1px solid var(--beige-mid);border-radius:100px;padding:0.55rem 1.2rem;font-family:'Jost',sans-serif;font-size:0.8rem;color:var(--brown);cursor:pointer;transition:border-color 0.2s;}
+.phase-calc-intro{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--taupe);flex-shrink:0;}
+.phase-calc input[type="date"]{background:var(--cream);border:1px solid var(--beige-mid);border-radius:100px;padding:0.55rem 1.2rem;font-family:'Jost',sans-serif;font-size:1rem;color:var(--brown);cursor:pointer;transition:border-color 0.2s;}
 .phase-calc input[type="date"]:focus{outline:none;border-color:var(--blush);}
 #phaseResult{margin-top:1rem;padding:1rem 1.2rem;background:var(--cream);border-radius:14px;min-height:30px;font-size:0.82rem;color:var(--taupe);}
 
@@ -657,27 +797,35 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .phase-banner-days-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--taupe);margin-top:0.3rem;}
 
 /* BANNER GRID — 3 blocks below title */
-.phase-banner-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+.phase-banner-grid{
+  grid-template-columns:1fr;
+  margin-left:-1.5rem;
+  margin-right:-1.5rem;
+}
+.phase-banner-block{
+  border-radius:0;
+  padding:1rem 1.5rem;
+}
 .phase-banner-block{background:rgba(255,255,255,0.65);border-radius:16px;padding:1rem 1.2rem;}
 .phase-banner-block-title{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:500;}
 .menstrual .phase-banner-block-title{color:#C07080;}.follicular .phase-banner-block-title{color:#5A8055;}
 .ovulatory .phase-banner-block-title{color:#A07840;}.luteal .phase-banner-block-title{color:#7060A0;}
-.phase-banner-block p{font-size:0.8rem;color:var(--brown);line-height:1.6;font-weight:300;}
+.phase-banner-block p{font-size:1rem;color:var(--brown);line-height:1.6;font-weight:300;}
 .phase-banner-block em{font-style:italic;color:var(--taupe);}
 
 .phase-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
 .phase-block{background:var(--warm-white);border-radius:22px;padding:2rem;border:1px solid var(--beige);}
-.phase-block-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--brown);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;}
-.phase-note{font-size:0.73rem;color:var(--taupe);line-height:1.6;margin-top:1.2rem;}
+.phase-block-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--brown);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;}
+.phase-note{font-size:1rem;color:var(--taupe);line-height:1.6;margin-top:1.2rem;}
 .hormone-pills{display:flex;flex-direction:column;gap:0.8rem;}
 .hormone-pill{display:flex;align-items:center;gap:1rem;}
-.hormone-bar-wrap{flex:1;height:6px;background:var(--beige);border-radius:100px;overflow:hidden;}
+.hormone-bar-wrap{flex:1;height:6px;background:var(--taupe);border-radius:100px;overflow:hidden;}
 .hormone-bar{height:100%;border-radius:100px;}
 .bar-e{background:var(--blush);}.bar-p{background:var(--sage);}.bar-l{background:#F2D5A0;}
-.hormone-name{font-size:0.67rem;color:var(--taupe);min-width:90px;}
-.hormone-level{font-size:0.64rem;color:var(--taupe);min-width:38px;text-align:right;}
+.hormone-name{font-size:0.9rem;font-weight:500;color:var(--taupe);min-width:90px;}
+.hormone-level{font-size:0.9rem;color:var(--taupe);min-width:38px;text-align:right;}
 .nutrient-grid{display:flex;flex-wrap:wrap;gap:0.6rem;}
-.nb{padding:0.38rem 0.85rem;border-radius:100px;font-size:0.69rem;color:white;}
+.nb{padding:0.38rem 0.85rem;border-radius:100px;font-size:0.8rem;color:white;}
 .nb-rose{background:#D4788A;}.nb-green{background:#7A9E76;}.nb-amber{background:#C09040;}
 .nb-purple{background:#8070A8;}.nb-teal{background:#5A9090;}.nb-brown{background:#907060;}
 .food-list{display:flex;flex-direction:column;gap:0.55rem;}
@@ -690,17 +838,17 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .avoid-list-wide{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.7rem;margin-top:1rem;}
 .avoid-tag-wide{display:flex;align-items:flex-start;gap:0.7rem;padding:0.75rem 1rem;background:white;border-radius:13px;border:1px solid #F2D0D0;}
 .avoid-tag-wide-icon{font-size:1.3rem;flex-shrink:0;line-height:1.2;margin-top:0.05rem;}
-.avoid-tag-wide-name{font-size:0.8rem;font-weight:500;color:#C07070;line-height:1.3;margin-bottom:0.2rem;}
-.avoid-tag-wide-why{font-size:0.65rem;color:var(--taupe);line-height:1.5;font-weight:300;}
+.avoid-tag-wide-name{font-size:0.9rem;font-weight:500;color:#C07070;line-height:1.3;margin-bottom:0.2rem;}
+.avoid-tag-wide-why{font-size:0.8rem;color:var(--taupe);line-height:1.5;font-weight:300;}
 
 /* AUTOIMMUNE IN GRID */
 .autoimmune-conditions{background:var(--warm-white);border-radius:22px;padding:1.8rem;border:1px solid var(--beige);}
-.autoimmune-cond-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:var(--brown);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+.autoimmune-cond-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--brown);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;}
 .cond-row{display:flex;align-items:flex-start;gap:0.7rem;padding:0.7rem 0;border-bottom:1px solid var(--beige);}
 .cond-row:last-child{border-bottom:none;padding-bottom:0;}
 .cond-icon{font-size:1.1rem;flex-shrink:0;margin-top:0.1rem;}
-.cond-name{font-size:0.78rem;font-weight:500;color:var(--brown);margin-bottom:0.2rem;}
-.cond-tip{font-size:0.66rem;color:var(--taupe);line-height:1.5;font-weight:300;}
+.cond-name{font-size:1rem;font-weight:500;color:var(--brown);margin-bottom:0.2rem;}
+.cond-tip{font-size:0.8rem;color:var(--taupe);line-height:1.5;font-weight:300;}
 
 .phase-recipe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
 .prc{background:var(--warm-white);border-radius:18px;overflow:hidden;border:1px solid var(--beige);cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;}
@@ -713,7 +861,10 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 
 /* FOOD TABLES */
 .food-table-block{background:var(--warm-white);border:1px solid var(--beige);border-radius:22px;padding:1.8rem 2rem 1.6rem;margin-bottom:1.5rem;}
-.food-table-block-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--brown);display:flex;align-items:center;gap:0.5rem;margin-bottom:1.1rem;}
+.food-table-block-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--brown);display:flex;align-items:center;gap:0.5rem;margin-bottom:1.1rem;}
+
+  
+  
 .ftab-strip{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.1rem;background:var(--beige);border-radius:14px;padding:5px;}
 .ftab{flex:1;min-width:max-content;padding:0.5rem 0.9rem;border-radius:10px;border:none;background:transparent;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--taupe);transition:all 0.22s;white-space:nowrap;}
 .ftab:hover{color:var(--brown);}
@@ -724,8 +875,8 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .fc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(61,46,46,0.07);}
 .fc-emoji{font-size:1.35rem;flex-shrink:0;line-height:1.2;margin-top:0.05rem;}
 .fc-text{display:flex;flex-direction:column;gap:0.18rem;}
-.fc-name{font-size:0.81rem;font-weight:500;color:var(--brown);line-height:1.3;}
-.fc-why{font-size:0.66rem;color:var(--taupe);line-height:1.5;font-weight:300;}
+.fc-name{font-size:0.9rem;font-weight:500;color:var(--brown);line-height:1.3;}
+.fc-why{font-size:0.8rem;color:var(--taupe);line-height:1.5;font-weight:300;}
 
 /* CHEAT SHEET PAGE */
 .cheat-hero{padding:8rem 4rem 2rem;text-align:center;}
@@ -747,12 +898,12 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .scs-during{background:linear-gradient(145deg,#FEF5F7,#FFF8FB);border-color:#F2C4CE;}
 .scs-col-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(61,46,46,0.07);}
 .scs-col-icon{font-size:1.8rem;flex-shrink:0;line-height:1;margin-top:0.1rem;}
-.scs-col-label{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.scs-col-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
 .scs-before .scs-col-label{color:#5A8055;}.scs-during .scs-col-label{color:#C07080;}
-.scs-col-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--brown);line-height:1.3;}
+.scs-col-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--brown);line-height:1.3;}
 .scs-col-title em{font-style:italic;}
 .scs-before .scs-col-title em{color:#5A8055;}.scs-during .scs-col-title em{color:#C07080;}
-.scs-col-why{font-size:0.78rem;font-weight:300;color:var(--taupe);line-height:1.75;margin-bottom:1.2rem;font-style:italic;}
+.scs-col-why{font-size:1rem;font-weight:300;color:var(--taupe);line-height:1.75;margin-bottom:1.2rem;}
 .scs-foods{display:flex;flex-direction:column;gap:0.6rem;}
 .scs-food{display:flex;align-items:flex-start;gap:0.7rem;padding:0.75rem 0.9rem;background:rgba(255,255,255,0.7);border-radius:13px;border:1px solid rgba(61,46,46,0.06);transition:transform 0.18s;}
 .scs-food:hover{transform:translateX(3px);}
@@ -760,9 +911,9 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .scs-food-emoji{font-size:1.2rem;flex-shrink:0;line-height:1.3;margin-top:0.05rem;}
 .scs-avoid .scs-food-emoji{font-size:0.85rem;color:#C07070;font-weight:600;margin-top:0.25rem;}
 .scs-food-text{display:flex;flex-direction:column;gap:0.2rem;}
-.scs-food-name{font-size:0.8rem;font-weight:500;color:var(--brown);line-height:1.3;}
+.scs-food-name{font-size:0.9rem;font-weight:500;color:var(--brown);line-height:1.3;}
 .scs-avoid .scs-food-name{color:#C07070;}
-.scs-food-why{font-size:0.67rem;color:var(--taupe);line-height:1.55;font-weight:300;}
+.scs-food-why{font-size:0.8rem;color:var(--taupe);line-height:1.55;font-weight:300;}
 .cheat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:1100px;margin:0 auto;padding:0 4rem 6rem;}
 .cheat-card{border-radius:28px;padding:2.5rem;position:relative;overflow:hidden;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;border:1px solid transparent;}
 .cheat-card:hover{transform:translateY(-5px);box-shadow:0 28px 70px rgba(61,46,46,0.13);}
@@ -776,25 +927,26 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .cheat-antiinflam{background:linear-gradient(160deg,#FAF7F2,#FFF5F7);border-color:#F2C4CE;}
 .cheat-card-header{display:flex;align-items:center;gap:1rem;margin-bottom:0.9rem;}
 .cheat-icon{font-size:2rem;flex-shrink:0;}
-.cheat-category{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--taupe);margin-bottom:0.2rem;}
-.cheat-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;color:var(--brown);}
-.cheat-badge{margin-left:auto;font-size:0.57rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:100px;white-space:nowrap;flex-shrink:0;}
+.cheat-category{font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--taupe);margin-bottom:0.2rem;}
+.cheat-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--brown);}
+.cheat-badge{margin-left:auto;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:100px;white-space:nowrap;flex-shrink:0;}
 .cheat-iron .cheat-badge{background:#FAD0D8;color:#C07080;}
 .cheat-mag .cheat-badge{background:#D0E8D0;color:#507050;}
 .cheat-fiber .cheat-badge{background:#C8D9A5;color:#406040;}
 .cheat-omega .cheat-badge{background:#D8D0EC;color:#604880;}
 .cheat-auto .cheat-badge{background:#F2D5A0;color:#806030;}
 .cheat-antiinflam .cheat-badge{background:#F2C4CE;color:#904060;}
-.cheat-why{font-size:0.76rem;color:var(--taupe);line-height:1.7;margin-bottom:1.4rem;font-weight:300;font-style:italic;}
+.cheat-why{font-size:0.9rem;color:var(--taupe);line-height:1.7;margin-bottom:1.4rem;font-weight:400;}
 .cheat-items{display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.4rem;}
 .cheat-item{display:flex;align-items:center;gap:0.75rem;}
 .cheat-emoji{font-size:1.15rem;width:26px;text-align:center;flex-shrink:0;}
 .cheat-item-info{flex:1;}
-.cheat-food{font-size:0.79rem;font-weight:500;color:var(--brown);line-height:1.2;}
-.cheat-detail{font-size:0.62rem;color:var(--taupe);margin-bottom:0.25rem;}
+.cheat-food{font-size:0.9rem;font-weight:500;color:var(--brown);line-height:1.2;}
+.cheat-detail{font-size:0.8rem;color:var(--taupe);margin-bottom:0.25rem;}
 .cheat-bar-wrap{height:4px;background:rgba(61,46,46,0.08);border-radius:100px;overflow:hidden;}
 .cheat-bar{height:100%;border-radius:100px;opacity:0.72;}
-.cheat-tip{background:rgba(61,46,46,0.04);border-radius:12px;padding:0.82rem 1rem;font-size:0.69rem;color:var(--taupe);line-height:1.6;border-left:3px solid var(--beige-mid);margin-bottom:2rem;}
+.cheat-tip{background:rgba(61,46,46,0.04);border-radius:12px;padding:0.82rem 1rem;font-size:0.9rem;color:var(--taupe);line-height:1.6;border-left:3px solid var(--beige-mid);margin-bottom:2rem;}
+  .cheat-tip-key{background:rgba(61,46,46,0.04);border-radius:12px;padding:0.82rem 1rem;font-size:0.9rem;color:var(--taupe);line-height:1.6;border-left:3px solid var(--beige-mid);margin-bottom:2rem;margin-top:2rem;}
 .cheat-phase-rows{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.4rem;}
 .cpr{border-radius:14px;padding:0.82rem 1rem;}
 .cpr-m{background:#FEF5F7;border:1px solid #FAD0D8;}
@@ -961,7 +1113,10 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   .phase-calc-row{flex-direction:column;align-items:flex-start;}
   body{padding-bottom:70px;}
   .phase-wheel{width:180px;height:180px;}
-.hero-visual-card{padding:1.2rem;}
+.hero-visual-card{position: relative; z-index: 2; width: 420px;
+  background: var(--warm-white); border-radius: 24px;
+  padding: 2rem; box-shadow: 0 20px 60px rgba(61,46,46,0.1), 0 4px 16px rgba(61,46,46,0.06);
+}
 .wheel-phases-list{gap:0.3rem;}
 .wpl-item{padding:0.4rem 0.6rem;}
 .wpl-desc{display:none;}
@@ -1181,16 +1336,17 @@ And ease your symptoms.
       <div class="hero-blob"></div>
       <!-- Mobile: cards shown in a flex row above wheel -->
       <div class="float-cards-row">
-        <div class="float-card"><div class="float-icon">🌿</div><div class="float-label">Iron boost</div><div class="float-sub">Menstrual</div></div>
-        <div class="float-card"><div class="float-icon">🔥</div><div class="float-label">Peak energy</div><div class="float-sub">Ovulatory</div></div>
-        <div class="float-card"><div class="float-icon">✨</div><div class="float-label">Zinc & glow</div><div class="float-sub">Follicular</div></div>
-        <div class="float-card"><div class="float-icon">🍫</div><div class="float-label">Mg craving</div><div class="float-sub">Luteal</div></div>
+        <div class="float-card-1"><div class="float-icon">🌿</div><div class="float-label">Iron boost</div></div>
+        <div class="float-card-2"><div class="float-icon">🔥</div><div class="float-label">Peak energy</div></div>
+        <div class="float-card-1"><div class="float-icon">✨</div><div class="float-label">Zinc & glow</div></div>
+        <div class="float-card-1"><div class="float-icon">🍫</div><div class="float-label">Mg craving</div></div>
       </div>
       <!-- Desktop: absolute positioned cards (hidden on mobile via CSS) -->
-      <div class="float-card float-1" style=""><div class="float-icon">🌿</div><div class="float-label">Iron boost</div><div class="float-sub">Menstrual phase</div></div>
-      <div class="float-card float-2"><div class="float-icon">🔥</div><div class="float-label">Peak energy</div><div class="float-sub">Ovulatory phase</div></div>
-      <div class="float-card float-3"><div class="float-icon">✨</div><div class="float-label">Zinc & glow</div><div class="float-sub">Follicular phase</div></div>
-      <div class="float-card float-4"><div class="float-icon">🍫</div><div class="float-label">Magnesium craving</div><div class="float-sub">Luteal phase</div></div>
+      <div class="float-card-1" style=""><div class="float-icon">🌿</div><div class="float-label">Iron boost</div></div>
+      <div class="float-card-2"><div class="float-icon">🔥</div><div class="float-label">Peak energy</div></div>
+      <div class="float-card-3"><div class="float-icon">✨</div><div class="float-label">Zinc & glow</div>
+      </div>
+      <div class="float-card-4"><div class="float-icon">🍫</div><div class="float-label">Magnesium craving</div></div>
       <div class="hero-visual-card">
         <div class="phase-wheel">
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -1199,16 +1355,19 @@ And ease your symptoms.
             <path d="M100,100 L100,190 A90,90 0 0,1 10,100 Z" fill="#F2D5A0" opacity="0.85"/>
             <path d="M100,100 L10,100 A90,90 0 0,1 100,10 Z" fill="#C9B8D8" opacity="0.85"/>
             <circle cx="100" cy="100" r="35" fill="#FAF7F2"/>
-           <a onclick="showPhase('menstrual')" style="cursor:pointer"><text x="142" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#9B3A50" text-decoration="underline">Menstrual</text></a>
-            <text x="142" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#C07080">Days 1–5</text>
-            <a onclick="showPhase('follicular')" style="cursor:pointer"><text x="143" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#2d5a27" text-decoration="underline">Follicular</text></a>
-            <text x="143" y="149" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#5A8055">Days 6–13</text>
-            <a onclick="showPhase('ovulatory')" style="cursor:pointer"><text x="57" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#7a5000" text-decoration="underline">Ovulatory</text></a>
-            <a onclick="showPhase('luteal')" style="cursor:pointer"><text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#3d1f6b" text-decoration="underline">Luteal</text></a>
-            <a onclick="showPhase('luteal')" style="cursor:pointer"><text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" font-weight="600" fill="#3d1f6b" text-decoration="underline">Luteal</text></a>
-            <text x="57" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" fill="#7060A0">Days 17–28</text>
-            <text x="100" y="97" text-anchor="middle" font-size="7" font-family="Cormorant Garamond,serif" fill="#8C7B75">Your</text>
-            <text x="100" y="107" text-anchor="middle" font-size="7" font-family="Cormorant Garamond,serif" fill="#8C7B75">cycle</text>
+           <a onclick="showPhase('menstrual')" style="cursor:pointer">
+             <text x="142" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" font-weight="600" fill="#9B3A50" text-decoration="underline">Menstrual</text></a>
+            <text x="142" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" fill="#C07080">Days 1–5</text>
+            <a onclick="showPhase('follicular')" style="cursor:pointer"><text x="143" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" font-weight="600" fill="#2d5a27" text-decoration="underline">Follicular</text></a>
+            <text x="143" y="149" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" fill="#5A8055">Days 6–13</text>
+            <a onclick="showPhase('ovulatory')" style="cursor:pointer"><text x="57" y="138" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" font-weight="600" fill="#7a5000" text-decoration="underline">Ovulatory</text></a>
+            <text x="57" y="149" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" fill="#5A8055">Days 14–16</text>
+            <a onclick="showPhase('luteal')" style="cursor:pointer"><text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" font-weight="600" fill="#3d1f6b" text-decoration="underline">Luteal</text></a>
+            <a onclick="showPhase('luteal')" style="cursor:pointer">
+            <text x="57" y="52" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" font-weight="600" fill="#3d1f6b" text-decoration="underline">Luteal</text></a>
+            <text x="57" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" fill="#7060A0">Days 17–28</text>
+            <text x="100" y="97" text-anchor="middle" font-size="10" font-family="Cormorant Garamond,serif" fill="#8C7B75">Your</text>
+            <text x="100" y="107" text-anchor="middle" font-size="14" font-family="Cormorant Garamond,serif" fill="#8C7B75">cycle</text>
           </svg>
         </div>
         <div class="wheel-phases-list">
@@ -1251,23 +1410,22 @@ with each phase, to ease your symptoms.
     <div class="why-inner">
       <div class="why-text fade-up">
         <p class="section-label" style="text-align:left;margin-bottom:0.8rem;">Why nutrition actually matters</p>
-        <h2 class="why-title">The right foods<br><em>at the right time.</em></h2>
+        <h2 class="why-title">The right foods <em>at the right time.</em></h2>
         <p class="why-body">Because your body is evolving throughout the month,
 <br>So even when your habits stay consistent, your nutritional needs naturally change.
 </p> 
         
          <p class="why-body">By aligning your food with your phase, your symptoms such as energy, mood, cravings will feel effortless to manage - and to understand.
 </p>
-        
-       
+    
          <div class="why-mobile-cta">
           <button class="btn-rose" onclick="showPage('cheatsheet')">Understand my nutrition needs →</button>
         </div>
       </div>
       <div class="why-pillars fade-up">
-        <div class="pillar-card"><div class="pillar-icon rose">🌸</div><div><p class="pillar-name">Hormonal Balance</p><p class="pillar-desc">The right nutrients at the right time gently support estrogen and progesterone — no supplements, just food.</p></div></div>
+        <div class="pillar-card"><div class="pillar-icon rose">🌸</div><div><p class="pillar-name">Hormonal Balance</p><p class="pillar-desc">The right nutrients at the right time through food, to gently support your hormones natural cycle.</p></div></div>
         <div class="pillar-card"><div class="pillar-icon green">⚡</div><div><p class="pillar-name">Energy that actually lasts</p><p class="pillar-desc">Real, steady energy & no more crashing. Because you're feeding the phase you're actually in.</p></div></div>
-        <div class="pillar-card"><div class="pillar-icon amber">🩸</div><div><p class="pillar-name">Fill the gaps before symptoms appear</p><p class="pillar-desc">Iron before your period. Magnesium before week four. B6 before the mood dip. Prevention tastes a lot better than recovery.</p></div></div>
+        <div class="pillar-card"><div class="pillar-icon amber">🩸</div><div><p class="pillar-name">Feed your body before symptoms appear</p><p class="pillar-desc">Iron before period. Magnesium before luteal phase. Vit-B6 before the mood dip.</p></div></div>
         <div class="pillar-card"><div class="pillar-icon purple">🌿</div><div><p class="pillar-name"> Real food. No complicated routine.</p><p class="pillar-desc">Nothing in Lunéa requires a supplement. Just real ingredients from a normal supermarket. That's it.</p></div></div>
       </div>
     </div>
@@ -1378,9 +1536,9 @@ with each phase, to ease your symptoms.
       <div class="phase-calc-row">
         <span class="phase-calc-intro">My last period started on</span>
         <input type="date" id="cycleStartDate" onchange="calcPhase()" max="">
-        <span style="font-size:0.8rem;color:var(--taupe);font-style:italic;">→ and I'll tell you your phase</span>
+        <span style="font-size:1rem;color:var(--taupe);font-style:italic;">→ and I'll tell you your phase</span>
       </div>
-      <div id="phaseResult" style="font-size:0.82rem;color:var(--taupe);margin-top:0.8rem;font-style:italic;">Pick a date above to find your phase ↑</div>
+      <div id="phaseResult" style="font-size:1rem;color:var(--taupe);margin-top:1rem;font-style:italic;">Pick a date above to find your phase ↑</div>
     </div>
   </section>
 
@@ -1436,8 +1594,10 @@ with each phase, to ease your symptoms.
       </div>
 
       <div class="phase-grid-3" id="menstrual-hormones-anchor">
-        <div class="phase-block"><p class="phase-block-title"><span>📊</span> Hormone Levels</p><div class="hormone-pills"><div class="hormone-pill"><span class="hormone-name">Estrogen</span><div class="hormone-bar-wrap"><div class="hormone-bar bar-e" style="width:15%"></div></div><span class="hormone-level">Low</span></div><div class="hormone-pill"><span class="hormone-name">Progesterone</span><div class="hormone-bar-wrap"><div class="hormone-bar bar-p" style="width:10%"></div></div><span class="hormone-level">Low</span></div><div class="hormone-pill"><span class="hormone-name">LH / FSH</span><div class="hormone-bar-wrap"><div class="hormone-bar bar-l" style="width:20%"></div></div><span class="hormone-level">Rising</span></div></div><p class="phase-note">Both hormones at their floor. This is why you need rest — not because you're weak, because your body is literally in restoration mode.</p></div>
-        <div class="phase-block"><p class="phase-block-title"><span>✨</span> Key Nutrients</p><div class="nutrient-grid"><span class="nb nb-rose">🩸 Iron</span><span class="nb nb-teal">🐟 Omega-3</span><span class="nb nb-brown">🥜 Magnesium</span><span class="nb nb-green">🌿 Vitamin C</span><span class="nb nb-purple">💜 B Vitamins</span><span class="nb nb-rose">🫙 Zinc</span></div><p class="phase-note">Always pair iron foods with vitamin C — it triples absorption. Have that spinach with lemon. Every. Single. Time.</p></div>
+        <div class="phase-block"><p class="phase-block-title"><span>📊</span> Hormone Levels</p><div class="hormone-pills"><div class="hormone-pill"><span class="hormone-name">Estrogen</span><div class="hormone-bar-wrap"><div class="hormone-bar bar-e" style="width:15%"></div></div><span class="hormone-level">Low</span></div><div class="hormone-pill"><span class="hormone-name">Progesterone</span><div class="hormone-bar-wrap"><div class="hormone-bar bar-p" style="width:10%"></div></div><span class="hormone-level">Low</span></div><div class="hormone-pill"><span class="hormone-name">LH / FSH</span><div class="hormone-bar-wrap"><div class="hormone-bar bar-l" style="width:20%"></div></div><span class="hormone-level">Rising</span></div></div><p class="phase-note">Both hormones at their lowest. This is why you need rest — not because you're weak, because your body is literally in restoration mode and needs you to listen to it.</p></div>
+        <div class="phase-block"><p class="phase-block-title"><span>✨</span> Key Nutrients</p><div class="nutrient-grid"><span class="nb nb-rose">🩸 Iron</span><span class="nb nb-teal">🐟 Omega-3</span><span class="nb nb-brown">🥜 Magnesium</span><span class="nb nb-green">🌿 Vitamin C</span><span class="nb nb-purple">💜 B Vitamins</span><span class="nb nb-rose">🫙 Zinc</span></div>
+        <div class="cheat-tip-key">💡 Always pair iron foods with vitamin C — it triples absorption. Have that spinach with lemon.</div>
+          <div class="cheat-tip-key">💡 Aim for oily fish 2–3× per week during menstrual & luteal phases. </div></div>
 
           <!-- AUTOIMMUNE NOTE -->
         <div class="autoimmune-conditions">
@@ -1450,7 +1610,7 @@ with each phase, to ease your symptoms.
       </div>
  <!-- TABLE 1: BY FOOD TYPE -->
       <div class="food-table-block" id="menstrual-foods-anchor">
-        <p class="food-table-block-title"><span>🥗</span> What to eat — by type</p>
+        <p class="food-table-block-title"><span>🥗</span> What to eat - by type</p>
         <div class="ftab-strip" data-table="m-type">
           <button class="ftab active" onclick="switchFtab('m-type','meals',this)">🍲 Meals</button>
           <button class="ftab" onclick="switchFtab('m-type','veg',this)">🥬 Vegetables</button>
@@ -1508,7 +1668,7 @@ with each phase, to ease your symptoms.
           <div class="fc"><span class="fc-emoji">🐟</span><div class="fc-text"><p class="fc-name">Salmon & mackerel</p><p class="fc-why">EPA/DHA directly reduce prostaglandins causing cramps</p></div></div>
           <div class="fc"><span class="fc-emoji">🫚</span><div class="fc-text"><p class="fc-name">Ginger</p><p class="fc-why">Comparable to ibuprofen in studies for period cramp relief</p></div></div>
           <div class="fc"><span class="fc-emoji">🥜</span><div class="fc-text"><p class="fc-name">Almonds & cashews</p><p class="fc-why">Magnesium relaxes uterine muscle — helps within hours</p></div></div>
-          <div class="fc"><span class="fc-emoji">🍫</span><div class="fc-text"><p class="fc-name">Dark chocolate</p><p class="fc-why">Magnesium + endorphins — the one craving you should honour</p></div></div>
+          <div class="fc"><span class="fc-emoji">🍫</span><div class="fc-text"><p class="fc-name">Dark chocolate</p><p class="fc-why">Magnesium + endorphins: the one craving you should honour</p></div></div>
           <div class="fc"><span class="fc-emoji">🍵</span><div class="fc-text"><p class="fc-name">Chamomile tea</p><p class="fc-why">Antispasmodic glycine relaxes uterine and bowel spasms</p></div></div>
         </div>
         <div id="m-symp-heavy" class="ftab-panel">
@@ -1801,7 +1961,7 @@ with each phase, to ease your symptoms.
           </div>
           <div class="phase-banner-block">
             <p class="phase-banner-block-title">What your body needs most</p>
-            <p>Antioxidants to protect the egg, selenium for hormone sensitivity, fiber to clear estrogen. Light, cooling, raw foods feel natural because they are.</p>
+            <p>Antioxidants to protect the egg, selenium for hormone sensitivity, fiber to clear estrogen. Light & raw foods help to extend this phase.</p>
           </div>
           <div class="phase-banner-block">
             <p class="phase-banner-block-title">How you may feel</p>
@@ -2216,8 +2376,8 @@ with each phase, to ease your symptoms.
           <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–24 · Early luteal</p><p class="scs-col-title">Prevent it — eat this <em>before</em> PMS builds</p></div></div>
           <div class="scs-col-why">PMS is driven by falling estrogen and progesterone combined with serotonin instability. The right nutrients in early luteal prevent most of it from developing.</div>
           <div class="scs-foods">
-            <div class="scs-food"><span class="scs-food-emoji">🍠</span><div class="scs-food-text"><p class="scs-food-name">Sweet potato daily</p><p class="scs-food-why">Richest food source of B6 — clinically proven to reduce PMS severity by up to 69%</p></div></div>
-            <div class="scs-food"><span class="scs-food-emoji">🌾</span><div class="scs-food-text"><p class="scs-food-name">Oats every morning</p><p class="scs-food-why">Stable blood sugar = stable serotonin. Skipping breakfast in week 4 is a direct PMS trigger</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🍠</span><div class="scs-food-text"><p class="scs-food-name">Sweet potato</p><p class="scs-food-why">Richest food source of B6 — clinically proven to reduce PMS severity by up to 69%</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🌾</span><div class="scs-food-text"><p class="scs-food-name">Oats in the morning</p><p class="scs-food-why">Stable blood sugar = stable serotonin. Skipping breakfast in week 4 is a direct PMS trigger</p></div></div>
             <div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Magnesium-rich snacks daily</p><p class="scs-food-why">Low magnesium is the most common nutritional driver of PMS — most women are deficient</p></div></div>
             <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: caffeine, alcohol, refined sugar</p><p class="scs-food-why">All three deplete magnesium and destabilise blood sugar simultaneously</p></div></div>
           </div>
@@ -2237,36 +2397,45 @@ with each phase, to ease your symptoms.
 
     <div class="scs-panel" id="scs-bloating">
       <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Ongoing prevention</p><p class="scs-col-title">Prevent it — eat this <em>before bloating starts</em></p></div></div><div class="scs-col-why">Hormonal bloating is caused by progesterone slowing digestion combined with fluid retention. A healthy gut microbiome dramatically reduces how much you bloat all month.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Fermented foods daily</p><p class="scs-food-why">Kimchi, sauerkraut, kefir — a diverse gut processes gas-producing foods far more efficiently</p></div></div><div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">2+ litres of water daily</p><p class="scs-food-why">Counterintuitively, more water reduces water retention — dehydration makes it worse</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: excess salt, carbonated drinks</p><p class="scs-food-why">Salt retains fluid. Fizzy drinks introduce gas directly</p></div></div></div></div>
+        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Ongoing prevention</p><p class="scs-col-title">Prevent it — eat this <em>before bloating starts</em></p></div></div><div class="scs-col-why">Hormonal bloating is caused by progesterone slowing digestion combined with fluid retention. A healthy gut microbiome dramatically reduces how much you bloat all month.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Yogurt & Fermented foods at hands</p><p class="scs-food-why">Kimchi, sauerkraut, kefir — a diverse gut processes gas-producing foods far more efficiently</p></div></div><div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">Lean protein such as chicken, fish and legumes</p><p class="scs-food-why">Provide essential nutrients to help the gut works its best</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji"></span><div class="scs-food-text"><p class="scs-food-name">2+ litres of water daily</p><p class="scs-food-why">Counterintuitively, more water reduces water retention — dehydration makes it worse</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: excess salt, carbonated drinks</p><p class="scs-food-why">Salt retains fluid. Fizzy drinks introduce gas directly</p></div></div></div></div>
         <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When it happens</p><p class="scs-col-title">Relieve it — eat this <em>when you're bloated</em></p></div></div><div class="scs-col-why">When bloating is already there: speed up digestion, release trapped gas, reduce fluid retention. Skip raw veg today — choose cooked, easily digestible options.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Peppermint tea immediately</p><p class="scs-food-why">Menthol relaxes gut smooth muscle — fastest natural remedy for trapped gas</p></div></div><div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger with warm water</p><p class="scs-food-why">Speeds gastric emptying — reduces distension within 20–30 minutes</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: beans, cruciferous veg, dairy today</p><p class="scs-food-why">Even healthy foods can be high gas producers — switch to courgette, carrot, sweet potato</p></div></div></div></div>
       </div>
     </div>
 
     <div class="scs-panel" id="scs-fatigue">
       <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Prevention</p><p class="scs-col-title">Prevent it — build your energy <em>reserves first</em></p></div></div><div class="scs-col-why">Cycle fatigue is mostly caused by iron loss during menstruation and magnesium depletion in luteal. Keeping both topped up consistently is far more effective than dealing with the crash.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥬</span><div class="scs-food-text"><p class="scs-food-name">Spinach & lentils with citrus</p><p class="scs-food-why">Always pair iron with vitamin C — citrus triples absorption</p></div></div><div class="scs-food"><span class="scs-food-emoji">🥚</span><div class="scs-food-text"><p class="scs-food-name">Eggs every day</p><p class="scs-food-why">Complete protein + B12 + D3 — the most energy-dense single food for cycle fatigue</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee near iron foods & refined carbs</p><p class="scs-food-why">Coffee blocks iron absorption for up to 1 hour after eating</p></div></div></div></div>
-        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When exhaustion hits</p><p class="scs-col-title">Relieve it — eat this <em>when you're drained</em></p></div></div><div class="scs-col-why">When fatigue is already there: steady energy, no spikes, no crashes. Avoid stimulants. Choose whole foods with protein, slow carbs and iron.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha over coffee</p><p class="scs-food-why">L-theanine + caffeine = 4–6 hours of calm, focused energy without the iron-blocking</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana with almond butter</p><p class="scs-food-why">Fast natural sugar + protein/fat — noticeable energy lift within 15 minutes</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: energy drinks, white bread, sugary snacks</p><p class="scs-food-why">They spike then crash — the cycle of fatigue gets worse, not better</p></div></div></div></div>
+        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Prevention</p><p class="scs-col-title">Prevent it — build your energy <em>reserves first</em></p></div></div><div class="scs-col-why">Cycle fatigue is mostly caused by iron loss during menstruation and magnesium depletion in luteal. Keeping both topped up consistently is far more effective than dealing with the crash.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥬</span><div class="scs-food-text"><p class="scs-food-name">Spinach & lentils with citrus</p><p class="scs-food-why">Always pair iron with vitamin C — citrus triples absorption</p></div></div><div class="scs-food"><span class="scs-food-emoji">🥚</span><div class="scs-food-text"><p class="scs-food-name">Eggs for breakfast</p><p class="scs-food-why">Complete protein + B12 + D3 — the most energy-dense single food for cycle fatigue</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee near iron foods & refined carbs</p><p class="scs-food-why">Coffee blocks iron absorption for up to 1 hour after eating</p></div></div></div></div>
+        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When exhaustion hits</p><p class="scs-col-title">Relieve it — eat this <em>when you're drained</em></p></div></div><div class="scs-col-why">When fatigue is already there: steady energy, no spikes, no crashes. Avoid stimulants. Choose whole foods with protein, slow carbs and iron.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha over coffee</p><p class="scs-food-why">4–6 hours of calm, focused energy without the iron-blocking & the afternoon crash</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana with almond butter</p><p class="scs-food-why">Fast natural sugar + protein/fat — noticeable energy lift within 15 minutes</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: energy drinks, white bread, sugary snacks</p><p class="scs-food-why">They spike then crash — the cycle of fatigue gets worse, not better</p></div></div></div></div>
       </div>
     </div>
 
     <div class="scs-panel" id="scs-acne">
       <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal</p><p class="scs-col-title">Prevent it — eat this <em>before breakouts appear</em></p></div></div><div class="scs-col-why">Hormonal acne is triggered by androgens rising in luteal phase. A low-glycaemic, zinc-rich, anti-inflammatory diet reduces breakouts significantly over 4–6 consistent weeks.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🌰</span><div class="scs-food-text"><p class="scs-food-name">Brazil nuts & pumpkin seeds</p><p class="scs-food-why">Selenium + zinc — directly linked to sebum regulation and skin cell turnover</p></div></div><div class="scs-food"><span class="scs-food-emoji">🥦</span><div class="scs-food-text"><p class="scs-food-name">Cruciferous vegetables</p><p class="scs-food-why">DIM supports liver clearance of excess androgens</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: dairy, high-sugar foods, seed oils</p><p class="scs-food-why">Dairy raises IGF-1. Sugar spikes insulin — the direct driver of hormonal acne</p></div></div></div></div>
+        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal</p><p class="scs-col-title">Prevent it — eat this <em>before breakouts appear</em></p></div></div><div class="scs-col-why">Hormonal acne is triggered by androgens rising in luteal phase. A low-glycaemic, zinc-rich, anti-inflammatory diet reduces breakouts significantly over 4–6 consistent weeks.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🌰</span><div class="scs-food-text"><p class="scs-food-name">Brazil nuts & pumpkin seeds</p><p class="scs-food-why">Selenium + zinc — directly linked to sebum regulation and skin cell turnover</p></div></div><div class="scs-food"><span class="scs-food-emoji">🥦</span><div class="scs-food-text"><p class="scs-food-name">Cruciferous vegetables</p><p class="scs-food-why">DIM (natural compound formed from the digestion) supports liver clearance and acts as an antioxidant</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: dairy, high-sugar foods, seed oils</p><p class="scs-food-why">Dairy raises IGF-1. Sugar spikes insulin — the direct driver of hormonal acne</p></div></div></div></div>
         <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When breakouts are active</p><p class="scs-col-title">Calm it — eat this <em>during a flare</em></p></div></div><div class="scs-col-why">When skin is already breaking out: reduce systemic inflammation and support the liver's ability to clear hormones. Nothing that spikes blood sugar.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🐟</span><div class="scs-food-text"><p class="scs-food-name">Salmon & sardines</p><p class="scs-food-why">EPA reduces the specific compound that drives acne lesion formation</p></div></div><div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">3 litres of water daily</p><p class="scs-food-why">Flushes excess hormones via the kidneys — direct impact on skin load</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol, dairy, processed foods</p><p class="scs-food-why">Alcohol stresses the liver which can't then clear androgens</p></div></div></div></div>
       </div>
     </div>
 
     <div class="scs-panel" id="scs-mood">
       <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–26 · Build stability early</p><p class="scs-col-title">Prevent it — build <em>serotonin reserves</em></p></div></div><div class="scs-col-why">Mood swings are caused by falling estrogen reducing serotonin, combined with blood sugar instability. A consistent diet that keeps blood sugar flat prevents most of the volatility.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Fermented foods daily</p><p class="scs-food-why">90% of serotonin is made in the gut — a healthy microbiome is your best mood stabiliser</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana daily in luteal phase</p><p class="scs-food-why">B6 + tryptophan — direct serotonin precursors. Takes 3–5 days of consistent intake to feel</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol, ultra-processed food, skipping meals</p><p class="scs-food-why">All three crash blood sugar and disrupt the gut-brain axis simultaneously</p></div></div></div></div>
-        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When you're in it</p><p class="scs-col-title">Ease it — eat this <em>when mood dips hit</em></p></div></div><div class="scs-col-why">When mood has already dipped: fast-acting serotonin and dopamine support. These foods work within hours. Alcohol feels like it helps — it doesn't. It makes it worse by morning.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍫</span><div class="scs-food-text"><p class="scs-food-name">Dark chocolate</p><p class="scs-food-why">Phenylethylamine + anandamide — genuine immediate mood-lifting compounds</p></div></div><div class="scs-food"><span class="scs-food-emoji">🫖</span><div class="scs-food-text"><p class="scs-food-name">Saffron tea</p><p class="scs-food-why">Clinical trials show saffron comparable to low-dose antidepressants for PMS mood — 30mg, two cups daily</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol and caffeine when mood is low</p><p class="scs-food-why">Both worsen mood instability within hours</p></div></div></div></div>
+        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–26 · Build stability early</p><p class="scs-col-title">Prevent it — build <em>serotonin reserves</em></p></div></div><div class="scs-col-why">Mood swings are caused by falling estrogen reducing serotonin, combined with blood sugar instability. A consistent diet that keeps blood sugar flat prevents most of the volatility.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Fermented foods daily</p><p class="scs-food-why">90% of serotonin is made in the gut — a healthy microbiome is your best mood stabiliser</p></div></div>
+          
+       <div class="scs-food"><span class="scs-food-emoji">🌾</span><div class="scs-food-text"><p class="scs-food-name">Complex Carbs</p><p class="scs-food-why">Whole-grain pasta and brown rice to provide steady energy and prevent the sudden crashes</p></div></div>   
+          <div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana daily in luteal phase</p><p class="scs-food-why">B6 + tryptophan — direct serotonin precursors. Takes 3–5 days of consistent intake to feel</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol, ultra-processed food, skipping meals</p><p class="scs-food-why">All three crash blood sugar and disrupt the gut-brain axis simultaneously</p></div></div></div></div>
+        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When you're in it</p><p class="scs-col-title">Ease it — eat this <em>when mood dips hit</em></p></div></div><div class="scs-col-why">When mood has already dipped: fast-acting serotonin and dopamine support. These foods work within hours. Alcohol feels like it helps — it doesn't. It makes it worse by morning.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍫</span><div class="scs-food-text"><p class="scs-food-name">Dark chocolate</p><p class="scs-food-why">Phenylethylamine + anandamide — genuine immediate mood-lifting compounds</p></div></div>
+
+          <div class="scs-food"><span class="scs-food-emoji">🐟</span><div class="scs-food-text"><p class="scs-food-name">Salmon & sardines</p><p class="scs-food-why">Omega-3 fatty acids are known to reduce inflamation and depression symptoms</p></div></div>
+          
+          
+          <div class="scs-food"><span class="scs-food-emoji">🫖</span><div class="scs-food-text"><p class="scs-food-name">Saffron tea</p><p class="scs-food-why">Clinical trials show saffron comparable to low-dose antidepressants for PMS mood — 30mg, two cups daily</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol and caffeine when mood is low</p><p class="scs-food-why">Both worsen mood instability within hours</p></div></div></div></div>
       </div>
     </div>
 
     <div class="scs-panel" id="scs-sleep">
       <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 20–28 · Luteal prevention</p><p class="scs-col-title">Prevent it — eat this for <em>better sleep all week</em></p></div></div><div class="scs-col-why">Progesterone rising and falling disrupts deep sleep in luteal. Magnesium and tryptophan eaten consistently during this phase dramatically improve sleep quality.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds as evening snack</p><p class="scs-food-why">Magnesium activates the parasympathetic nervous system — 1 handful before bed measurably improves sleep onset</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea 30 min before bed</p><p class="scs-food-why">Apigenin binds GABA receptors — creates mild sedative effect</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: caffeine after 2pm, alcohol at night</p><p class="scs-food-why">Caffeine has a 6-hour half-life. Alcohol disrupts REM sleep even when it feels sedating</p></div></div></div></div>
-        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When sleep is broken</p><p class="scs-col-title">Improve it — eat this <em>the day of poor sleep</em></p></div></div><div class="scs-col-why">After a bad night: prevent the blood sugar and cortisol crash. Eat slow, grounding foods. One matcha maximum. Don't try to power through with caffeine.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥣</span><div class="scs-food-text"><p class="scs-food-name">Warm oats with banana for breakfast</p><p class="scs-food-why">Slow carbs + tryptophan stabilise the cortisol spike that follows poor sleep</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha instead of coffee</p><p class="scs-food-why">L-theanine smooths caffeine without the cortisol spike that follows a bad night</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: more than one coffee, napping after 3pm</p><p class="scs-food-why">Multiple coffees worsen the next night. Late naps reset sleep pressure entirely</p></div></div></div></div>
+        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 20–28 · Luteal prevention</p><p class="scs-col-title">Prevent it — eat this for <em>better sleep all week</em></p></div></div><div class="scs-col-why">Progesterone rising and falling disrupts deep sleep in luteal. Magnesium and tryptophan eaten consistently during this phase dramatically improve sleep quality.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds or Pistachios as evening snack</p><p class="scs-food-why">Provide both melatonin and magnesium, activating the parasympathetic nervous system — 1 handful before bed measurably improves sleep onset</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea 30 min before bed</p><p class="scs-food-why">Apigenin binds GABA receptors — creates mild sedative effect</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: caffeine after 2pm, alcohol at night</p><p class="scs-food-why">Caffeine has a 6-hour half-life. Alcohol disrupts REM sleep even when it feels sedating</p></div></div></div></div>
+        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When sleep is broken</p><p class="scs-col-title">Improve it — eat this <em>the day of poor sleep</em></p></div></div><div class="scs-col-why">After a bad night: prevent the blood sugar and cortisol crash. Eat slow, grounding foods. Try to avoid powering through with caffeine to go back to a normal sleeping pattern.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥣</span><div class="scs-food-text"><p class="scs-food-name">Warm oats with banana for breakfast</p><p class="scs-food-why">Slow carbs + tryptophan stabilise the cortisol spike that follows poor sleep</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha instead of coffee</p><p class="scs-food-why">L-theanine smooths caffeine without the cortisol spike that follows a bad night</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: more than one coffee, napping after 3pm</p><p class="scs-food-why">Multiple coffees worsen the next night. Late naps reset sleep pressure entirely</p></div></div></div></div>
       </div>
     </div>
   </section>
@@ -2616,6 +2785,13 @@ with each phase, to ease your symptoms.
   </footer>
 </div><!-- /faqarticle -->
 
+  <!-- BACK TO TOP BUTTON -->
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
+
 <!-- ══════════ MAIN JS ══════════ -->
 <script>
 function toggleTheme(){
@@ -2715,7 +2891,7 @@ function applyRecipeFilters(){if(window._applyFilters)window._applyFilters();}
 function clearRecipeFilters(){if(window._clearFilters)window._clearFilters();}
 function goToSymptom(key){showPage('cheatsheet');setTimeout(function(){var btn=document.querySelector('.scs-tab[data-key="'+key+'"]');if(btn)switchScs(key,btn);var section=document.querySelector('.symptom-cheat-section');if(section)section.scrollIntoView({behavior:'smooth',block:'start'});},120);}
 function toggleFaq(el){var content=el.nextElementSibling;var icon=el.querySelector('.faq-icon');var isOpen=content.classList.toggle('open');icon.textContent=isOpen?'−':'+';}
-function calcPhase(){var input=document.getElementById('cycleStartDate');var result=document.getElementById('phaseResult');if(!input.value){result.innerHTML='<span style="color:var(--taupe)">Pick a date above to find your phase ↑</span>';return;}var start=new Date(input.value);var today=new Date();today.setHours(0,0,0,0);start.setHours(0,0,0,0);var diff=Math.floor((today-start)/(1000*60*60*24));if(diff<0){result.innerHTML='<span style="color:var(--taupe)">That date is in the future — did you mean a past date?</span>';return;}var cycleLen=28;var day=(diff%cycleLen)+1;var phase,color,emoji,msg;if(day>=1&&day<=5){phase='Menstrual';color='#D4788A';emoji='🌑';msg='Rest, warmth, iron-rich foods. Give yourself permission to slow down.';}else if(day>=6&&day<=13){phase='Follicular';color='#7A9E76';emoji='🌱';msg='Energy is rising. Your gut loves probiotics right now.';}else if(day>=14&&day<=16){phase='Ovulatory';color='#C09040';emoji='🌕';msg='Peak vitality! Antioxidants and raw veggies match your energy.';}else{phase='Luteal';color='#8070A8';emoji='🍂';msg='Progesterone is in charge. Magnesium and slow carbs are your allies.';}result.innerHTML='<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:1.5rem">'+emoji+'</span><div><p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:'+color+';margin:0">Day '+day+' of 28</p><p style="font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;font-weight:500;color:var(--brown);margin:0.1rem 0">You\'re in your <strong style="color:'+color+'">'+phase+' phase</strong></p><p style="font-size:0.8rem;color:var(--taupe);margin:0.2rem 0">'+msg+'</p><button onclick="showPhase(\''+phase.toLowerCase()+'\')" style="margin-top:0.5rem;background:'+color+';color:white;border:none;border-radius:100px;padding:0.4rem 1rem;font-family:\'Jost\',sans-serif;font-size:0.7rem;letter-spacing:0.08em;cursor:pointer">See my phase guide →</button></div></div>';}
+function calcPhase(){var input=document.getElementById('cycleStartDate');var result=document.getElementById('phaseResult');if(!input.value){result.innerHTML='<span style="color:var(--taupe)">Pick a date above to find your phase ↑</span>';return;}var start=new Date(input.value);var today=new Date();today.setHours(0,0,0,0);start.setHours(0,0,0,0);var diff=Math.floor((today-start)/(1000*60*60*24));if(diff<0){result.innerHTML='<span style="color:var(--taupe)">That date is in the future — did you mean a past date?</span>';return;}var cycleLen=28;var day=(diff%cycleLen)+1;var phase,color,emoji,msg;if(day>=1&&day<=5){phase='Menstrual';color='#D4788A';emoji='🌑';msg='Rest, warmth, iron-rich foods. Give yourself permission to slow down.';}else if(day>=6&&day<=13){phase='Follicular';color='#7A9E76';emoji='🌱';msg='Energy is rising. Your gut loves probiotics right now.';}else if(day>=14&&day<=16){phase='Ovulatory';color='#C09040';emoji='🌕';msg='Peak vitality! Antioxidants and raw veggies match your energy.';}else{phase='Luteal';color='#8070A8';emoji='🍂';msg='Progesterone is in charge. Magnesium and slow carbs are your allies.';}result.innerHTML='<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:1.8rem">'+emoji+'</span><div><p style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:'+color+';margin:0">Day '+day+' of 28</p><p style="font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;font-weight:500;color:var(--brown);margin:0.1rem 0">You\'re in your <strong style="color:'+color+'">'+phase+' phase</strong></p><p style="font-size:0.8rem;color:var(--taupe);margin:0.2rem 0">'+msg+'</p><button onclick="showPhase(\''+phase.toLowerCase()+'\')" style="margin-top:0.5rem;background:'+color+';color:white;border:none;border-radius:100px;padding:0.4rem 1rem;font-family:\'Jost\',sans-serif;font-size:1rem;letter-spacing:0.08em;cursor:pointer">See my phase guide →</button></div></div>';}
 
 const RECIPES=[
   {emoji:'🥗',name:'Warm Lentil & Spinach Bowl',desc:'Turmeric-spiced lentils, wilted spinach, lemon tahini drizzle.',time:'25 min',img:'linear-gradient(135deg,#FAE8EB,#FFF0F5)',phase:'menstrual',meal:'lunch',nutrients:['iron','fiber','b6'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
@@ -3135,6 +3311,13 @@ document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el);});
 
 /* Escape key */
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeCheatModalDirect();closeRecipeModalDirect();}});
+
+  /* Back to top visibility */
+window.addEventListener('scroll', function(){
+  var btn = document.getElementById('backToTop');
+  if(!btn) return;
+  btn.classList.toggle('visible', window.scrollY > 300);
+});
 
 /* Set date input max to today */
 var di=document.getElementById('cycleStartDate');
