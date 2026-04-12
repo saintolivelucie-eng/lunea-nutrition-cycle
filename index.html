@@ -1238,18 +1238,24 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 
   <!-- ── Recipes with expandable sub-menu ── -->
   <div class="drawer-recipes-wrap">
-    <a onclick="toggleRecipesDrawer(event)" class="drawer-recipes-toggle">
-      Recipes <span id="drawerRecipesArrow">›</span>
+  <div style="display:flex;align-items:center;gap:0.5rem;justify-content:center;">
+    <a onclick="navGo('recipes')" class="drawer-recipes-toggle" style="text-decoration:none;">
+      Recipes
     </a>
-    <div class="drawer-sub" id="drawerRecipesSub">
-      <a onclick="navGoRecipe('breakfast')">☀️ Breakfast</a>
-      <a onclick="navGoRecipe('lunch')">🥗 Lunch</a>
-      <a onclick="navGoRecipe('dinner')">🍲 Dinner</a>
-      <a onclick="navGoRecipe('snack')">🫙 Snacks & Healthy Sweets</a>
-      <a onclick="navGoRecipe('dessert')">🍫 Desserts</a>
-      <a onclick="navGo('recipes')" style="opacity:0.5;font-size:0.9em">All recipes →</a>
-    </div>
+    <span onclick="toggleRecipesDrawer(event)" id="drawerRecipesArrow"
+      style="font-size:1.4rem;cursor:pointer;font-family:'Jost',sans-serif;
+             font-weight:300;transition:transform 0.25s;display:inline-block;
+             color:var(--taupe);">›</span>
   </div>
+  <div class="drawer-sub" id="drawerRecipesSub">
+    <a onclick="navGoRecipe('breakfast')">☀️ Breakfast</a>
+    <a onclick="navGoRecipe('lunch')">🥗 Lunch</a>
+    <a onclick="navGoRecipe('dinner')">🍲 Dinner</a>
+    <a onclick="navGoRecipe('snack')">🫙 Snacks & Healthy Sweets</a>
+    <a onclick="navGoRecipe('dessert')">🍫 Desserts</a>
+    <a onclick="navGo('recipes')" style="opacity:0.5;font-size:0.9em">All recipes →</a>
+  </div>
+</div>
 
   <a onclick="navGo('faq')">FAQ</a>
   <a onclick="navGo('mycycle')" class="drawer-cta">What's my phase ? →</a>
@@ -1274,7 +1280,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
     <li><a onclick="showPage('mycycle')" data-page="mycycle">My Cycle</a></li>
     <li><a onclick="showPage('cheatsheet')" data-page="cheatsheet">Nutrition Guide</a></li>
     <li class="nav-has-sub">
-  <a data-page="recipes" class="nav-recipes-toggle">Recipes ›</a>
+  <a data-page="recipes" class="nav-recipes-toggle" onclick="showPage('recipes')" style="cursor:pointer">Recipes ›</a>
   <ul class="nav-sub-menu">
     <li><a onclick="navGoRecipe('breakfast')">☀️ Breakfast</a></li>
     <li><a onclick="navGoRecipe('lunch')">🥗 Lunch</a></li>
@@ -2833,25 +2839,36 @@ var SYMPTOM_NUTRIENT_MAP = {
 
   /* Navigate to recipes page with a meal pre-filter */
 function navGoRecipe(mealType){
-  /* Reset all filters first */
   filterState.meal = mealType;
   filterState.phase = null;
   filterState.nutrient = [];
   filterState.condition = [];
-  showPage('recipes');
-  setTimeout(function(){
-    /* Visually highlight the correct button */
-    document.querySelectorAll('#filter-meal .rfp-btn').forEach(function(b){
-      b.classList.toggle('selected', b.dataset.value === mealType);
-    });
-    /* Include sweets page content if snack selected */
-    if(mealType === 'snack'){
-      /* healthy sweets are tagged as snack/dessert — both show */
-      filterState.meal = null; /* show all, user sees snack buttons active */
-    }
-    renderRecipes();
-    closeDrawer();
-  }, 80);
+  filterState.symptom = [];
+
+  /* Force page switch first, then apply filter after DOM is ready */
+  document.querySelectorAll('.page').forEach(function(p){
+    p.classList.remove('active');
+  });
+  var pg = document.getElementById('page-recipes');
+  if(pg) pg.classList.add('active');
+
+  document.querySelectorAll('.nav-links a[data-page]').forEach(function(a){
+    a.classList.toggle('active-nav', a.dataset.page === 'recipes');
+  });
+
+  window.scrollTo({top:0, behavior:'smooth'});
+  updateBackBtn('recipes');
+  closeDrawer();
+
+  /* Reset visual filter buttons, then highlight correct one */
+  document.querySelectorAll('.rfp-btn').forEach(function(b){
+    b.classList.remove('selected','at-limit');
+  });
+  document.querySelectorAll('#filter-meal .rfp-btn').forEach(function(b){
+    b.classList.toggle('selected', b.dataset.value === mealType);
+  });
+
+  renderRecipes();
 }
 
 /* Toggle sub-menu in mobile drawer */
