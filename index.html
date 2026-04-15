@@ -290,6 +290,7 @@ html.dark-theme #backToTop:hover{
   --bg-beige:#EAE0D5;
   --text-main:#3D2E2E;
   --text-muted:#8C7B75;
+   color-scheme: light;
 }
 html.dark-theme{
   --bg-primary:#1A1210;
@@ -297,6 +298,12 @@ html.dark-theme{
   --bg-beige:#2C1F1C;
   --text-main:#FAF7F2;
   --text-muted:#B0A09A;
+  /* Empêche les variables light d'être héritées en dark */
+  --cream:#1A1210;
+  --warm-white:#231816;
+  --beige:#2C1F1C;
+  --beige-mid:#3D2E26;
+}
 }
 html.dark-theme body{
   background:var(--bg-primary);
@@ -673,6 +680,148 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .sym-bubble{background:white;border:1px solid var(--beige);border-radius:100px;padding:0.6rem 1.1rem;font-size:1rem;color:var(--brown);cursor:pointer;transition:all 0.2s;line-height:1.4;text-align:center;}
 .sym-bubble:hover{background:var(--blush);color:white;border-color:var(--blush);transform:translateY(-2px);}
 
+  /* ── SYMPTOM SELECTOR CARDS ── */
+.scs-cards-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.scs-sym-card {
+  flex: 1;
+  min-width: 80px;
+  background: var(--warm-white);
+  border: 1.5px solid var(--beige);
+  border-radius: 16px;
+  padding: 0.85rem 0.5rem 0.7rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s;
+  text-align: center;
+}
+.scs-sym-card:hover {
+  border-color: var(--blush);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(61,46,46,0.09);
+}
+.scs-sym-card.active {
+  background: var(--blush);
+  border-color: var(--blush);
+}
+.scs-sym-card.active .scs-sym-icon,
+.scs-sym-card.active .scs-sym-name {
+  color: white;
+}
+.scs-sym-icon { font-size: 1.3rem; line-height: 1; }
+.scs-sym-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brown);
+  line-height: 1.3;
+}
+
+@media(max-width:768px) {
+  .scs-cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    flex-wrap: unset;
+    overflow-x: unset;
+  }
+  .scs-sym-card { min-width: unset; }
+}
+
+/* ── DESKTOP FLIP CARDS for symptoms ── */
+.scs-flip-grid {
+  display: none; /* shown only on desktop via media query */
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  perspective: 1200px;
+  margin-bottom: 2rem;
+}
+.scs-flip-wrap {
+  height: 420px;
+  perspective: 1200px;
+}
+.scs-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
+}
+.scs-flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.scs-flip-front,
+.scs-flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+  padding: 1.8rem;
+  overflow-y: auto;
+}
+.scs-flip-back {
+  transform: rotateY(180deg);
+}
+.scs-flip-front.scs-before {
+  background: linear-gradient(145deg,#F0FAF0,#FAFFF7);
+  border: 1px solid #C8D9A5;
+}
+.scs-flip-front.scs-during {
+  background: linear-gradient(145deg,#FEF5F7,#FFF8FB);
+  border: 1px solid #F2C4CE;
+}
+.scs-flip-back {
+  background: var(--warm-white);
+  border: 1px solid var(--beige);
+}
+.scs-flip-tap-hint {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: 0.6;
+  margin-top: 0.8rem;
+  text-align: center;
+  display: block;
+}
+.scs-flip-back-close {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.8rem;
+}
+.scs-flip-back-close button {
+  background: rgba(61,46,46,0.07);
+  border: none;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--taupe);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Desktop: show flip grid, hide the stacked when-grid */
+@media(min-width:769px) {
+  .scs-flip-grid { display: grid; }
+  .scs-panel .scs-when-grid { display: none; }
+}
+/* Mobile: hide flip grid, show stacked */
+@media(max-width:768px) {
+  .scs-flip-grid { display: none !important; }
+  .scs-panel .scs-when-grid { display: grid; }
+}
+
 /* WHY SECTION — human rewrite */
 .why-section{padding:7rem 4rem;background:var(--warm-white);}
 .why-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
@@ -756,7 +905,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .faq-read{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);display:flex;align-items:center;gap:0.4rem;}
 
 /* ═══ MY CYCLE PAGE ═══ */
-.cycle-hero{padding:8rem 4rem 3rem;text-align:center;}
+.cycle-hero{padding:8rem 4rem 1.5rem;text-align:center;}
 .cycle-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4.5vw,4rem);font-weight:300;line-height:1.15;color:var(--brown);margin-bottom:1rem;}
 .cycle-hero-title em{font-style:italic;color:var(--blush);}
 .cycle-hero-sub{font-size:1rem;font-weight:300;color:var(--taupe);max-width:500px;margin:0 auto 3rem;line-height:1.8;}
@@ -817,7 +966,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .phase-panel{display:none;animation:panelIn 0.45s ease;}
 .phase-panel.active{display:block;}
 @keyframes panelIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.phase-banner{border-radius:28px;padding:2.5rem;margin-top:3rem;margin-bottom:2rem;position:relative;overflow:hidden;}
+.phase-banner{border-radius:28px;padding:2.5rem;margin-top:1rem;margin-bottom:2rem;position:relative;overflow:hidden;}
 .phase-banner.menstrual{background:linear-gradient(135deg,#FAE8EB,#FFF5F7);}
 .phase-banner.follicular{background:linear-gradient(135deg,#E8F0E5,#F5FAF2);}
 .phase-banner.ovulatory{background:linear-gradient(135deg,#FAF0E0,#FFFAF0);}
@@ -900,8 +1049,8 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .prc-time{font-size:0.63rem;color:var(--taupe);}
 
 /* FOOD TABLES */
-.food-table-block{background:var(--warm-white);border:1px solid var(--beige);border-radius:22px;padding:1.8rem 2rem 1.6rem;margin-bottom:1.5rem;}
-.food-table-block-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--brown);display:flex;align-items:center;gap:0.5rem;margin-bottom:1.1rem;}
+.food-table-block{background:var(--warm-white);border:1px solid var(--beige);border-radius:22px;padding:1.8rem 2rem 1rem;margin-bottom:1rem;}
+  .food-table-block-desc{font-size:1rem;color:var(--taupe);line-height:1.6;margin-bottom:1rem;}
 
   
   
@@ -920,7 +1069,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 
 /* CHEAT SHEET PAGE */
 .cheat-hero{padding:8rem 4rem 2rem;text-align:center;}
-.cheat-hint{text-align:center;font-size:0.72rem;color:var(--taupe);margin-bottom:2.5rem;opacity:0.7;}
+.cheat-hint{text-align:center;font-size:1rem;color:var(--taupe);margin-bottom:2.5rem;opacity:0.7;}
 .symptom-cheat-section{max-width:1100px;margin:0 auto;padding:0 4rem 4rem;}
 .symptom-cheat-intro{margin-bottom:2.5rem;}
 .symptom-cheat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--brown);line-height:1.2;margin-bottom:0.8rem;}
@@ -1153,10 +1302,8 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   .phase-calc-row{flex-direction:column;align-items:flex-start;}
   body{padding-bottom:85px;}
   .phase-wheel{width:240px;height:240px;}
-.hero-visual-card{position: relative; z-index: 2; width: 420px;
-  background: var(--warm-white); border-radius: 24px;
-  padding: 2rem; box-shadow: 0 20px 60px rgba(61,46,46,0.1), 0 4px 16px rgba(61,46,46,0.06);
-}
+.hero-visual-card{ width: 100% !important; max-width: 360px; }
+  
 .wheel-phases-list{gap:0.3rem;}
 .wpl-item{padding:0.4rem 0.6rem;}
 .wpl-desc{display:none;}
@@ -1249,119 +1396,258 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 }
 
   /* ═══ FLIP CARDS ═══ */
-.flip-grid{
+/* ═══ FOOD CARDS  ═══ */
+.food-cards-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:2rem;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-bottom:10px;
 }
-.flip-scene{
-  width:100%;
-  aspect-ratio:3/2.2;
-  perspective:900px;
+.food-card{
+  border-radius:16px;
+  padding:1rem 0.7rem;
+  border:1px solid rgba(242,196,206,0.6);
   cursor:pointer;
-}
-.flip-inner{
-  position:relative;
-  width:100%;
-  height:100%;
-  transform-style:preserve-3d;
-  transition:transform 0.55s cubic-bezier(.4,0,.2,1);
-  border-radius:18px;
-}
-.flip-scene.flipped .flip-inner{transform:rotateY(180deg);}
-.flip-front,.flip-back{
-  position:absolute;
-  inset:0;
-  border-radius:18px;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  overflow:hidden;
-}
-.flip-front{
+  text-align:center;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:1rem;
+  gap:6px;
+  transition:transform 0.18s,box-shadow 0.18s;
+  min-height:90px;
 }
-.flip-bg-emoji{
-  position:absolute;
-  font-size:72px;
-  opacity:0.13;
-  user-select:none;
-  pointer-events:none;
+.food-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 22px rgba(61,46,46,0.1);
 }
-.flip-title{
-  position:relative;
-  font-family:'Cormorant Garamond',serif;
-  font-size:2rem;
+.food-card-icon{ font-size:22px; }
+.food-card-name{
+  
+  font-size:1rem;
   font-weight:500;
   color:var(--brown);
-  text-align:center;
-  z-index:2;
-  line-height:1.2;
+  letter-spacing:0.02em;
 }
-.flip-hint{
-  position:relative;
-  z-index:2;
+.food-card-hint{
+  font-family:'Jost',sans-serif;
+  font-size:0.8rem;
+  color:var(--taupe);
+}
+
+/* ── COMPACT BANNERS ── */
+.food-banners-row{
+  display:flex;
+  gap:10px;
+  margin-bottom:2rem;
+}
+.food-banner{
+  flex:1;
+  border-radius:12px;
+  padding:0.65rem 1rem;
+  border:1px solid var(--beige-mid);
+  background:var(--cream);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.8rem;
+  transition:background 0.15s,box-shadow 0.15s;
+}
+.food-banner:hover{
+  background:var(--beige);
+  box-shadow:0 4px 14px rgba(61,46,46,0.08);
+}
+.food-banner-left{ display:flex;align-items:center;gap:0.6rem; }
+.food-banner-icon{ font-size:1rem;flex-shrink:0; }
+.food-banner-name{
+  font-family:'Jost',sans-serif;
   font-size:0.9rem;
-  color:rgba(61,46,46,0.4);
-  margin-top:6px;
-  letter-spacing:0.06em;
+  font-weight:500;
+  color:var(--brown);
+}
+.food-banner-desc{
+  font-family:'Jost',sans-serif;
+  font-size:0.8rem;
+  color:var(--taupe);
+  margin-top:1px;
+}
+.food-banner-arrow{
+  font-size:1.1rem;
+  color:var(--sage);
+  flex-shrink:0;
   font-family:'Jost',sans-serif;
 }
-.flip-back{
-  background:var(--warm-white);
-  border:1px solid var(--beige);
-  transform:rotateY(180deg);
-  display:flex;
-  flex-direction:column;
-  padding:14px 16px 10px;
+
+/* ── FOOD POPUP OVERLAY ── */
+.food-popup-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:600;
+  background:rgba(30,20,20,0.6);
+  backdrop-filter:blur(5px);
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
 }
-.flip-back-title{
+.food-popup-overlay.open{ display:flex; }
+.food-popup{
+  position:relative;
+  width:100%;
+  max-width:460px;
+  max-height:90vh;
+  overflow-y:auto;
+  border-radius:24px;
+  background:var(--warm-white);
+  box-shadow:0 40px 100px rgba(61,46,46,0.28);
+  animation:popupIn 0.25s cubic-bezier(.2,0,.2,1);
+}
+@keyframes popupIn{
+  from{opacity:0;transform:scale(0.93) translateY(16px);}
+  to{opacity:1;transform:scale(1) translateY(0);}
+}
+.food-popup-topbar{
+  position:sticky;
+  top:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.8rem 1.2rem;
+  background:var(--warm-white);
+  border-bottom:1px solid var(--beige);
+}
+.food-popup-badges{ display:flex;gap:6px;flex-wrap:wrap;align-items:center; }
+.food-popup-badge-phase{
+  font-family:'Jost',sans-serif;
+  font-size:0.58rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:3px 9px;
+  border-radius:100px;
+}
+.food-popup-badge-type{
+  font-family:'Jost',sans-serif;
+  font-size:0.58rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  background:var(--beige);
+  color:var(--taupe);
+  padding:3px 9px;
+  border-radius:100px;
+}
+.food-popup-close{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  border:1px solid var(--beige-mid);
+  background:rgba(61,46,46,0.05);
+  color:var(--taupe);
+  font-size:0.85rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:background 0.2s;
+  font-family:'Jost',sans-serif;
+}
+.food-popup-close:hover{ background:rgba(61,46,46,0.12); }
+.food-popup-header{
+  padding:1.1rem 1.4rem 1rem;
+  border-bottom:1px solid var(--beige);
+}
+.food-popup-title{
   font-family:'Cormorant Garamond',serif;
   font-size:1.5rem;
   font-weight:500;
   color:var(--brown);
-  margin-bottom:8px;
-  padding-bottom:6px;
-  border-bottom:1px solid var(--beige);
 }
-.flip-food-line{
+.food-popup-subtitle{
+  font-family:'Jost',sans-serif;
+  font-size:0.6rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--taupe);
+  margin-top:3px;
+}
+.food-popup-body{ padding:1rem 1.4rem; }
+.food-popup-row{
   display:flex;
   align-items:baseline;
-  gap:5px;
-  padding:4px 0;
-  border-bottom:1px solid rgba(234,224,213,0.45);
-  font-family:'Jost',sans-serif;
+  gap:8px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(234,224,213,0.5);
 }
-.flip-food-line:last-of-type{border-bottom:none;}
-.flip-food-emoji{font-size:13px;flex-shrink:0;line-height:1;}
-.flip-food-name{font-size:1.2rem;font-weight:500;color:var(--brown);white-space:nowrap;}
-.flip-food-why{font-size:1.1rem;color:var(--taupe);font-style:italic;font-weight:300;line-height:1.3;}
-.flip-recipe-link{
-  font-size:0.72rem;
+.food-popup-row:last-child{ border-bottom:none; }
+.fpr-emoji{ font-size:0.85rem;flex-shrink:0;width:20px; }
+.fpr-name{
+  font-family:'Jost',sans-serif;
+  font-size:0.78rem;
   font-weight:500;
-  color:var(--blush);
-  cursor:pointer;
-  padding:3px 0;
-  border-bottom:1px solid rgba(234,224,213,0.45);
-  font-family:'Jost',sans-serif;
-  transition:color 0.2s;
+  color:var(--brown);
+  min-width:100px;
+  flex-shrink:0;
 }
-.flip-recipe-link:last-of-type{border-bottom:none;}
-.flip-recipe-link:hover{color:var(--brown);}
-.flip-back-hint{
+.fpr-why{
+  font-family:'Jost',sans-serif;
+  font-size:0.7rem;
+  color:var(--taupe);
+  font-style:italic;
+  line-height:1.45;
+}
+.fpr-symp{
+  font-family:'Jost',sans-serif;
+  font-size:0.7rem;
+  color:var(--taupe);
+  font-style:italic;
+  line-height:1.45;
+}
+.food-popup-footer{
+  padding:0.7rem 1.4rem 1rem;
+  border-top:1px solid var(--beige);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(250,247,242,0.5);
+}
+.food-popup-screenshothint{
+  font-family:'Jost',sans-serif;
   font-size:0.58rem;
-  color:rgba(61,46,46,0.28);
-  text-align:center;
-  margin-top:6px;
-  letter-spacing:0.05em;
-  font-family:'Jost',sans-serif;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--sage);
+  display:flex;
+  align-items:center;
+  gap:5px;
 }
+.food-popup-wm{
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.75rem;
+  color:rgba(61,46,46,0.15);
+  letter-spacing:0.04em;
+}
+.food-popup-cta-btn{
+  display:block;
+  width:100%;
+  margin:0.8rem 0 0;
+  padding:0.55rem 0;
+  background:var(--blush);
+  color:white;
+  border:none;
+  border-radius:100px;
+  font-family:'Jost',sans-serif;
+  font-size:0.65rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background 0.2s;
+  text-align:center;
+}
+.food-popup-cta-btn:hover{ background:var(--brown); }
 
-/* Symptom bridge */
+/* ── SYMPTOM BRIDGE stays the same ── */
 .symptom-bridge{
   background:linear-gradient(135deg,#FAE8EB,#FFF5F7);
   border:1px solid #F2C4CE;
@@ -1375,43 +1661,27 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   gap:0.8rem;
 }
 .symptom-bridge-text{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1rem;
+  font-family:'Jost',sans-serif;
+  font-size:1.2rem;
   font-style:italic;
   color:var(--brown);
 }
 .symptom-bridge-text span{
-  font-size:0.72rem;
   font-family:'Jost',sans-serif;
-  font-style:normal;
+  font-size:0.8rem;
   color:var(--taupe);
-  display:block;
-  margin-top:0.2rem;
+  margin-top:1px;
 }
+
+/* ── RESPONSIVE ── */
 @media(max-width:768px){
-  .flip-grid{gap:8px;}
-  .flip-title{font-size:1.8rem;}
-  .flip-food-name{font-size:1rem;}
-  .flip-food-why{font-size:0.8rem;}
+  .food-cards-grid{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .food-banners-row{ flex-direction:column;gap:8px; }
+  .food-banner-desc{ display:none; }
 }
-  .flip-phase-cta {
-  display: block;
-  width: 100%;
-  margin-top: 8px;
-  padding: 0.45rem 0.6rem;
-  background: var(--blush);
-  color: white;
-  border: none;
-  border-radius: 100px;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s;
-  text-align: center;
-}
-.flip-phase-cta:hover { background: var(--brown); }
   
 </style>
 </head>
@@ -1499,7 +1769,28 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   </ul>
   <button class="nav-burger" id="navBurger" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
 </nav>
-
+<!-- FOOD POPUP -->
+<div class="food-popup-overlay" id="foodPopup" onclick="closeFoodPopup(event)">
+  <div class="food-popup" id="foodPopupInner">
+    <div class="food-popup-topbar">
+      <div class="food-popup-badges">
+        <span class="food-popup-badge-phase" id="fpBadgePhase"></span>
+        <span class="food-popup-badge-type" id="fpBadgeType"></span>
+      </div>
+      <button class="food-popup-close" onclick="closeFoodPopupDirect()">✕</button>
+    </div>
+    <div class="food-popup-header" id="fpHeader">
+      <div class="food-popup-title" id="fpTitle"></div>
+      <div class="food-popup-subtitle" id="fpSubtitle">What to eat this week</div>
+    </div>
+    <div class="food-popup-body" id="fpBody"></div>
+    <div class="food-popup-footer">
+      <span class="food-popup-screenshothint">📷 screenshot to save</span>
+      <span class="food-popup-wm">Lunéa</span>
+    </div>
+  </div>
+</div>
+  
 <!-- CHEAT MODAL -->
 <div class="cheat-modal-overlay" id="cheatModal" onclick="closeCheatModal(event)">
   <div class="cheat-modal" id="cheatModalInner">
@@ -1826,139 +2117,64 @@ with each phase, to ease your symptoms.
         </div>
       </div>
       
-      <p class="food-table-block-title"><span>🥗</span> What to eat furing my menstrual phase</p>
+      <p class="food-table-block-title"><span>🥗</span> What to eat during my menstrual phase</p>
+      <p class="food-table-block-desc"> Focus on iron-rich, anti-inflammatory and vitamin C rich foods to nourrish and replenish the nutrients lost during bleeding</p>
 
   <!-- FLIP CARDS: MENSTRUAL -->
 <div id="menstrual-foods-anchor"></div>
-<div class="flip-grid">
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🥩</span>
-        <p class="flip-title">Proteins</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥩 Proteins</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🐟</span><span class="flip-food-name">Salmon</span><span class="flip-food-why">omega-3 directly reduce prostaglandins</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥚</span><span class="flip-food-name">Soft eggs</span><span class="flip-food-why">complete protein, iron & choline</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Lentils</span><span class="flip-food-why">plant iron + folate, easy to digest</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥩</span><span class="flip-food-name">Lean red meat</span><span class="flip-food-why">heme iron — fastest to replenish</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🐟</span><span class="flip-food-name">Sardines</span><span class="flip-food-why">calcium + omega-3 in one</span></div>
-        
-        <p class="flip-back-hint">tap to flip back</p>
+<div class="food-cards-grid">
+  <div class="food-card" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7)" onclick="openFoodPopup('menstrual','proteins')">
+    <span class="food-card-icon">🥩</span>
+    <span class="food-card-name">Proteins</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7)" onclick="openFoodPopup('menstrual','vegetables')">
+    <span class="food-card-icon">🥬</span>
+    <span class="food-card-name">Vegetables</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7)" onclick="openFoodPopup('menstrual','grains')">
+    <span class="food-card-icon">🌾</span>
+    <span class="food-card-name">Grains & legumes</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7)" onclick="openFoodPopup('menstrual','fruits')">
+    <span class="food-card-icon">🍓</span>
+    <span class="food-card-name">Fruits</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7)" onclick="openFoodPopup('menstrual','sweets')">
+    <span class="food-card-icon">🍫</span>
+    <span class="food-card-name">Sweets</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7)" onclick="openFoodPopup('menstrual','drinks')">
+    <span class="food-card-icon">🍵</span>
+    <span class="food-card-name">Drinks</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+</div>
+<div class="food-banners-row">
+  <div class="food-banner" onclick="openFoodPopup('menstrual','pantry')">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🧺</span>
+      <div>
+        <div class="food-banner-name">Always have these — Pantry essentials</div>
+        <div class="food-banner-desc">Ginger · Pumpkin seeds · Dark chocolate · Lemon</div>
       </div>
     </div>
+    <span class="food-banner-arrow">›</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🥬</span>
-        <p class="flip-title">Vegetables</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥬 Vegetables</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥬</span><span class="flip-food-name">Spinach & kale</span><span class="flip-food-why">iron + folate powerhouses</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥕</span><span class="flip-food-name">Sweet potato</span><span class="flip-food-why">warming, B6, complex carbs</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🧄</span><span class="flip-food-name">Garlic & onion</span><span class="flip-food-why">anti-inflammatory sulfur compounds</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫚</span><span class="flip-food-name">Turmeric & ginger</span><span class="flip-food-why">block inflammatory pathways</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥕</span><span class="flip-food-name">Beetroot</span><span class="flip-food-why">mineral-dense, supports blood production</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
+  <div class="food-banner" onclick="goToPhaseRecipes('menstrual',event)">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🍽️</span>
+      <div>
+        <div class="food-banner-name">Recipes for this phase</div>
+        <div class="food-banner-desc">Warm Lentil Bowl · Ginger Salmon · Oat Bowl</div>
       </div>
     </div>
+    <span class="food-banner-arrow">›</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🌾</span>
-        <p class="flip-title">Grains & legumes</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🌾 Grains & legumes</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌾</span><span class="flip-food-name">Brown rice & oats</span><span class="flip-food-why">slow carbs stabilise blood sugar</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Lentils & chickpeas</span><span class="flip-food-why">plant iron + fiber combo</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌱</span><span class="flip-food-name">Buckwheat & millet</span><span class="flip-food-why">gluten-free, magnesium-rich</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🍓</span>
-        <p class="flip-title">Fruits</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍓 Fruits</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍊</span><span class="flip-food-name">Citrus</span><span class="flip-food-why">vitamin C triples iron absorption</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫐</span><span class="flip-food-name">Blueberries & cherries</span><span class="flip-food-why">antioxidants fight oxidative stress</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍌</span><span class="flip-food-name">Banana</span><span class="flip-food-why">B6 + potassium ease mood & bloating</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🍫</span>
-        <p class="flip-title">Sweets & drinks</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍫 Sweets & drinks</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍫</span><span class="flip-food-name">Dark chocolate 70%+</span><span class="flip-food-why">magnesium + mood lift, earned</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌰</span><span class="flip-food-name">Date & almond balls</span><span class="flip-food-why">iron, magnesium, natural sugar</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫚</span><span class="flip-food-name">Turmeric latte</span><span class="flip-food-why">curcumin reduces cramping compounds</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍵</span><span class="flip-food-name">Chamomile tea</span><span class="flip-food-why">antispasmodic, relaxes uterine tension</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🧺</span>
-        <p class="flip-title">Pantry staples</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🧺 Always have these</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫚</span><span class="flip-food-name">Fresh ginger</span><span class="flip-food-why">comparable to ibuprofen for cramps</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌰</span><span class="flip-food-name">Pumpkin seeds</span><span class="flip-food-why">8.8mg iron per 100g, zinc boost</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍫</span><span class="flip-food-name">Dark chocolate</span><span class="flip-food-why">228mg magnesium per 100g</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍊</span><span class="flip-food-name">Lemons</span><span class="flip-food-why">vitamin C — always pair with iron foods</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAE8EB,#FFF5F7);border:1px solid #F2C4CE;">
-        <span class="flip-bg-emoji">🍽️</span>
-        <p class="flip-title">Recipes</p>
-        <p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍽️ For this phase</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Warm Lentil & Spinach Bowl',event)">→ Warm Lentil & Spinach Bowl</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Ginger Salmon with Roasted Beets',event)">→ Ginger Salmon with Roasted Beets</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Warm Oat Bowl with Dates & Tahini',event)">→ Warm Oat Bowl with Dates & Tahini</p>
-        <button class="flip-phase-cta" onclick="goToPhaseRecipes('menstrual',event)">See more recipes for this phase →</button>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
 </div>
 
 <!-- SYMPTOM BRIDGE -->
@@ -1974,10 +2190,10 @@ with each phase, to ease your symptoms.
 <div class="avoid-block-wide">
    <p class="phase-block-title"><span>⚠️</span> Gently limit this week</p>
         <div class="avoid-list-wide">
-          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🍷</span><div><p class="avoid-tag-wide-name">Alcohol</p><p class="avoid-tag-wide-why">Depletes magnesium, worsens cramps and disrupts sleep — the trifecta of bad</p></div></div>
-          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">☕</span><div><p class="avoid-tag-wide-name">Excess caffeine</p><p class="avoid-tag-wide-why">Blocks iron absorption and constricts blood vessels — save it for later in the cycle</p></div></div>
-          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🍬</span><div><p class="avoid-tag-wide-name">Refined sugar</p><p class="avoid-tag-wide-why">Blood sugar crashes amplify mood swings and inflammation</p></div></div>
-          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🧂</span><div><p class="avoid-tag-wide-name">Salty processed foods</p><p class="avoid-tag-wide-why">Water retention and bloating — your body already has enough to deal with</p></div></div>
+          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🍷</span><div><p class="avoid-tag-wide-name">Alcohol</p><p class="avoid-tag-wide-why">Depletes magnesium, worsens cramps and disrupts sleep</p></div></div>
+          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">☕</span><div><p class="avoid-tag-wide-name">Excess caffeine</p><p class="avoid-tag-wide-why">Blocks iron absorption and constricts blood vessels — try to slow down</p></div></div>
+          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🍬</span><div><p class="avoid-tag-wide-name">Refined sugar</p><p class="avoid-tag-wide-why">Blood sugar up and downs amplify mood swings and inflammation</p></div></div>
+          <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🧂</span><div><p class="avoid-tag-wide-name">Salty processed foods</p><p class="avoid-tag-wide-why">Water retention and excess bloating</p></div></div>
         </div>
 </div>    
 
@@ -2039,130 +2255,69 @@ with each phase, to ease your symptoms.
           <div class="cond-row"><span class="cond-icon">🔴</span><div><p class="cond-name">Autoimmune conditions</p><p class="cond-tip">More stable phase. Focus on gut healing — fermented foods, kimchi, kefir if tolerated.</p></div></div>
           <div class="cond-row"><span class="cond-icon">🌸</span><div><p class="cond-name">PCOS</p><p class="cond-tip">Best phase to focus on liver support. Broccoli, cauliflower, flaxseeds daily.</p></div></div>
           <div class="cond-row"><span class="cond-icon">🌺</span><div><p class="cond-name">Endometriosis</p><p class="cond-tip">Support liver detox with cruciferous veg. DIM compound helps clear excess estrogen.</p></div></div>
-          <div class="cond-row"><span class="cond-icon">🦋</span><div><p class="cond-name">Thyroid conditions</p><p class="cond-tip">Cook cruciferous veg if Hashimoto's (raw can affect thyroid uptake). Green tea is excellent here.</p></div></div>
+          <div class="cond-row"><span class="cond-icon">🦋</span><div><p class="cond-name">Thyroid conditions</p><p class="cond-tip">Cook cruciferous veg if Hashimoto's (raw can affect thyroid uptake). Green or peppermint tea is excellent here.</p></div></div>
         </div>
       </div>
 
-<div id="follicular-foods-anchor"></div>
-<div class="flip-grid">
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🥚</span>
-        <p class="flip-title">Proteins</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥚 Proteins</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥚</span><span class="flip-food-name">Eggs</span><span class="flip-food-why">choline for liver, B12, complete protein</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🐟</span><span class="flip-food-name">Smoked salmon</span><span class="flip-food-why">omega-3 + folate for follicle health</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Edamame</span><span class="flip-food-why">plant protein + phytoestrogens</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍜</span><span class="flip-food-name">Tofu</span><span class="flip-food-why">supports estrogen metabolism gently</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+<p class="food-table-block-title"><span>🥗</span> What to eat during my follicular phase</p>
+      <p class="food-table-block-desc"> Have light and energizing meals, with an extra fiber intake for a good gut balance and improved digestion.</p>
+      
+ <div id="follicular-foods-anchor"></div>
+<div class="food-cards-grid">
+  <div class="food-card" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2)" onclick="openFoodPopup('follicular','proteins')">
+    <span class="food-card-icon">🥚</span>
+    <span class="food-card-name">Proteins</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🥦</span>
-        <p class="flip-title">Vegetables</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥦 Vegetables</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥦</span><span class="flip-food-name">Broccoli & artichoke</span><span class="flip-food-why">support liver estrogen clearance</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌱</span><span class="flip-food-name">Sprouts & microgreens</span><span class="flip-food-why">detox enzymes + folate</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🧅</span><span class="flip-food-name">Asparagus & leeks</span><span class="flip-food-why">prebiotic fiber feeds gut microbiome</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥕</span><span class="flip-food-name">Colourful raw veg</span><span class="flip-food-why">fiber for estrogen metabolism</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2)" onclick="openFoodPopup('follicular','vegetables')">
+    <span class="food-card-icon">🥦</span>
+    <span class="food-card-name">Vegetables</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🌾</span>
-        <p class="flip-title">Grains & legumes</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🌾 Grains & legumes</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌾</span><span class="flip-food-name">Quinoa & whole grains</span><span class="flip-food-why">sustained energy, no spikes</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Flaxseeds</span><span class="flip-food-why">lignans support healthy estrogen levels</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍞</span><span class="flip-food-name">Sprouted rye bread</span><span class="flip-food-why">higher folate, easier to digest</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2)" onclick="openFoodPopup('follicular','grains')">
+    <span class="food-card-icon">🌾</span>
+    <span class="food-card-name">Grains & legumes</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🍋</span>
-        <p class="flip-title">Fruits</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍋 Fruits</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫐</span><span class="flip-food-name">Berries & citrus</span><span class="flip-food-why">vitamin C boosts iron absorption</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍎</span><span class="flip-food-name">Apples & pears</span><span class="flip-food-why">pectin fiber binds excess estrogen</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥝</span><span class="flip-food-name">Kiwi</span><span class="flip-food-why">folate + vitamin C for follicle health</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2)" onclick="openFoodPopup('follicular','fruits')">
+    <span class="food-card-icon">🍋</span>
+    <span class="food-card-name">Fruits</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🍋</span>
-        <p class="flip-title">Sweets & drinks</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍋 Sweets & drinks</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍋</span><span class="flip-food-name">Lemon chia pudding</span><span class="flip-food-why">omega-3 + calcium, light & refreshing</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫐</span><span class="flip-food-name">Berry yogurt parfait</span><span class="flip-food-why">probiotics + antioxidants</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍵</span><span class="flip-food-name">Green tea & matcha</span><span class="flip-food-why">EGCG supports liver detox</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫙</span><span class="flip-food-name">Kombucha (unsweetened)</span><span class="flip-food-why">live cultures for gut-hormone axis</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2)" onclick="openFoodPopup('follicular','sweets')">
+    <span class="food-card-icon">🍫</span>
+    <span class="food-card-name">Sweets</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🧺</span>
-        <p class="flip-title">Pantry staples</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🧺 Always have these</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Flaxseeds</span><span class="flip-food-why">lignans naturally regulate estrogen</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫙</span><span class="flip-food-name">Kimchi or kefir</span><span class="flip-food-why">feeds the gut-hormone microbiome</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥦</span><span class="flip-food-name">Broccoli</span><span class="flip-food-why">DIM compound clears excess estrogen</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2)" onclick="openFoodPopup('follicular','drinks')">
+    <span class="food-card-icon">🍵</span>
+    <span class="food-card-name">Drinks</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#E8F0E5,#F5FAF2);border:1px solid #C8D9A5;">
-        <span class="flip-bg-emoji">🍽️</span>
-        <p class="flip-title">Recipes</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍽️ For this phase</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Spring Green Smoothie Bowl',event)">→ Spring Green Smoothie Bowl</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Quinoa Tabbouleh',event)">→ Quinoa Tabbouleh</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Lemon Chia Pudding',event)">→ Lemon Chia Pudding</p>
-        <button class="flip-phase-cta" onclick="goToPhaseRecipes('follicular',event)">See more recipes for this phase →</button>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
 </div>
+<div class="food-banners-row">
+  <div class="food-banner" onclick="openFoodPopup('follicular','pantry')">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🧺</span>
+      <div>
+        <div class="food-banner-name">Always have these — Pantry essentials</div>
+        <div class="food-banner-desc">Flaxseeds · Kimchi or kefir · Broccoli</div>
+      </div>
+    </div>
+    <span class="food-banner-arrow">›</span>
+  </div>
+  <div class="food-banner" onclick="goToPhaseRecipes('follicular',event)">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🍽️</span>
+      <div>
+        <div class="food-banner-name">Recipes for this phase</div>
+        <div class="food-banner-desc">Green Smoothie Bowl · Quinoa Tabbouleh · Chia Pudding</div>
+      </div>
+    </div>
+    <span class="food-banner-arrow">›</span>
+  </div>
+</div>     
+
 <div class="symptom-bridge">
   <div>
     <p class="symptom-bridge-text">Feeling a specific symptom this week?</p>
@@ -2240,126 +2395,7 @@ with each phase, to ease your symptoms.
         </div>
       </div>
 
-      <div id="ovulatory-foods-anchor"></div>
-<div class="flip-grid">
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🐟</span>
-        <p class="flip-title">Proteins</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🐟 Proteins</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🐟</span><span class="flip-food-name">Grilled salmon</span><span class="flip-food-why">omega-3 + selenium, peak-phase essential</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥚</span><span class="flip-food-name">Eggs</span><span class="flip-food-why">complete protein + choline for peak energy</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Chickpeas & edamame</span><span class="flip-food-why">plant protein + phytoestrogens</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌰</span><span class="flip-food-name">Walnuts & Brazil nuts</span><span class="flip-food-why">selenium + omega-3 for egg quality</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🥦</span>
-        <p class="flip-title">Vegetables</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥦 Vegetables</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥦</span><span class="flip-food-name">Cruciferous veg</span><span class="flip-food-why">support liver estrogen clearance at peak</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌿</span><span class="flip-food-name">Raw salads & herbs</span><span class="flip-food-why">enzymes highest in fresh, uncooked greens</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥒</span><span class="flip-food-name">Cucumber & courgette</span><span class="flip-food-why">cooling for peak body temperature rise</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌻</span><span class="flip-food-name">Sunflower seeds</span><span class="flip-food-why">selenium + zinc for hormone receptor health</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🌾</span>
-        <p class="flip-title">Grains & legumes</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🌾 Grains & legumes</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌾</span><span class="flip-food-name">Quinoa</span><span class="flip-food-why">complete protein + fiber, no bloating</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌱</span><span class="flip-food-name">Flaxseeds & hemp</span><span class="flip-food-why">lignans + omega-3 support ovulation</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍞</span><span class="flip-food-name">Sourdough or rye</span><span class="flip-food-why">fermented, easier on gut at peak phase</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🍓</span>
-        <p class="flip-title">Fruits</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍓 Fruits</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍓</span><span class="flip-food-name">Berries & pomegranate</span><span class="flip-food-why">protect egg from oxidative damage</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍒</span><span class="flip-food-name">Cherries & dark grapes</span><span class="flip-food-why">anthocyanins, anti-inflammatory</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍉</span><span class="flip-food-name">Watermelon & papaya</span><span class="flip-food-why">cooling, lycopene-rich for peak temperature</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🥭</span>
-        <p class="flip-title">Sweets & drinks</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥭 Sweets & drinks</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍓</span><span class="flip-food-name">Fresh berry bowl</span><span class="flip-food-why">antioxidants without inflammation</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥭</span><span class="flip-food-name">Mango lime sorbet</span><span class="flip-food-why">cooling, vitamin C-rich for peak phase</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍹</span><span class="flip-food-name">Watermelon mint cooler</span><span class="flip-food-why">lycopene + cooling, hydrating</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍵</span><span class="flip-food-name">Iced green tea</span><span class="flip-food-why">EGCG antioxidants, ideal hydration</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🧺</span>
-        <p class="flip-title">Pantry staples</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🧺 Always have these</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌰</span><span class="flip-food-name">Brazil nuts</span><span class="flip-food-why">2–3/day covers your selenium needs</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥑</span><span class="flip-food-name">Avocado</span><span class="flip-food-why">vitamin E + healthy fats for skin & hormones</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌻</span><span class="flip-food-name">Pumpkin seeds</span><span class="flip-food-why">zinc for hormone receptor health</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0);border:1px solid #F2D5A0;">
-        <span class="flip-bg-emoji">🍽️</span>
-        <p class="flip-title">Recipes</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍽️ For this phase</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Açaí Bowl with Seeds & Mango',event)">→ Açaí Bowl with Seeds & Mango</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Raw Berry Antioxidant Salad',event)">→ Raw Berry Antioxidant Salad</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Grilled Salmon & Broccoli Tahini',event)">→ Grilled Salmon & Broccoli Tahini</p>
-        <button class="flip-phase-cta" onclick="goToPhaseRecipes('ovulatory',event)">See more recipes for this phase →</button>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
-</div>
+      
 <div class="symptom-bridge">
   <div>
     <p class="symptom-bridge-text">Feeling a specific symptom this week?</p>
@@ -2368,6 +2404,64 @@ with each phase, to ease your symptoms.
   <button class="btn-rose" style="font-size:0.72rem;padding:0.6rem 1.2rem;" onclick="showPage('cheatsheet')">See symptom foods →</button>
 </div>
 
+      <p class="food-table-block-title"><span>🥗</span> What to eat during my ovulatory phase</p>
+      <p class="food-table-block-desc"> Focus on hydrating and anti-inflammatory foods. This is a good time to add an extra fiber in your meals to flush excess estrogen and support your liver detoxifying.</p>
+
+      <div id="ovulatory-foods-anchor"></div>
+<div class="food-cards-grid">
+  <div class="food-card" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0)" onclick="openFoodPopup('ovulatory','proteins')">
+    <span class="food-card-icon">🐟</span>
+    <span class="food-card-name">Proteins</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0)" onclick="openFoodPopup('ovulatory','vegetables')">
+    <span class="food-card-icon">🥦</span>
+    <span class="food-card-name">Vegetables</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0)" onclick="openFoodPopup('ovulatory','grains')">
+    <span class="food-card-icon">🌾</span>
+    <span class="food-card-name">Grains & legumes</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0)" onclick="openFoodPopup('ovulatory','fruits')">
+    <span class="food-card-icon">🍓</span>
+    <span class="food-card-name">Fruits</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0)" onclick="openFoodPopup('ovulatory','sweets')">
+    <span class="food-card-icon">🥭🍫</span>
+    <span class="food-card-name">Sweets</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#FAF0E0,#FFFAF0)" onclick="openFoodPopup('ovulatory','drinks')">
+    <span class="food-card-icon">🍵</span>
+    <span class="food-card-name">Drinks</span>
+    <span class="food-card-hint">tap to open</span>
+  </div>
+</div>
+<div class="food-banners-row">
+  <div class="food-banner" onclick="openFoodPopup('ovulatory','pantry')">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🧺</span>
+      <div>
+        <div class="food-banner-name">Always have these — Pantry essentials</div>
+        <div class="food-banner-desc">Brazil nuts · Avocado · Pumpkin seeds</div>
+      </div>
+    </div>
+    <span class="food-banner-arrow">›</span>
+  </div>
+  <div class="food-banner" onclick="goToPhaseRecipes('ovulatory',event)">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🍽️</span>
+      <div>
+        <div class="food-banner-name">Recipes for this phase</div>
+        <div class="food-banner-desc">Açaí Bowl · Berry Salad · Salmon & Broccoli</div>
+      </div>
+    </div>
+    <span class="food-banner-arrow">›</span>
+  </div>
+</div>
 
       <!-- GENTLY LIMIT — full width OVULATORY—  -->
       <div class="avoid-block-wide">
@@ -2437,127 +2531,65 @@ with each phase, to ease your symptoms.
         </div>
       </div>
 
-      <div id="luteal-foods-anchor"></div>
-<div class="flip-grid">
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🍗</span>
-        <p class="flip-title">Proteins</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍗 Proteins</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍗</span><span class="flip-food-name">Turkey</span><span class="flip-food-why">tryptophan converts to serotonin naturally</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🐟</span><span class="flip-food-name">Salmon 3×/week</span><span class="flip-food-why">omega-3 reduces late-luteal inflammation</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥚</span><span class="flip-food-name">Eggs</span><span class="flip-food-why">B12 + D3 full energy package</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫘</span><span class="flip-food-name">Chickpeas & lentils</span><span class="flip-food-why">tryptophan + B6, three PMS fighters</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+<p class="food-table-block-title"><span>🥗</span> What to eat during my luteal phase</p>
+      <p class="food-table-block-desc"> Warm and comfort foods rich in magnesium, vitamins B and complex carbs to support porgesterone and reduce PMS</p>
+      
+<div id="luteal-foods-anchor"></div>
+<div class="food-cards-grid">
+  <div class="food-card" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC)" onclick="openFoodPopup('luteal','proteins')">
+    <span class="food-card-icon">🍗</span>
+    <span class="food-card-name">Proteins</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🥦</span>
-        <p class="flip-title">Vegetables</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🥦 Vegetables</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍠</span><span class="flip-food-name">Sweet potato</span><span class="flip-food-why">B6 + magnesium, ultimate PMS superfood</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥦</span><span class="flip-food-name">Broccoli & leafy greens</span><span class="flip-food-why">calcium + B vitamins ease bloating</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥕</span><span class="flip-food-name">Carrots & beetroot</span><span class="flip-food-why">fiber clears excess estrogen</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🧄</span><span class="flip-food-name">Garlic & onion</span><span class="flip-food-why">prebiotic fiber for hormone balance</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC)" onclick="openFoodPopup('luteal','vegetables')">
+    <span class="food-card-icon">🥦</span>
+    <span class="food-card-name">Vegetables</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🌾</span>
-        <p class="flip-title">Grains & legumes</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🌾 Grains & legumes</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌾</span><span class="flip-food-name">Oats & brown rice</span><span class="flip-food-why">slow carbs sustain serotonin all day</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍞</span><span class="flip-food-name">Sourdough bread</span><span class="flip-food-why">fermented, gentler when digestion slows</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌱</span><span class="flip-food-name">Buckwheat & millet</span><span class="flip-food-why">magnesium-rich, ideal when bloating</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC)" onclick="openFoodPopup('luteal','grains')">
+    <span class="food-card-icon">🌾</span>
+    <span class="food-card-name">Grains & legumes</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🍌</span>
-        <p class="flip-title">Fruits</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍌 Fruits</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍌</span><span class="flip-food-name">Banana</span><span class="flip-food-why">B6 + tryptophan, direct serotonin builders</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍎</span><span class="flip-food-name">Apples & pears</span><span class="flip-food-why">pectin binds estrogen, satisfies cravings</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫐</span><span class="flip-food-name">Blueberries & figs</span><span class="flip-food-why">antioxidants reduce luteal inflammation</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC)" onclick="openFoodPopup('luteal','fruits')">
+    <span class="food-card-icon">🍌</span>
+    <span class="food-card-name">Fruits</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🍫</span>
-        <p class="flip-title">Sweets & drinks</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍫 Sweets & drinks</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍫</span><span class="flip-food-name">Dark chocolate 70%+</span><span class="flip-food-why">magnesium craving you should honour</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌰</span><span class="flip-food-name">Date & almond balls</span><span class="flip-food-why">iron + magnesium + natural sugar</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍵</span><span class="flip-food-name">Chamomile tea</span><span class="flip-food-why">reduces anxiety, improves sleep</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🫚</span><span class="flip-food-name">Golden milk latte</span><span class="flip-food-why">curcumin reduces PMS inflammation</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC)" onclick="openFoodPopup('luteal','sweets')">
+    <span class="food-card-icon">🍫</span>
+    <span class="food-card-name">Sweets</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🧺</span>
-        <p class="flip-title">Pantry staples</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🧺 Always have these</p>
-        <div class="flip-food-line"><span class="flip-food-emoji">🥜</span><span class="flip-food-name">Almonds & cashews</span><span class="flip-food-why">magnesium — the anti-PMS mineral</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍠</span><span class="flip-food-name">Sweet potatoes</span><span class="flip-food-why">richest food source of B6</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🍫</span><span class="flip-food-name">Dark chocolate</span><span class="flip-food-why">228mg magnesium per 100g</span></div>
-        <div class="flip-food-line"><span class="flip-food-emoji">🌰</span><span class="flip-food-name">Brazil nuts</span><span class="flip-food-why">selenium regulates androgen-sebum pathway</span></div>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
+  <div class="food-card" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC)" onclick="openFoodPopup('luteal','drinks')">
+    <span class="food-card-icon">🍵</span>
+    <span class="food-card-name">Drinks</span>
+    <span class="food-card-hint">tap to open</span>
   </div>
-
-  <div class="flip-scene" onclick="flipCard(this)">
-    <div class="flip-inner">
-      <div class="flip-front" style="background:linear-gradient(145deg,#EDE8F5,#F8F5FC);border:1px solid #C9B8D8;">
-        <span class="flip-bg-emoji">🍽️</span>
-        <p class="flip-title">Recipes</p><p class="flip-hint">tap to reveal →</p>
-      </div>
-      <div class="flip-back">
-        <p class="flip-back-title">🍽️ For this phase</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Warm Oat & Almond Butter Bowl',event)">→ Warm Oat & Almond Butter Bowl</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Sweet Potato & Chickpea Curry',event)">→ Sweet Potato & Chickpea Curry</p>
-        <p class="flip-recipe-link" onclick="openRecipeFromCard('Dark Chocolate Energy Balls',event)">→ Dark Chocolate Energy Balls</p>
-        <button class="flip-phase-cta" onclick="goToPhaseRecipes('luteal',event)">See more recipes for this phase →</button>
-        <p class="flip-back-hint">tap to flip back</p>
-      </div>
-    </div>
-  </div>
-
 </div>
+<div class="food-banners-row">
+  <div class="food-banner" onclick="openFoodPopup('luteal','pantry')">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🧺</span>
+      <div>
+        <div class="food-banner-name">Always have these — Pantry essentials</div>
+        <div class="food-banner-desc">Almonds · Sweet potatoes · Dark chocolate · Brazil nuts</div>
+      </div>
+    </div>
+    <span class="food-banner-arrow">›</span>
+  </div>
+  <div class="food-banner" onclick="goToPhaseRecipes('luteal',event)">
+    <div class="food-banner-left">
+      <span class="food-banner-icon">🍽️</span>
+      <div>
+        <div class="food-banner-name">Recipes for this phase</div>
+        <div class="food-banner-desc">Oat Bowl · Sweet Potato Curry · Energy Balls</div>
+      </div>
+    </div>
+    <span class="food-banner-arrow">›</span>
+  </div>
+</div>
+      
 <div class="symptom-bridge">
   <div>
     <p class="symptom-bridge-text">Feeling PMS, cravings or mood dips?</p>
@@ -2574,25 +2606,10 @@ with each phase, to ease your symptoms.
           <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🍷</span><div><p class="avoid-tag-wide-name">Alcohol</p><p class="avoid-tag-wide-why">Disrupts sleep and deepens mood dips. It feels like it helps. It doesn't.</p></div></div>
           <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🍬</span><div><p class="avoid-tag-wide-name">Refined sugar</p><p class="avoid-tag-wide-why">Blood sugar crashes make PMS dramatically worse — this is the week it matters most</p></div></div>
           <div class="avoid-tag-wide"><span class="avoid-tag-wide-icon">🧂</span><div><p class="avoid-tag-wide-name">Salty snacks</p><p class="avoid-tag-wide-why">Amplify water retention — progesterone already causes fluid shifts</p></div></div>
-        </div>
-      </div>
-      
-    </div><!-- /panel-luteal -->
- <!-- /phase-panels -->
-
-  <footer>
-    <div class="lunea-logo footer-lunea" onclick="showPage('home')"><svg width="26" height="26" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="15" fill="#F2C4CE" opacity="0.2"/><path d="M17 4 C10 4 5 10 5 17 C5 24 10 30 17 30 C13 27 11 22 11 17 C11 12 13 7 17 4Z" fill="#E8A5B0" opacity="0.6"/></svg><div class="lunea-logo-wordmark"><span class="lunea-logo-name">Lun<span class="accent">é</span>a</span><span class="lunea-logo-sub">Food for Your <em>Phase</em></span></div></div>
-    <ul class="footer-links">
-      <li><a onclick="showPage('home')">Home</a></li>
-      <li><a onclick="showPage('mycycle')">My Cycle</a></li>
-      <li><a onclick="showPage('cheatsheet')">Nutrition Guide</a></li>
-      <li><a onclick="showPage('recipes')">Recipes</a></li>
-      <li><a onclick="showPage('faq')">FAQ</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 Lunéa</p>
-  </footer>
-</div><!-- /mycycle -->
-
+          
+        </div><!-- /panel-luteal -->
+      </div><!-- /phase-panels -->
+  </div><!-- /page My Cycle -->
 
 <!-- ══════════ CHEAT SHEET PAGE ══════════ -->
 <div id="page-cheatsheet" class="page">
@@ -2609,17 +2626,85 @@ with each phase, to ease your symptoms.
       <h2 class="symptom-cheat-title">Eat to <em>prevent & relieve</em> your symptoms</h2>
       <p class="symptom-cheat-sub">For each symptom, here's what to eat in the days before it hits. And what to reach for when it's already there. Food-first, always.</p>
     </div>
-    <div class="scs-tabs">
-      <button class="scs-tab active" data-key="cramps" onclick="switchScs('cramps',this)">🌡️ Cramps</button>
-      <button class="scs-tab" data-key="pms" onclick="switchScs('pms',this)">😔 PMS</button>
-      <button class="scs-tab" data-key="bloating" onclick="switchScs('bloating',this)">💧 Bloating</button>
-      <button class="scs-tab" data-key="fatigue" onclick="switchScs('fatigue',this)">😴 Fatigue</button>
-      <button class="scs-tab" data-key="acne" onclick="switchScs('acne',this)">✨ Acne</button>
-      <button class="scs-tab" data-key="mood" onclick="switchScs('mood',this)">🧠 Mood swings</button>
-      <button class="scs-tab" data-key="sleep" onclick="switchScs('sleep',this)">🌙 Sleep</button>
-    </div>
+  <div class="scs-cards-row" id="scsCardsRow">
+  <div class="scs-sym-card active" data-key="cramps" onclick="switchScsCard('cramps',this)">
+    <span class="scs-sym-icon">🌡️</span>
+    <span class="scs-sym-name">Cramps</span>
+  </div>
+  <div class="scs-sym-card" data-key="pms" onclick="switchScsCard('pms',this)">
+    <span class="scs-sym-icon">😔</span>
+    <span class="scs-sym-name">PMS</span>
+  </div>
+  <div class="scs-sym-card" data-key="bloating" onclick="switchScsCard('bloating',this)">
+    <span class="scs-sym-icon">💧</span>
+    <span class="scs-sym-name">Bloating</span>
+  </div>
+  <div class="scs-sym-card" data-key="fatigue" onclick="switchScsCard('fatigue',this)">
+    <span class="scs-sym-icon">😴</span>
+    <span class="scs-sym-name">Fatigue</span>
+  </div>
+  <div class="scs-sym-card" data-key="acne" onclick="switchScsCard('acne',this)">
+    <span class="scs-sym-icon">✨</span>
+    <span class="scs-sym-name">Acne</span>
+  </div>
+  <div class="scs-sym-card" data-key="mood" onclick="switchScsCard('mood',this)">
+    <span class="scs-sym-icon">🧠</span>
+    <span class="scs-sym-name">Mood swings</span>
+  </div>
+  <div class="scs-sym-card" data-key="sleep" onclick="switchScsCard('sleep',this)">
+    <span class="scs-sym-icon">🌙</span>
+    <span class="scs-sym-name">Sleep</span>
+  </div>
+  <div class="scs-sym-card" data-key="headache" onclick="switchScsCard('headache',this)">
+    <span class="scs-sym-icon">🤕</span>
+    <span class="scs-sym-name">Headaches</span>
+  </div>
+</div>
 
     <div class="scs-panel active" id="scs-cramps">
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-cramps">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-cramps',0)">
+    <div class="scs-flip-inner" id="scs-flip-cramps-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal phase</p><p class="scs-col-title">Prevent it — eat this <em>before</em> your period</p></div></div>
+        <div class="scs-col-why">Cramps are caused by prostaglandins — inflammatory compounds. Build up the right nutrients in week 4 and you'll feel the difference next month.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-cramps-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🐟</span><div class="scs-food-text"><p class="scs-food-name">Salmon & sardines 3×/week</p><p class="scs-food-why">EPA/DHA omega-3 directly blocks prostaglandin synthesis</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds & pumpkin seeds daily</p><p class="scs-food-why">Magnesium pre-loads the uterine muscle</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍫</span><div class="scs-food-text"><p class="scs-food-name">Dark chocolate (70%+)</p><p class="scs-food-why">One of the richest dietary magnesium sources</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol, refined sugar, trans fats</p><p class="scs-food-why">All three increase prostaglandin production</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-cramps',1)">
+    <div class="scs-flip-inner" id="scs-flip-cramps-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">Days 1–5 · Menstrual phase</p><p class="scs-col-title">Relieve it — eat this <em>when it hits</em></p></div></div>
+        <div class="scs-col-why">When cramps are already there: heat + magnesium + ginger. Studies show ginger is comparable to ibuprofen for period pain.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-cramps-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+        <div class="scs-foods">
+          
+           <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger tea (3 cups/day)</p><p class="scs-food-why">Clinical studies show it's comparable to ibuprofen</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea</p><p class="scs-food-why">Glycine directly relaxes uterine muscle spasms</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🍲</span><div class="scs-food-text"><p class="scs-food-name">Warm soups & bone broth</p><p class="scs-food-why">The warmth alone relaxes smooth muscle — glycine adds anti-spasmodic effect</p></div></div>
+          
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee, cold foods & dairy</p><p class="scs-food-why">Coffee constricts blood vessels, cold food worsens cramping</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="scs-when-grid">
         <div class="scs-col scs-before">
           <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal phase</p><p class="scs-col-title">Prevent it — eat this <em>before</em> your period</p></div></div>
@@ -2637,6 +2722,8 @@ with each phase, to ease your symptoms.
           <div class="scs-foods">
             <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger tea (3 cups/day)</p><p class="scs-food-why">Clinical studies show it's comparable to ibuprofen — steep 1cm fresh ginger for 10 min</p></div></div>
             <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea</p><p class="scs-food-why">Glycine directly relaxes uterine muscle spasms</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger tea (3 cups/day)</p><p class="scs-food-why">Clinical studies show it's comparable to ibuprofen</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea</p><p class="scs-food-why">Glycine directly relaxes uterine muscle spasms</p></div></div>
             <div class="scs-food"><span class="scs-food-emoji">🍲</span><div class="scs-food-text"><p class="scs-food-name">Warm soups & bone broth</p><p class="scs-food-why">The warmth alone relaxes smooth muscle — glycine adds anti-spasmodic effect</p></div></div>
             <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee, cold foods & dairy</p><p class="scs-food-why">Coffee constricts blood vessels. Cold food slows digestion and worsens cramping</p></div></div>
           </div>
@@ -2645,6 +2732,47 @@ with each phase, to ease your symptoms.
     </div>
 
     <div class="scs-panel" id="scs-pms">
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-pms">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-pms',0)">
+    <div class="scs-flip-inner" id="scs-flip-pms-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal phase</p><p class="scs-col-title">Prevent it — eat this <em>before</em> your period</p></div></div>
+        <div class="scs-col-why">PMS is driven by falling estrogen and progesterone combined with serotonin instability. The right nutrients in early luteal prevent most of it from developing.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-pms-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">Prevent it - eat this <em>before </em>PMS builds</p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🍠</span><div class="scs-food-text"><p class="scs-food-name">Sweet potato</p><p class="scs-food-why">ERichest food source of B6 — clinically proven to reduce PMS severity by up to 69%</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🌾</span><div class="scs-food-text"><p class="scs-food-name">Oats in the morning</p><p class="scs-food-why">Stable blood sugar = stable serotonin. Skipping breakfast in week 4 is a direct PMS trigger</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Magnesium-rich snacks daily</p><p class="scs-food-why">Low magnesium is the most common nutritional driver of PMS — most women are deficient</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: caffeine, alcohol, refined sugar</p><p class="scs-food-why">All three deplete magnesium and destabilise blood sugar simultaneously</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-pms',1)">
+    <div class="scs-flip-inner" id="scs-flip-pms-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">Days 1–5 · Menstrual phase</p><p class="scs-col-title">Relieve it — eat this <em>when PMS peaks</em></p></div></div>
+        <div class="scs-col-why">When PMS is already in full swing: serotonin-supporting, magnesium-dense foods. Your body genuinely needs more calories in this phase - feeding yourself well is not indulging, it's medicine.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-pms-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">Relieve it - eat this  <em>when PMS peaks</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🍫</span><div class="scs-food-text"><p class="scs-food-name">Dark chocolate + almonds</p><p class="scs-food-why">Magnesium + serotonin precursors — eat this, not a processed snack</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana with nut butter</p><p class="scs-food-why">B6 + tryptophan + healthy fats — directly raises serotonin</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile or saffron tea</p><p class="scs-food-why">Saffron has clinical evidence for PMS mood support at 30mg/day</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: salty snacks & processed dairy</p><p class="scs-food-why">Salt worsens bloating. Dairy increases prostaglandins at the worst possible time</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="scs-when-grid">
         <div class="scs-col scs-before">
           <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–24 · Early luteal</p><p class="scs-col-title">Prevent it — eat this <em>before</em> PMS builds</p></div></div>
@@ -2670,21 +2798,129 @@ with each phase, to ease your symptoms.
     </div>
 
     <div class="scs-panel" id="scs-bloating">
-      <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Ongoing prevention</p><p class="scs-col-title">Prevent it — eat this <em>before bloating starts</em></p></div></div><div class="scs-col-why">Hormonal bloating is caused by progesterone slowing digestion combined with fluid retention. A healthy gut microbiome dramatically reduces how much you bloat all month.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Yogurt & Fermented foods at hands</p><p class="scs-food-why">Kimchi, sauerkraut, kefir — a diverse gut processes gas-producing foods far more efficiently</p></div></div><div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">Lean protein such as chicken, fish and legumes</p><p class="scs-food-why">Provide essential nutrients to help the gut works its best</p></div></div>
-          <div class="scs-food"><span class="scs-food-emoji"></span><div class="scs-food-text"><p class="scs-food-name">2+ litres of water daily</p><p class="scs-food-why">Counterintuitively, more water reduces water retention — dehydration makes it worse</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: excess salt, carbonated drinks</p><p class="scs-food-why">Salt retains fluid. Fizzy drinks introduce gas directly</p></div></div></div></div>
-        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When it happens</p><p class="scs-col-title">Relieve it — eat this <em>when you're bloated</em></p></div></div><div class="scs-col-why">When bloating is already there: speed up digestion, release trapped gas, reduce fluid retention. Skip raw veg today — choose cooked, easily digestible options.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Peppermint tea immediately</p><p class="scs-food-why">Menthol relaxes gut smooth muscle — fastest natural remedy for trapped gas</p></div></div><div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger with warm water</p><p class="scs-food-why">Speeds gastric emptying — reduces distension within 20–30 minutes</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: beans, cruciferous veg, dairy today</p><p class="scs-food-why">Even healthy foods can be high gas producers — switch to courgette, carrot, sweet potato</p></div></div></div></div>
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-bloating">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-bloating',0)">
+    <div class="scs-flip-inner" id="scs-flip-bloating-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Ongoing prevention</p><p class="scs-col-title">Prevent it — eat this <em>before bloating starts</em></p></div></div>
+        <div class="scs-col-why">Hormonal bloating is caused by progesterone slowing digestion combined with fluid retention. A healthy gut microbiome dramatically reduces how much you bloat all month.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-bloating-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Yogurt & Fermented foods at hands</p><p class="scs-food-why">Kimchi, sauerkraut, kefir — a diverse gut processes gas-producing foods far more efficiently</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍗</span><div class="scs-food-text"><p class="scs-food-name">Lean protein such as chicken, fish and legumes</p><p class="scs-food-why">Provide essential nutrients to help the gut works its best</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">2+ litres of water daily</p><p class="scs-food-why">Counterintuitively, more water reduces water retention — dehydration makes it worse</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: excess salt, carbonated drinks</p><p class="scs-food-why">Salt retains fluid. Fizzy drinks introduce gas directly</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-bloating',1)">
+    <div class="scs-flip-inner" id="scs-flip-bloating-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When it happens</p><p class="scs-col-title">Relieve it — eat this <em>when you're bloated</em></p></div></div>
+        <div class="scs-col-why">When bloating is already there: speed up digestion, release trapped gas, reduce fluid retention. Skip raw veg today — choose cooked, easily digestible options.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-bloating-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+        <div class="scs-foods">
+          
+          <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger tea in warm water (3 cups/day)</p><p class="scs-food-why">Speeds gastric emptying & reduces distension within 20–30 minutes</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Peppermint tea</p><p class="scs-food-why">Peppermint tea relieves bloating within 20–30 minutes</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">2+ litres of water daily</p><p class="scs-food-why">Counterintuitively, more water reduces water retention — dehydration makes it worse</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: beans, cruciferous veg, dairy today</p><p class="scs-food-why">Even healthy foods can be high gas producers — switch to courgette, carrot, sweet potato</p></div></div></div></div>
+        </div>
       </div>
     </div>
 
     <div class="scs-panel" id="scs-fatigue">
-      <div class="scs-when-grid">
-        <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Prevention</p><p class="scs-col-title">Prevent it — build your energy <em>reserves first</em></p></div></div><div class="scs-col-why">Cycle fatigue is mostly caused by iron loss during menstruation and magnesium depletion in luteal. Keeping both topped up consistently is far more effective than dealing with the crash.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥬</span><div class="scs-food-text"><p class="scs-food-name">Spinach & lentils with citrus</p><p class="scs-food-why">Always pair iron with vitamin C — citrus triples absorption</p></div></div><div class="scs-food"><span class="scs-food-emoji">🥚</span><div class="scs-food-text"><p class="scs-food-name">Eggs for breakfast</p><p class="scs-food-why">Complete protein + B12 + D3 — the most energy-dense single food for cycle fatigue</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee near iron foods & refined carbs</p><p class="scs-food-why">Coffee blocks iron absorption for up to 1 hour after eating</p></div></div></div></div>
-        <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When exhaustion hits</p><p class="scs-col-title">Relieve it — eat this <em>when you're drained</em></p></div></div><div class="scs-col-why">When fatigue is already there: steady energy, no spikes, no crashes. Avoid stimulants. Choose whole foods with protein, slow carbs and iron.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha over coffee</p><p class="scs-food-why">4–6 hours of calm, focused energy without the iron-blocking & the afternoon crash</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana with almond butter</p><p class="scs-food-why">Fast natural sugar + protein/fat — noticeable energy lift within 15 minutes</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: energy drinks, white bread, sugary snacks</p><p class="scs-food-why">They spike then crash — the cycle of fatigue gets worse, not better</p></div></div></div></div>
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-fatigue">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-fatigue',0)">
+    <div class="scs-flip-inner" id="scs-flip-fatigue-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Prevention</p><p class="scs-col-title">Prevent it — build your energy  <em>reserves first</em></p></div></div>
+        <div class="scs-col-why">Cycle fatigue is mostly caused by iron loss during menstruation and magnesium depletion in luteal. Keeping both topped up consistently is far more effective than dealing with the crash.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-fatigue-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🥬</span><div class="scs-food-text"><p class="scs-food-name">Spinach & lentils with citrus</p><p class="scs-food-why">Always pair iron with vitamin C — citrus triples absorption</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🥚</span><div class="scs-food-text"><p class="scs-food-name">Eggs for breakfast</p><p class="scs-food-why">Complete protein + B12 + D3 — the most energy-dense single food for cycle fatigue</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🫘</span><div class="scs-food-text"><p class="scs-food-name">Lentils & chickpeas</p><p class="scs-food-why">Plant iron = fiber combo</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee near iron foods & refined carbs</p><p class="scs-food-why">Coffee blocks iron absorption for up to 1 hour after eating</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-fatigue',1)">
+    <div class="scs-flip-inner" id="scs-flip-fatigue-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When exhaustion hots</p><p class="scs-col-title">Relieve it — eat this <em>when you're drained</em></p></div></div>
+        <div class="scs-col-why">When fatigue is already there: steady energy, no spikes, no crashes. Avoid stimulants. Choose whole foods with protein, slow carbs and iron.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-fatigue-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha over coffee</p><p class="scs-food-why">4–6 hours of calm, focused energy without the iron-blocking & the afternoon crash</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana with almond butter</p><p class="scs-food-why">Fast natural sugar + protein/fat — noticeable energy lift within 15 minutes</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">?</span><div class="scs-food-text"><p class="scs-food-name">?</p><p class="scs-food-why">?</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">
+Avoid: energy drinks, white bread, sugary snacks</p><p class="scs-food-why">They spike then crash — the cycle of fatigue gets worse, not better</p></div></div></div></div>
       </div>
     </div>
 
     <div class="scs-panel" id="scs-acne">
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-acne">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-acne',0)">
+    <div class="scs-flip-inner" id="scs-flip-acne-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal phase</p><p class="scs-col-title">Prevent it — eat this <em>before breakouts appear</em></p></div></div>
+        <div class="scs-col-why">Hormonal acne is triggered by androgens rising in luteal phase. A low-glycaemic, zinc-rich, anti-inflammatory diet reduces breakouts significantly over 4–6 consistent weeks.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-acne-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🌰</span><div class="scs-food-text"><p class="scs-food-name">Brazil nuts & pumpkin seeds</p><p class="scs-food-why">Selenium + zinc — directly linked to sebum regulation and skin cell turnover</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🥦</span><div class="scs-food-text"><p class="scs-food-name">Cruciferous vegetables</p><p class="scs-food-why">DIM (natural compound formed from the digestion) supports liver clearance and acts as an antioxidant</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">?</span><div class="scs-food-text"><p class="scs-food-name">?</p><p class="scs-food-why">?</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: dairy, high-sugar foods, seed oils</p><p class="scs-food-why">Dairy raises IGF-1. Sugar spikes insulin — the direct driver of hormonal acne</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-acne',1)">
+    <div class="scs-flip-inner" id="scs-flip-acne-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When breakouts are active</p><p class="scs-col-title">Calm it — eat this <em>during a flare</em></p></div></div>
+        <div class="scs-col-why">When skin is already breaking out: reduce systemic inflammation and support the liver's ability to clear hormones. Nothing that spikes blood sugar.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-acne-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🐟</span><div class="scs-food-text"><p class="scs-food-name">Salmon & sardines</p><p class="scs-food-why">EPA reduces the specific compound that drives acne lesion formation</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">3 litres of water daily</p><p class="scs-food-why">Flushes excess hormones via the kidneys — direct impact on skin load</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">?</span><div class="scs-food-text"><p class="scs-food-name">?</p><p class="scs-food-why">?</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee, cold foods & dairy</p><p class="scs-food-why">Coffee constricts blood vessels, cold food worsens cramping</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="scs-when-grid">
         <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–28 · Luteal</p><p class="scs-col-title">Prevent it — eat this <em>before breakouts appear</em></p></div></div><div class="scs-col-why">Hormonal acne is triggered by androgens rising in luteal phase. A low-glycaemic, zinc-rich, anti-inflammatory diet reduces breakouts significantly over 4–6 consistent weeks.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🌰</span><div class="scs-food-text"><p class="scs-food-name">Brazil nuts & pumpkin seeds</p><p class="scs-food-why">Selenium + zinc — directly linked to sebum regulation and skin cell turnover</p></div></div><div class="scs-food"><span class="scs-food-emoji">🥦</span><div class="scs-food-text"><p class="scs-food-name">Cruciferous vegetables</p><p class="scs-food-why">DIM (natural compound formed from the digestion) supports liver clearance and acts as an antioxidant</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: dairy, high-sugar foods, seed oils</p><p class="scs-food-why">Dairy raises IGF-1. Sugar spikes insulin — the direct driver of hormonal acne</p></div></div></div></div>
         <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When breakouts are active</p><p class="scs-col-title">Calm it — eat this <em>during a flare</em></p></div></div><div class="scs-col-why">When skin is already breaking out: reduce systemic inflammation and support the liver's ability to clear hormones. Nothing that spikes blood sugar.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🐟</span><div class="scs-food-text"><p class="scs-food-name">Salmon & sardines</p><p class="scs-food-why">EPA reduces the specific compound that drives acne lesion formation</p></div></div><div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">3 litres of water daily</p><p class="scs-food-why">Flushes excess hormones via the kidneys — direct impact on skin load</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol, dairy, processed foods</p><p class="scs-food-why">Alcohol stresses the liver which can't then clear androgens</p></div></div></div></div>
@@ -2692,6 +2928,47 @@ with each phase, to ease your symptoms.
     </div>
 
     <div class="scs-panel" id="scs-mood">
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-mood">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-mood',0)">
+    <div class="scs-flip-inner" id="scs-flip-mood-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–26 · Build stability early</p><p class="scs-col-title">Prevent it — build <em>serotonin reserves</em></p></div></div>
+        <div class="scs-col-why">Mood swings are caused by falling estrogen reducing serotonin, combined with blood sugar instability. A consistent diet that keeps blood sugar flat prevents most of the volatility.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-mood-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Fermented foods daily</p><p class="scs-food-why">90% of serotonin is made in the gut — a healthy microbiome is your best mood stabiliser</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🌾</span><div class="scs-food-text"><p class="scs-food-name">Complex Carbs</p><p class="scs-food-why">Whole-grain pasta and brown rice to provide steady energy and prevent the sudden crashes</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana daily in luteal phase</p><p class="scs-food-why">B6 + tryptophan — direct serotonin precursors. Takes 3–5 days of consistent intake to feel</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: alcohol, ultra-processed food, skipping meals</p><p class="scs-food-why">All three crash blood sugar and disrupt the gut-brain axis simultaneously</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-mood',1)">
+    <div class="scs-flip-inner" id="scs-flip-mood-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">Days 1–5 · Menstrual phase</p><p class="scs-col-title">Relieve it — eat this <em>when it hits</em></p></div></div>
+        <div class="scs-col-why">When cramps are already there: heat + magnesium + ginger. Studies show ginger is comparable to ibuprofen for period pain.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-mood-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Fresh ginger tea (3 cups/day)</p><p class="scs-food-why">Clinical studies show it's comparable to ibuprofen</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea</p><p class="scs-food-why">Glycine directly relaxes uterine muscle spasms</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍲</span><div class="scs-food-text"><p class="scs-food-name">Warm soups & bone broth</p><p class="scs-food-why">Warmth relaxes smooth muscle, glycine adds anti-spasmodic effect</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: coffee, cold foods & dairy</p><p class="scs-food-why">Coffee constricts blood vessels, cold food worsens eee</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="scs-when-grid">
         <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 17–26 · Build stability early</p><p class="scs-col-title">Prevent it — build <em>serotonin reserves</em></p></div></div><div class="scs-col-why">Mood swings are caused by falling estrogen reducing serotonin, combined with blood sugar instability. A consistent diet that keeps blood sugar flat prevents most of the volatility.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🫙</span><div class="scs-food-text"><p class="scs-food-name">Fermented foods daily</p><p class="scs-food-why">90% of serotonin is made in the gut — a healthy microbiome is your best mood stabiliser</p></div></div>
           
@@ -2707,11 +2984,120 @@ with each phase, to ease your symptoms.
     </div>
 
     <div class="scs-panel" id="scs-sleep">
+      <!-- DESKTOP FLIP CARDS -->
+<div class="scs-flip-grid" id="flip-sleep">
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-sleep',0)">
+    <div class="scs-flip-inner" id="scs-flip-sleep-0">
+      <div class="scs-flip-front scs-before">
+        <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 20–28 · Luteal prevention</p><p class="scs-col-title">Prevent it — eat this for <em>better sleep all week</em></p></div></div>
+        <div class="scs-col-why">Progesterone rising and falling disrupts deep sleep in luteal. Magnesium and tryptophan eaten consistently during this phase dramatically improve sleep quality.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-sleep-0')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds or Pistachios as evening snack</p><p class="scs-food-why">Provide both melatonin and magnesium, activating the parasympathetic nervous system — 1 handful before bed measurably improves sleep onset</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea 30 min before bed</p><p class="scs-food-why">Apigenin binds GABA receptors — creates mild sedative effect</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">???</span><div class="scs-food-text"><p class="scs-food-name">???</p><p class="scs-food-why">???</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: caffeine after 2pm, alcohol at night</p><p class="scs-food-why">Caffeine has a 6-hour half-life. Alcohol disrupts REM sleep even when it feels sedating</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-sleep',1)">
+    <div class="scs-flip-inner" id="scs-flip-sleep-1">
+      <div class="scs-flip-front scs-during">
+        <div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When sleep is broken</p><p class="scs-col-title">Improve it — eat this <em>after a poor sleep</em></p></div></div>
+        <div class="scs-col-why">After a bad night: prevent the blood sugar and cortisol crash. Eat slow, grounding foods. Try to avoid powering through with caffeine to go back to a normal sleeping pattern.</div>
+        <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+      </div>
+      <div class="scs-flip-back">
+        <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-sleep-1')">✕</button></div>
+        <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+        <div class="scs-foods">
+          <div class="scs-food"><span class="scs-food-emoji">🥣</span><div class="scs-food-text"><p class="scs-food-name">Warm oats with banana for breakfast</p><p class="scs-food-why">Slow carbs + tryptophan stabilise the cortisol spike that follows poor sleep</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha instead of coffee</p><p class="scs-food-why">L-theanine smooths caffeine without the cortisol spike that follows a bad night</p></div></div>
+          <div class="scs-food"><span class="scs-food-emoji">?</span><div class="scs-food-text"><p class="scs-food-name">?</p><p class="scs-food-why">?</p></div></div>
+          <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: more than one coffee, napping after 3pm</p><p class="scs-food-why">Multiple coffees worsen the next night. Late naps reset sleep pressure entirely</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="scs-when-grid">
         <div class="scs-col scs-before"><div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 20–28 · Luteal prevention</p><p class="scs-col-title">Prevent it — eat this for <em>better sleep all week</em></p></div></div><div class="scs-col-why">Progesterone rising and falling disrupts deep sleep in luteal. Magnesium and tryptophan eaten consistently during this phase dramatically improve sleep quality.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds or Pistachios as evening snack</p><p class="scs-food-why">Provide both melatonin and magnesium, activating the parasympathetic nervous system — 1 handful before bed measurably improves sleep onset</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Chamomile tea 30 min before bed</p><p class="scs-food-why">Apigenin binds GABA receptors — creates mild sedative effect</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: caffeine after 2pm, alcohol at night</p><p class="scs-food-why">Caffeine has a 6-hour half-life. Alcohol disrupts REM sleep even when it feels sedating</p></div></div></div></div>
         <div class="scs-col scs-during"><div class="scs-col-header"><span class="scs-col-icon">🩸</span><div><p class="scs-col-label">When sleep is broken</p><p class="scs-col-title">Improve it — eat this <em>the day of poor sleep</em></p></div></div><div class="scs-col-why">After a bad night: prevent the blood sugar and cortisol crash. Eat slow, grounding foods. Try to avoid powering through with caffeine to go back to a normal sleeping pattern.</div><div class="scs-foods"><div class="scs-food"><span class="scs-food-emoji">🥣</span><div class="scs-food-text"><p class="scs-food-name">Warm oats with banana for breakfast</p><p class="scs-food-why">Slow carbs + tryptophan stabilise the cortisol spike that follows poor sleep</p></div></div><div class="scs-food"><span class="scs-food-emoji">🍵</span><div class="scs-food-text"><p class="scs-food-name">Matcha instead of coffee</p><p class="scs-food-why">L-theanine smooths caffeine without the cortisol spike that follows a bad night</p></div></div><div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: more than one coffee, napping after 3pm</p><p class="scs-food-why">Multiple coffees worsen the next night. Late naps reset sleep pressure entirely</p></div></div></div></div>
       </div>
     </div>
+
+    <div class="scs-panel" id="scs-headache">
+  <!-- DESKTOP FLIP CARDS -->
+  <div class="scs-flip-grid" id="flip-headache">
+    <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-headache',0)">
+      <div class="scs-flip-inner" id="scs-flip-headache-0">
+        <div class="scs-flip-front scs-before">
+          <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 20–28 · Late luteal</p><p class="scs-col-title">Prevent it — eat this <em>before headaches start</em></p></div></div>
+          <div class="scs-col-why">Hormonal headaches are triggered by falling estrogen and dehydration. Magnesium deficiency is one of the most consistent predictors — supplementing through food in late luteal dramatically reduces frequency.</div>
+          <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+        </div>
+        <div class="scs-flip-back">
+          <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-headache-0')">✕</button></div>
+          <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>before</em></p>
+          <div class="scs-foods">
+            <div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds & pumpkin seeds daily</p><p class="scs-food-why">Magnesium deficiency is the #1 nutritional trigger for hormonal headaches</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">2+ litres water every day</p><p class="scs-food-why">Progesterone causes fluid shifts — dehydration intensifies them dramatically</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🍫</span><div class="scs-food-text"><p class="scs-food-name">Dark chocolate 70%+</p><p class="scs-food-why">Magnesium + riboflavin (B2) — both clinically linked to headache prevention</p></div></div>
+            <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: red wine, aged cheese, processed meats</p><p class="scs-food-why">All contain tyramine — a vasodilator that directly triggers hormonal headaches</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scs-flip-wrap" onclick="toggleScsFlip('flip-headache',1)">
+      <div class="scs-flip-inner" id="scs-flip-headache-1">
+        <div class="scs-flip-front scs-during">
+          <div class="scs-col-header"><span class="scs-col-icon">🤕</span><div><p class="scs-col-label">When a headache hits</p><p class="scs-col-title">Relieve it — eat & drink this <em>immediately</em></p></div></div>
+          <div class="scs-col-why">When a hormonal headache is already present: hydration first, then magnesium, then gentle anti-inflammatories. Caffeine can help short-term but rebounds if overused — use strategically.</div>
+          <span class="scs-flip-tap-hint">↩ tap to see what to eat</span>
+        </div>
+        <div class="scs-flip-back">
+          <div class="scs-flip-back-close"><button onclick="resetScsFlip(event,'scs-flip-headache-1')">✕</button></div>
+          <p class="scs-col-title" style="margin-bottom:1rem">What to eat <em>when it hits</em></p>
+          <div class="scs-foods">
+            <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">500ml water with a pinch of salt</p><p class="scs-food-why">Electrolyte rebalancing — faster relief than plain water alone</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Ginger tea</p><p class="scs-food-why">Anti-inflammatory and anti-nausea — works on both headache and migraine nausea</p></div></div>
+            <div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana</p><p class="scs-food-why">Potassium + B6 — counters the electrolyte drop that often accompanies hormonal headaches</p></div></div>
+            <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: skipping meals, excess caffeine</p><p class="scs-food-why">Blood sugar drops worsen pain intensity. More than one coffee rebounds into a worse headache</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MOBILE STACKED (existing layout) -->
+  <div class="scs-when-grid">
+    <div class="scs-col scs-before">
+      <div class="scs-col-header"><span class="scs-col-icon">📅</span><div><p class="scs-col-label">Days 20–28 · Late luteal</p><p class="scs-col-title">Prevent it — eat this <em>before headaches start</em></p></div></div>
+      <div class="scs-col-why">Hormonal headaches are triggered by falling estrogen and dehydration. Magnesium deficiency is one of the most consistent predictors — supplementing through food in late luteal dramatically reduces frequency.</div>
+      <div class="scs-foods">
+        <div class="scs-food"><span class="scs-food-emoji">🥜</span><div class="scs-food-text"><p class="scs-food-name">Almonds & pumpkin seeds daily</p><p class="scs-food-why">Magnesium deficiency is the #1 nutritional trigger for hormonal headaches</p></div></div>
+        <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">2+ litres water every day</p><p class="scs-food-why">Progesterone causes fluid shifts — dehydration intensifies them dramatically</p></div></div>
+        <div class="scs-food"><span class="scs-food-emoji">🍫</span><div class="scs-food-text"><p class="scs-food-name">Dark chocolate 70%+</p><p class="scs-food-why">Magnesium + riboflavin (B2) — both clinically linked to headache prevention</p></div></div>
+        <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: red wine, aged cheese, processed meats</p><p class="scs-food-why">All contain tyramine — a vasodilator that directly triggers hormonal headaches</p></div></div>
+      </div>
+    </div>
+    <div class="scs-col scs-during">
+      <div class="scs-col-header"><span class="scs-col-icon">🤕</span><div><p class="scs-col-label">When a headache hits</p><p class="scs-col-title">Relieve it — eat & drink this <em>immediately</em></p></div></div>
+      <div class="scs-col-why">When a hormonal headache is already present: hydration first, then magnesium, then gentle anti-inflammatories. Caffeine can help short-term but rebounds if overused.</div>
+      <div class="scs-foods">
+        <div class="scs-food"><span class="scs-food-emoji">💧</span><div class="scs-food-text"><p class="scs-food-name">500ml water with a pinch of salt</p><p class="scs-food-why">Electrolyte rebalancing — faster relief than plain water alone</p></div></div>
+        <div class="scs-food"><span class="scs-food-emoji">🫚</span><div class="scs-food-text"><p class="scs-food-name">Ginger tea</p><p class="scs-food-why">Anti-inflammatory and anti-nausea — works on both headache and migraine nausea</p></div></div>
+        <div class="scs-food"><span class="scs-food-emoji">🍌</span><div class="scs-food-text"><p class="scs-food-name">Banana</p><p class="scs-food-why">Potassium + B6 — counters the electrolyte drop that accompanies hormonal headaches</p></div></div>
+        <div class="scs-food scs-avoid"><span class="scs-food-emoji">✕</span><div class="scs-food-text"><p class="scs-food-name">Avoid: skipping meals, excess caffeine</p><p class="scs-food-why">Blood sugar drops worsen pain intensity. More than one coffee rebounds into a worse headache</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
   </section>
 
   <div class="cheat-grid">
@@ -2731,14 +3117,14 @@ with each phase, to ease your symptoms.
 
     <div class="cheat-card cheat-mag" onclick="openCheatModal('mag')">
       <div class="cheat-card-header"><span class="cheat-icon">🥜</span><div><p class="cheat-category">Mineral</p><h3 class="cheat-title">Highest in Magnesium</h3></div><span class="cheat-badge">Anti-PMS</span></div>
-      <p class="cheat-why">Magnesium supports over 300 body processes. Eases PMS, calms anxiety, supports sleep, and reduces period cramps. Most women are unknowingly deficient.</p>
+      <p class="cheat-why">Magnesium supports over 300 body processes. Eases PMS, calms anxiety, supports sleep, and reduces period fatigue. Most women are unknowingly deficient.</p>
       <div class="cheat-items">
         <div class="cheat-item"><span class="cheat-emoji">🌰</span><div class="cheat-item-info"><p class="cheat-food">Pumpkin Seeds</p><p class="cheat-detail">Roasted · 592mg per 100g</p><div class="cheat-bar-wrap"><div class="cheat-bar" style="width:100%;background:#B5C9B1"></div></div></div></div>
         <div class="cheat-item"><span class="cheat-emoji">🍫</span><div class="cheat-item-info"><p class="cheat-food">Dark Chocolate</p><p class="cheat-detail">70%+ · 228mg per 100g</p><div class="cheat-bar-wrap"><div class="cheat-bar" style="width:90%;background:#B5C9B1"></div></div></div></div>
         <div class="cheat-item"><span class="cheat-emoji">🥜</span><div class="cheat-item-info"><p class="cheat-food">Almonds & Cashews</p><p class="cheat-detail">270mg per 100g</p><div class="cheat-bar-wrap"><div class="cheat-bar" style="width:95%;background:#B5C9B1"></div></div></div></div>
         <div class="cheat-item"><span class="cheat-emoji">🥬</span><div class="cheat-item-info"><p class="cheat-food">Spinach (cooked)</p><p class="cheat-detail">87mg per 100g</p><div class="cheat-bar-wrap"><div class="cheat-bar" style="width:70%;background:#B5C9B1"></div></div></div></div>
       </div>
-      <div class="cheat-tip">💡 Magnesium is best absorbed in the evening. A small handful of almonds before bed can reduce night-time cramps and improve sleep quality.</div>
+      <div class="cheat-tip">💡 Magnesium is best absorbed in the evening. A small handful of almonds before bed can reduce night-time fatigue and improve sleep quality.</div>
       <div class="cheat-wm">Lunéa</div><div class="cheat-tap-hint">Tap to open full screen</div>
     </div>
 
@@ -2756,7 +3142,7 @@ with each phase, to ease your symptoms.
 
     <div class="cheat-card cheat-omega" onclick="openCheatModal('omega')">
       <div class="cheat-card-header"><span class="cheat-icon">🐟</span><div><p class="cheat-category">Fatty Acid</p><h3 class="cheat-title">Rich in Omega-3</h3></div><span class="cheat-badge">Anti-Inflammatory</span></div>
-      <p class="cheat-why">Omega-3 fatty acids reduce prostaglandins — the compounds responsible for period cramps. Also vital for brain health, mood stability, and inflammatory conditions.</p>
+      <p class="cheat-why">Omega-3 fatty acids reduce prostaglandins — the compounds responsible for period fatigue. Also vital for brain health, mood stability, and inflammatory conditions.</p>
       <div class="cheat-items">
         <div class="cheat-item"><span class="cheat-emoji">🐟</span><div class="cheat-item-info"><p class="cheat-food">Salmon (wild caught)</p><p class="cheat-detail">2.3g EPA+DHA per 100g</p><div class="cheat-bar-wrap"><div class="cheat-bar" style="width:100%;background:#C9B8D8"></div></div></div></div>
         <div class="cheat-item"><span class="cheat-emoji">🌰</span><div class="cheat-item-info"><p class="cheat-food">Walnuts</p><p class="cheat-detail">9.1g ALA per 100g</p><div class="cheat-bar-wrap"><div class="cheat-bar" style="width:85%;background:#C9B8D8"></div></div></div></div>
@@ -3074,13 +3460,14 @@ function toggleTheme(){
   document.querySelector('#themeToggle .tt-label').textContent = isDark ? ' Light' : ' Dark';
 }
   
-/* Restore on load — bloque le dark mode système */
+/* Restore on load — force light mode par défaut */
 (function(){
   var saved = localStorage.getItem('lunea-theme');
   if(saved === 'dark'){
     document.documentElement.classList.add('dark-theme');
   } else {
     document.documentElement.classList.remove('dark-theme');
+    localStorage.setItem('lunea-theme', 'light');
   }
 })();
 
@@ -3215,7 +3602,43 @@ function toggleRecipesDrawer(e){
   sub.classList.toggle('open', isOpen);
 }
   
-function switchScs(key,btn){document.querySelectorAll('.scs-tab').forEach(function(b){b.classList.remove('active');});document.querySelectorAll('.scs-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');var t=document.getElementById('scs-'+key);if(t)t.classList.add('active');}
+function switchScsCard(key, card) {
+  /* Reset all flip cards in the currently active panel first */
+  var activePanel = document.querySelector('.scs-panel.active');
+  if (activePanel) {
+    activePanel.querySelectorAll('.scs-flip-inner').forEach(function(fi) {
+      fi.classList.remove('flipped');
+    });
+  }
+  /* Deactivate all sym cards */
+  document.querySelectorAll('.scs-sym-card').forEach(function(c) { c.classList.remove('active'); });
+  /* Hide all panels */
+  document.querySelectorAll('.scs-panel').forEach(function(p) { p.classList.remove('active'); });
+  /* Activate selected */
+  card.classList.add('active');
+  var t = document.getElementById('scs-' + key);
+  if (t) t.classList.add('active');
+}
+
+function toggleScsFlip(gridId, index) {
+  var grid = document.getElementById(gridId);
+  if (!grid) return;
+  var flips = grid.querySelectorAll('.scs-flip-inner');
+  var target = flips[index];
+  if (!target) return;
+  var isFlipped = target.classList.contains('flipped');
+  /* Reset all in this grid */
+  flips.forEach(function(f) { f.classList.remove('flipped'); });
+  /* Toggle target */
+  if (!isFlipped) target.classList.add('flipped');
+}
+
+function resetScsFlip(event, flipId) {
+  event.stopPropagation();
+  var el = document.getElementById(flipId);
+  if (el) el.classList.remove('flipped');
+}
+  
 function switchFtab(tableId,panelKey,btn){var strip=document.querySelector('.ftab-strip[data-table="'+tableId+'"]');if(!strip)return;strip.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});strip.closest('.food-table-block').querySelectorAll('.ftab-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');var t=document.getElementById(tableId+'-'+panelKey);if(t)t.classList.add('active');}
 function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');document.querySelectorAll('.nav-links a[data-page]').forEach(function(a){a.classList.toggle('active-nav',a.dataset.page===id);});window.scrollTo({top:0,behavior:'smooth'});if(id==='recipes'){setTimeout(function(){renderRecipes();},50);}closeDrawer();updateBackBtn(id);}
 function updateBackBtn(id){
@@ -3250,7 +3673,7 @@ function closeRecipeModal(e){if(e.target===document.getElementById('recipeModal'
 function closeRecipeModalDirect(){var m=document.getElementById('recipeModal');if(m)m.classList.remove('open');document.body.style.overflow='';}
 function applyRecipeFilters(){if(window._applyFilters)window._applyFilters();}
 function clearRecipeFilters(){if(window._clearFilters)window._clearFilters();}
-function goToSymptom(key){showPage('cheatsheet');setTimeout(function(){var btn=document.querySelector('.scs-tab[data-key="'+key+'"]');if(btn)switchScs(key,btn);var section=document.querySelector('.symptom-cheat-section');if(section)section.scrollIntoView({behavior:'smooth',block:'start'});},120);}
+function goToSymptom(key){showPage('cheatsheet');setTimeout(function(){var card=document.querySelector('.scs-sym-card[data-key="'+key+'"]');if(card)switchScsCard(key,card);var section=document.querySelector('.symptom-cheat-section');if(section)section.scrollIntoView({behavior:'smooth',block:'start'});},120);}
 function toggleFaq(el){var content=el.nextElementSibling;var icon=el.querySelector('.faq-icon');var isOpen=content.classList.toggle('open');icon.textContent=isOpen?'−':'+';}
 
   //*PHASE CALC*//
@@ -3273,7 +3696,7 @@ const RECIPES=[
   {emoji:'🥣',name:'Spring Green Smoothie Bowl',desc:'Spirulina, frozen banana, cucumber and hemp seeds with kiwi.',time:'10 min',img:'linear-gradient(135deg,#E8F0E5,#F0F8EC)',phase:'follicular',meal:'breakfast',nutrients:['fiber','vitaminD'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🥗',name:'Quinoa Tabbouleh',desc:'Bright quinoa tabbouleh with parsley, mint, cucumber and lemon.',time:'20 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'lunch',nutrients:['fiber','b6'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🥚',name:'Poached Eggs on Sprouted Rye',desc:'Two poached eggs on sprouted rye with avocado and micro herbs.',time:'15 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'breakfast',nutrients:['vitaminD','b6'],conditions:['vegetarian','lactosefree']},
-  {emoji:'🍜',name:'Miso Tofu & Vegetable Broth',desc:'Light, probiotic-rich miso broth with silken tofu and bok choy.',time:'25 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'dinner',nutrients:['calcium','fiber'],conditions:['vegan','glutenfree','lactosefree']},
+  {emoji:'🌯',name:'Sardines Grilled Cheese',desc:'Combinines omega-3, calcium, and protein, ideal during the luteal phase to support mood, reduce inflammation, and help with PMS symptoms like irritability and fatigue.',time:'15 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'luteal',meal:'lunch',nutrients:['calcium','magnesium','omega3','b6'],conditions:[]},
   {emoji:'🫐',name:'Flaxseed & Berry Yogurt Parfait',desc:'Layered Greek yogurt, mixed berries, flaxseeds and honey.',time:'5 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'snack',nutrients:['omega3','fiber','calcium'],conditions:['vegetarian','glutenfree']},
   {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/lemon.jpg',name:'Lemon Chia Pudding',desc:'Zesty lemon-infused chia pudding with light coconut cream top.',time:'5 min + chill',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'dessert',nutrients:['omega3','fiber','calcium'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🍓',name:'Açaí Bowl with Seeds & Mango',desc:'Rich açaí base topped with fresh mango, pumpkin seeds, coconut.',time:'8 min',img:'linear-gradient(135deg,#FAF0E0,#FFF8EC)',phase:'ovulatory',meal:'breakfast',nutrients:['fiber'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
@@ -3286,7 +3709,7 @@ const RECIPES=[
   {emoji:'🍫',name:'Dark Chocolate Energy Balls',desc:'No-bake bliss balls with 70% cacao, almonds, oats, and medjool dates.',time:'15 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'snack',nutrients:['magnesium','iron'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🍗',name:'Turkey & Brown Rice Nourish Bowl',desc:'Roasted turkey over brown rice with steamed broccoli and miso dressing.',time:'25 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['b6','calcium','fiber'],conditions:['glutenfree','lactosefree']},
   {emoji:'🥜',name:'Magnesium Trail Mix',desc:'Almonds, cashews, pumpkin seeds and dried mango — perfectly portioned.',time:'5 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'snack',nutrients:['magnesium','iron'],conditions:['vegan','glutenfree','lactosefree']},
-  {emoji:'🍑',name:'Baked Cinnamon Pears with Tahini',desc:'Roasted pears with cinnamon, cardamom and a drizzle of sesame tahini.',time:'20 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dessert',nutrients:['magnesium','fiber'],conditions:['vegan','glutenfree','lactosefree','autoimmune']}
+  {emoji:'🍌',name:'Banana Bread',desc:'Rich in vitamin B6, magnesium, and slow carbs, this no-added sugar recipe support mood, reduce craving and stabilize energy.',time:'10 min + 50 min oven',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dessert',nutrients:['magnesium','fiber','b6','omega3'],conditions:['vegetarian','lactosefree','autoimmune']}
 ];
 
 const PHASE_LABELS={menstrual:'🌑 Menstrual',follicular:'🌱 Follicular',ovulatory:'🌕 Ovulatory',luteal:'🍂 Luteal'};
@@ -3328,6 +3751,42 @@ const RECIPE_DETAILS={
      
     imageEmoji:'🥔'
   },
+
+  'Sardines Grilled Cheese':{
+    phase:'luteal',meal:'lunch',time:'15 min',serves:1,
+    desc:'Combines omega-3, calcium, and protein, ideal during the luteal phase to support mood, reduce inflammation, and help with PMS symptoms like irritability and fatigue.',
+    nutrients:['calcium','magnesium','omega3','b6'],conditions:[],
+    macros:{kcal:520,protein:'28g',carbs:'35g',fats:'30g'},
+    ingredients:[{qty:'2',ing:'slices whole grain bread'},{qty:'1',ing:'small can sardines in olive oil'},{qty:'30g',ing:'grated cheese'},{qty:'1',ing:'small garlic glove'},{qty:'1 tsp',ing:'pesto or mustard'},{qty:'1 handful of',ing:'spinach'},{qty:'1 tbsp',ing:'cheese spread (type St Moret)'},{qty:'pinch',ing:'pepper'},{qty:'pinch',ing:'salt'},{qty:'a squeeze of',ing:'lemon juice'}],
+    steps:['Lightly toast bread on one side','Rub the inside with a cut garlic clove','Mash sardines gently with a fork','In a bowl, Add a squeeze of lemon, black pepper, salt, spinach, cheese spread and mix everything together','On one piece of bread, spread some pesto or mustard','Add the mixture with the sardines on top, and over it with some grated cheese','On a heated pan with olive oil, cook sandwich slowly (3-4min per side) until golden and crispy', 'Presse slightly for even melting','Let it rest 1-2 min and enjoy !'],
+    tip:'Serve it with a fresh salad on the side',
+    /* ── PHOTO: to use a real image later, set imageUrl to a relative or absolute path,
+       e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
+       Leave as null to keep the emoji fallback.                     
+       */
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     
+    imageEmoji:'🌯'
+  },
+
+'Banana Bread':{
+    phase:'luteal',meal:'dessert',time:'10 min + 50 min ovem',serves:8,
+    desc:'Rich in vitamin B6, magnesium, and slow carbs, this no-added sugar recipe support mood, reduce craving and stabilize energy.',
+    nutrients:['fiber','magnesium','omega3','b6'],conditions:['vegetarian','lactosefree','autoimmune'],
+    macros:{kcal:220,protein:'5g',carbs:'28g',fats:'10g'},
+    ingredients:[{qty:'140g',ing:'flour'},{qty:'1 tsp',ing:'baking powder'},{qty:'3',ing:'riped bananas + 1 for topping'},{qty:'2',ing:'eggs'},{qty:'2 tbsp',ing:'honey'},{qty:'2 tbsp',ing:'plant milk'},{qty:'80g',ing:'olive oil'},{qty:'1 tbsl',ing:'chia seeds'},{qty:'1 tsp',ing:'vanilla (liquid or pod'},{qty:'1 tsp',ing:'cinnamon (optionnal)'}],
+    steps:['Pre heat the oven at 175°C','In a bowl, mix all dry ingredients: flour, baking powder, chia seeds and cinnamon (optionnal)','Separately, smash 2 riped bananas in a bowl','In the smashed bananas, add 2 eggs, honey and plant milk','Slowly add olive oil to the mixture while mixing','Add dry ingredients into wet mixture and mix gently','Pour into a lined loaf tin', 'Place banana halves on top','Bake at 175°C for 50min until a knife inserted into the cake comes out clean','Let cool for at least 15min before slicing'],
+    tip:'Let it rest 10-15min before cooking to soak the chia seeds.<br>Lightly toast slices before eating and spread with butter for breakfast.',
+    /* ── PHOTO: to use a real image later, set imageUrl to a relative or absolute path,
+       e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
+       Leave as null to keep the emoji fallback.                     
+       */
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     
+    imageEmoji:'🌯'
+  },
+  
+
   
   'Sauted Vegetables Bowl':{
   phase:'luteal', meal:'dinner', time:'20 min', serves:1,
@@ -3354,7 +3813,7 @@ const RECIPE_DETAILS={
     'Assemble the bowl: rice first, then vegetables, then the peeled egg halved on top.',
     'Drizzle with olive oil or tahini sauce. Season and serve immediately.'
   ],
-  tip:'Prep a big batch of rice on Sunday — it keeps 3–4 days in the fridge and halves your weeknight cook time. Add toasted pumpkin seeds or walnuts for extra crunch and a magnesium boost.',
+  tip:'Prep a big batch of rice on Sunday — it keeps 3–4 days in the fridge and halves your weeknight cook time. <br>Add toasted pumpkin seeds or walnuts for extra crunch and a magnesium boost.',
   imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/rizcomplet.jpg',
   imageEmoji:'🥔'
 },
@@ -3680,7 +4139,7 @@ var obs=new IntersectionObserver(function(entries){entries.forEach(function(e,i)
 document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el);});
 
 /* Escape key */
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeCheatModalDirect();closeRecipeModalDirect();}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeCheatModalDirect();closeRecipeModalDirect();closeFoodPopupDirect();}});
 
   /* Back to top visibility */
 window.addEventListener('scroll', function() {
@@ -3713,7 +4172,209 @@ document.getElementById('backToTop').addEventListener('click', function() {
 var di=document.getElementById('cycleStartDate');
 if(di){var today=new Date();var y=today.getFullYear();var m=String(today.getMonth()+1).padStart(2,'0');var d=String(today.getDate()).padStart(2,'0');di.max=y+'-'+m+'-'+d;}
   
+/* ── FOOD POPUP DATA ── */
+var FOOD_POPUP_DATA = {
+  menstrual: {
+    color: '#D4788A', bg: 'linear-gradient(145deg,#FAE8EB,#FFF5F7)',
+    badgeClass: 'background:#FAE8EB;color:#C07080',
+    label: '🌑 Menstrual · Days 1–5',
+    proteins: { title:'🥩 Proteins', items:[
+      {e:'🐟',n:'Salmon',w:'Reduces inflammation  - ',x:'Cramps & low mood'},
+      {e:'🥚',n:'Soft eggs',w:'Easier recovery  - ',x:'Brain fog & low energy'},
+      {e:'🫘',n:'Lentils',w:'Restores iron lost in bleeding  - ',x:'Fatigue & dizziness'},
+      {e:'🥩',n:'Grass-fed beef',w:'Iron + B12 powerhouse  -  ',x:'Weakness feeling'},
+      {e:'🐟',n:'Sardines',w:'Anti-inflamatory + mineral-rich  - ',x:'Cramps & muscle tension'}
+    ]},
+    vegetables: { title:'🥬 Vegetables', items:[
+      {e:'🥬',n:'Spinach & kale',w:'Iron replenisheent + folate',x:'Fatigue & cramps'},
+      {e:'🥕',n:'Sweet potato',w:'Grounding & anti-inflammatory',x:'Fatigue & cravings'},
+      {e:'🧄',n:'Brocoli',w:'Hormon detox support',x:'Bloating & hormone imbalance'},
+      {e:'🫚',n:'Turmeric & ginger',w:'block inflammatory pathways',x:'Cramps, nausea & bloating'},
+      {e:'🥕',n:'Beetroot',w:'Supports blood flow',x:'Low energy'}
+    ]},
+    grains: { title:'🌾 Grains & legumes', items:[
+      {e:'🌾',n:'Brown rice & quinoa',w:'Stabilise blood sugar',x:'Low energy'},
+      {e:'🌰',n:'Pumpkin seeds',w:'8.8mg iron per 100g, zinc boost',x:'Fatigue & cramps'},
+      {e:'🌾',n:'Oats',w:'Comforting 7 stabilizing',x:'Mood swings'},
+      {e:'🫘',n:'Lentils & chickpeas',w:'Restore iron for steady energy',x:'Fatigue'},
+      {e:'🌱',n:'Black beans',w:'Protein+iron rich',x:'Weakness feeling'}
+    ]},
+    fruits: { title:'🍓 Fruits', items:[
+      {e:'🍊',n:'Citrus & Oranges',w:'vitamin C triples iron absorption',x:'Fatigue'},
+      {e:'🫐',n:'Blueberries & cherries',w:'antioxidants fight oxidative stress',x:'Cramps'},
+      {e:'🍌',n:'Banana',w:'Magnesium + potassium rich',x:'Mood & digestion'},
+    {e:'🍎',n:'Apple',w:'Gentle digestion fiber source',x:'Bloating & digestion'}
+    ]},
+    sweets: { title:'🍫 Sweets ', items:[
+      {e:'🍫',n:'Dark chocolate 70%+',w:'Magnesium mood lift',x:'Cravings & cramps'},
+      {e:'🌰',n:'Date & almond balls',w:'Natural sugar & iron source',x:'Fatigue & cravings'},
+      {e:'🍌',n:'Banana bread',w:'Natural sugar & magnesium rich',x:'Cravins & mood'},
+      {e:'🍯',n:'Honey',w:'Quick natural energy',x:'Low energy'}
+    ]},
+    drinks: { title:'🍵 Drinks', items:[
+      {e:'🫚',n:'Fresh ginger in hot water',w:'Comparable to ibuprofen but natural',x:'Cramps'},
+      {e:'🍵',n:'Chamomile tea',w:'Antispasmodic, relaxes uterine tension',x:'Cramps & bloating'},
+      {e:'🫚',n:'Turmeric latte',w:'Curcumin reduces cramping compounds',x:'Cramps'},
+      {e:'🍯',n:'Warm lemon water',w:'vitamin C boots',x:'Digestion & energy'}
+    ]}
+  },
+  follicular: {
+    color: '#7A9E76', bg: 'linear-gradient(145deg,#E8F0E5,#F5FAF2)',
+    badgeClass: 'background:#E8F0E5;color:#5A8055',
+    label: '🌱 Follicular · Days 6–13',
+    proteins: { title:'🥚 Proteins', items:[
+      {e:'🥚',n:'Eggs',w:'Supports liver & hormone building',x:'Better brain clarity'},
+      {e:'🐟',n:'White fish',w:'Protein + folate for follicle health',x:'Energy without heaviness'},
+      {e:'🍶',n:'Greek yogurt',w:'Full of probiotics',x:'Gut health & digestion'},
+      {e:'🫘',n:'Edamame',w:'plant protein + phytoestrogens',x:'Sustained energy'},
+      {e:'🍜',n:'Tofu',w:'supports estrogen metabolism gently',x:'Acnea'}
+    ]},
+    vegetables: { title:'🥦 Vegetables', items:[
+      {e:'🥦',n:'Broccoli & artichoke',w:'Support liver estrogen clearance',x:'Acnea & early PMS symptoms'},
+      {e:'🌱',n:'Sprouts & greens',w:'detox enzymes + folate',x:'Hormonal balance & acnea'},
+      {e:'🧅',n:'Asparagus & leeks',w:'Prebiotic fiber feeds gut microbiome',x:'Digestion'},
+      {e:'🥕',n:'Colourful raw veg',w:'fiber for estrogen metabolism',x:'Skin glow & digestion'}
+    ]},
+    grains: { title:'🌾 Grains & legumes', items:[
+      {e:'🌾',n:'Quinoa & whole grains',w:'sustained energy, no spikes',x:'Eenrgy up and down'},
+      {e:'🫘',n:'Flax & pumpkinseeds',w:'lignans support healthy estrogen levels',x:'Energy'},
+      {e:'🫘',n:'Lentils',w:'Iron rich & fiber source',x:'Digestion'},
+      {e:'🍞',n:'Sprouted rye bread',w:'Higher folate, easier to digest',x:'Gut health'}
+    ]},
+    fruits: { title:'🍋 Fruits', items:[
+      {e:'🫐',n:'Berries & citrus',w:'vitamin C boosts iron absorption',x:'Energy'},
+      {e:'🍎',n:'Apples & pears',w:'pectin fiber binds excess estrogen',x:'Bloating & water retention'},
+      {e:'🥝',n:'Kiwi',w:'Vitamin C loaded & absorbent for iron food',x:'Bloating'},
+      {e:'🍍',n:'Pineapple',w:'Fiber rich food',x:'Digestion'}
+    ]},
+    sweets: { title:'🍫 Sweets', items:[
+      {e:'🍋',n:'Lemon chia pudding',w:'omega-3 + calcium, light & refreshing',x:'Gut health & skin glow'},
+      {e:'🫐',n:'Berry with yogurt',w:'probiotics + antioxidants',x:'Gut health & digestion'},
+      {e:'🥥',n:'Coconut energy balls',w:'Nutrient dense & fiber rich',x:'Hormonal balance & acnea'},
+      {e:'🫙',n:'Kimchi or kefir',w:'Feeds the gut-hormone microbiome',x:'Gut health & digestion'}
+    ]},
+    drinks: { title:'🍵 Drinks', items:[
+      {e:'🍋',n:'Fruit smoothie',w:'Full of vitamins',x:'Light & energized'},
+      {e:'🍃',n:'Green or peppermint tea',w:'Boost liver detox',x:'Hormonal balance & cramps'},
+      {e:'🍃',n:'Lemon water',w:'Detox your inner system',x:'Heaviness'},
+      {e:'🍵',n:'Matcha',w:'Antioxydant drink',x:'Steady energy'},
+ 
+      {e:'🫙',n:'Kombucha (unsweetened)',w:'Live cultures for gut-hormone axis',x:'Hormonal alance & gut health'}
+    ]}
+  },
+  ovulatory: {
+    color: '#C09040', bg: 'linear-gradient(145deg,#FAF0E0,#FFFAF0)',
+    badgeClass: 'background:#FAF0E0;color:#A07840',
+    label: '🌕 Ovulatory · Days 14–16',
+    proteins: { title:'🐟 Proteins', items:[
+      {e:'🐟',n:'Grilled salmon',w:'omega-3 + selenium, peak-phase essential',x:''},
+      {e:'🥚',n:'Eggs',w:'complete protein + choline for peak energy',x:''},
+      {e:'🫘',n:'Chickpeas & edamame',w:'plant protein + phytoestrogens',x:''},
+      {e:'🌰',n:'Walnuts & Brazil nuts',w:'selenium + omega-3 for egg quality',x:''}
+    ]},
+    vegetables: { title:'🥦 Vegetables', items:[
+      {e:'🥦',n:'Cruciferous veg',w:'support liver estrogen clearance at peak',x:''},
+      {e:'🌿',n:'Raw salads & herbs',w:'enzymes highest in fresh, uncooked greens',x:''},
+      {e:'🥒',n:'Cucumber & courgette',w:'cooling for peak body temperature rise',x:''},
+      {e:'🌻',n:'Sunflower seeds',w:'selenium + zinc for hormone receptor health',x:''}
+    ]},
+    grains: { title:'🌾 Grains & legumes', items:[
+      {e:'🌾',n:'Quinoa',w:'complete protein + fiber, no bloating',x:''},
+      {e:'🌱',n:'Flaxseeds & hemp',w:'lignans + omega-3 support ovulation',x:''},
+      {e:'🍞',n:'Sourdough or rye',w:'fermented, easier on gut at peak phase',x:''}
+    ]},
+    fruits: { title:'🍓 Fruits', items:[
+      {e:'🍓',n:'Berries & pomegranate',w:'protect egg from oxidative damage',x:''},
+      {e:'🍒',n:'Cherries & dark grapes',w:'anthocyanins, anti-inflammatory',x:''},
+      {e:'🍉',n:'Watermelon & papaya',w:'cooling, lycopene-rich for peak temperature',x:''}
+    ]},
+    sweets: { title:'🥭 Sweets & drinks', items:[
+      {e:'🍓',n:'Fresh berry bowl',w:'antioxidants without inflammation',x:''},
+      {e:'🥭',n:'Mango lime sorbet',w:'cooling, vitamin C-rich for peak phase',x:''},
+      {e:'🍹',n:'Watermelon mint cooler',w:'lycopene + cooling, hydrating',x:''},
+      {e:'🍵',n:'Iced green tea',w:'EGCG antioxidants, ideal hydration',x:''}
+    ]},
+    pantry: { title:'🧺 Always have these', items:[
+      {e:'🌰',n:'Brazil nuts',w:'2–3/day covers your selenium needs'},
+      {e:'🥑',n:'Avocado',w:'vitamin E + healthy fats for skin & hormones',x:''},
+      {e:'🌻',n:'Pumpkin seeds',w:'zinc for hormone receptor health',x:''}
+    ]}
+  },
+  luteal: {
+    color: '#8070A8', bg: 'linear-gradient(145deg,#EDE8F5,#F8F5FC)',
+    badgeClass: 'background:#EDE8F5;color:#7060A0',
+    label: '🍂 Luteal · Days 17–28',
+    proteins: { title:'🍗 Proteins', items:[
+      {e:'🍗',n:'Turkey',w:'tryptophan converts to serotonin naturally',x:''},
+      {e:'🐟',n:'Salmon 3×/week',w:'omega-3 reduces late-luteal inflammation',x:''},
+      {e:'🥚',n:'Eggs',w:'B12 + D3 full energy package',x:''},
+      {e:'🫘',n:'Chickpeas & lentils',w:'tryptophan + B6, three PMS fighters',x:''}
+    ]},
+    vegetables: { title:'🥦 Vegetables', items:[
+      {e:'🍠',n:'Sweet potato',w:'B6 + magnesium, ultimate PMS superfood'},
+      {e:'🥦',n:'Broccoli & leafy greens',w:'calcium + B vitamins ease bloating',x:''},
+      {e:'🥕',n:'Carrots & beetroot',w:'fiber clears excess estrogen',x:''},
+      {e:'🧄',n:'Garlic & onion',w:'prebiotic fiber for hormone balance',x:''}
+    ]},
+    grains: { title:'🌾 Grains & legumes', items:[
+      {e:'🌾',n:'Oats & brown rice',w:'slow carbs sustain serotonin all day',x:''},
+      {e:'🍞',n:'Sourdough bread',w:'fermented, gentler when digestion slows',x:''},
+      {e:'🌱',n:'Buckwheat & millet',w:'magnesium-rich, ideal when bloating',x:''}
+    ]},
+    fruits: { title:'🍌 Fruits', items:[
+      {e:'🍌',n:'Banana',w:'B6 + tryptophan, direct serotonin builders',x:''},
+      {e:'🍎',n:'Apples & pears',w:'pectin binds estrogen, satisfies cravings',x:''},
+      {e:'🫐',n:'Blueberries & figs',w:'antioxidants reduce luteal inflammation',x:''}
+    ]},
+    sweets: { title:'🍫 Sweets & drinks', items:[
+      {e:'🍫',n:'Dark chocolate 70%+',w:'magnesium craving you should honour',x:''},
+      {e:'🌰',n:'Date & almond balls',w:'iron + magnesium + natural sugar',x:''},
+      {e:'🍵',n:'Chamomile tea',w:'reduces anxiety, improves sleep',x:''},
+      {e:'🫚',n:'Golden milk latte',w:'curcumin reduces PMS inflammation',x:''}
+    ]},
+    pantry: { title:'🧺 Always have these', items:[
+      {e:'🥜',n:'Almonds & cashews',w:'magnesium — the anti-PMS mineral',x:''},
+      {e:'🍠',n:'Sweet potatoes',w:'richest food source of B6',x:''},
+      {e:'🍫',n:'Dark chocolate',w:'228mg magnesium per 100g'},
+      {e:'🌰',n:'Brazil nuts',w:'selenium regulates androgen-sebum pathway',x:''}
+    ]}
+  }
+};
 
+function openFoodPopup(phase, category) {
+  var data = FOOD_POPUP_DATA[phase];
+  if (!data) return;
+  var cat = data[category];
+  if (!cat) return;
+  var overlay = document.getElementById('foodPopup');
+  var inner = document.getElementById('foodPopupInner');
+  document.getElementById('fpBadgePhase').textContent = data.label;
+  document.getElementById('fpBadgePhase').style.cssText = data.badgeClass + ';font-family:Jost,sans-serif;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;';
+  document.getElementById('fpBadgeType').textContent = cat.title.replace(/^[^ ]+ /,'');
+  document.getElementById('fpTitle').textContent = cat.title;
+  document.getElementById('fpHeader').style.background = data.bg;
+  document.getElementById('fpBody').innerHTML = cat.items.map(function(item) {
+    return '<div class="food-popup-row">'
+      + '<span class="fpr-emoji">' + item.e + '</span>'
+      + '<span class="fpr-name">' + item.n + '</span>'
+      + '<span class="fpr-why">' + item.w + '</span>'
+      + '<span class="fpr-symp">' + item.x + '</span>'
+      + '</div>';
+  }).join('');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFoodPopup(event) {
+  if (event.target === document.getElementById('foodPopup')) closeFoodPopupDirect();
+}
+
+function closeFoodPopupDirect() {
+  var m = document.getElementById('foodPopup');
+  if (m) m.classList.remove('open');
+  document.body.style.overflow = '';
+}
+  
 /* Initial render */
 renderRecipes();
 </script>
