@@ -674,7 +674,7 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
   gap: 0.5rem;
   white-space: nowrap;}
 
-  .float-card-1{top:5%;right:40px;}.float-card-2{bottom:55%;left:10px;}.float-card-3{bottom:55%;right:40px;}.float-card-4{top:5%;left:10px;}
+  .float-card-1{top:5%;right:40px;}.float-card-2{bottom:40%;left:10px;}.float-card-3{bottom:40%;right:40px;}.float-card-4{top:5%;left:10px;}
   
 .float-card:nth-child(3){animation-delay:-2s;}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
@@ -1274,7 +1274,20 @@ footer{background:var(--brown);padding:3rem 4rem;display:flex;align-items:center
 .recipe-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
 .rr-card{background:var(--warm-white);border-radius:20px;overflow:hidden;border:1px solid var(--beige);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
 .rr-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(61,46,46,0.1);}
-.rr-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.rr-img {
+  width: 100%;
+  height: 140px; /* slightly adjusted from 130px */
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.rr-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 .rr-body{padding:1rem;}
 .rr-tags{display:flex;gap:0.35rem;flex-wrap:wrap;margin-bottom:0.65rem;}
 .rr-tag{font-size:0.56rem;letter-spacing:0.06em;text-transform:uppercase;padding:0.18rem 0.48rem;border-radius:100px;}
@@ -2009,19 +2022,15 @@ with each phase, to ease your symptoms.
       <div class="why-text fade-up">
         <p class="section-label" style="text-align:left;margin-bottom:0.8rem;">Why nutrition actually matters</p>
         <h2 class="why-title">The right foods <em>at the right time.</em></h2>
-        <p class="why-body">Because your body is constantly evolving throughout the month, your nutritional needs shift, even if your habits don't. Many cycle-related symptoms come from the same core deficiencies, which can be supported through targeted nutrition.
+        <p class="why-body">Because your body is constantly evolving throughout the month, your nutritional needs shift, even if your habits don't. Most cycle-related symptoms can be traced to the same short list of deficiencies, which can be supported through targeted nutrition.
 </p> 
-        
-         <p class="why-body">By aligning your food with your phase, your energy, mood,  and cravings become easier to manage - and to understand - because you're working with your body, not against it.
-</p>
-
-       <p class="faq-article-p">Most cycle-related symptoms can be traced to the same short list of deficiencies. This isn't a supplement pitch — food is the delivery system.</p>
+     
         <div style="display:flex;flex-direction:column;gap:0.55rem;margin-top:0.8rem;margin-bottom:1.4rem;">
-          <div class="faq-food-row"><span class="faq-food-row-emoji">🩸</span><div><p class="faq-food-row-name">Iron</p><p class="faq-food-row-why">Lost during menstruation every month. Low iron = fatigue, brain fog, poor recovery. Pair with vitamin C to triple absorption.</p></div></div>
+          <div class="faq-food-row"><span class="faq-food-row-emoji">🩸</span><div><p class="faq-food-row-name">Iron</p><p class="faq-food-row-why">Lost during menstruation every month. Low iron leads to fatigue, brain fog & poor recovery. Pair it with vitamin C to triple absorption.</p></div></div>
           <div class="faq-food-row"><span class="faq-food-row-emoji">🥜</span><div><p class="faq-food-row-name">Magnesium</p><p class="faq-food-row-why">Depleted by stress, caffeine, and alcohol. Deficiency directly worsens PMS, cramps, sleep, and anxiety.</p></div></div>
           <div class="faq-food-row"><span class="faq-food-row-emoji">🐟</span><div><p class="faq-food-row-name">Omega-3 fatty acids</p><p class="faq-food-row-why">Most women eat far more omega-6 than omega-3. This imbalance drives inflammation — and cramps are an inflammatory response.</p></div></div>
           <div class="faq-food-row"><span class="faq-food-row-emoji">💊</span><div><p class="faq-food-row-name">Vitamin B6</p><p class="faq-food-row-why">Critical for serotonin synthesis. Deficiency is one of the most direct drivers of mood-related PMS symptoms.</p></div></div>
-          <div class="faq-food-row"><span class="faq-food-row-emoji">🦴</span><div><p class="faq-food-row-name">Calcium & Vitamin D</p><p class="faq-food-row-why">Together they reduce PMS symptoms by up to 40% in clinical studies. Most women in northern climates are low in D.</p></div></div>
+          <div class="faq-food-row"><span class="faq-food-row-emoji">🦴</span><div><p class="faq-food-row-name">Calcium & Vitamin D</p><p class="faq-food-row-why">Together they reduce PMS symptoms by up to 40% in clinical studies. They will give your system enough energy to prevent some PMS symptoms.</p></div></div>
         </div>
 
         <div class="why-mobile-cta">
@@ -2070,7 +2079,7 @@ with each phase, to ease your symptoms.
     <p class="section-sub" style="margin-bottom:1.5rem;">Every dessert here is phase-tagged, refined sugar-mindful, and genuinely delicious. Your cravings are not the enemy — they're useful information to understand your state.</p>
     <div class="sweets-pills">
       <span class="sweets-pill">🍫 Dark Chocolate Energy Balls</span>
-      <span class="sweets-pill">🫐 Sauted Vegetables Bowl</span>
+      <span class="sweets-pill">🫐 Vegetables Stir-Fry</span>
       <span class="sweets-pill">🍋 Lemon Tahini Bliss Bites</span>
       <span class="sweets-pill">🍑 Baked Cinnamon Peaches</span>
       <span class="sweets-pill">🥥 Coconut Mango Panna Cotta</span>
@@ -2165,7 +2174,7 @@ with each phase, to ease your symptoms.
           <div>
             <p class="phase-banner-label">Phase 1 · Days 1–5</p>
             <h2 class="phase-banner-title">Menstrual — <em>Rest & Replenish</em></h2>
-            <h2 class="phase-banner-title-sub" style="margin-bottom:1rem;max-width:100%;">Your body is working incredibly hard right now, support it with some warm and iron-rich meals, and allow for some rest.</h2>
+            <h2 class="phase-banner-title-sub" style="margin-bottom:1rem;max-width:100%;">Your body is working incredibly hard right now, and you are losing iron. Support it with some warm and iron-rich meals, and allow for some rest.</h2>
           </div>
           
 <!-- ═══ MENSTRUAL - CTA 3X BUTTONS ═══ -->
@@ -3723,6 +3732,18 @@ with each phase, to ease your symptoms.
     <p class="faq-read">Click to read the full article →</p>
   </div>
 </div>
+
+      <!-- Card 3 — Seed cycling -->
+      <div class="faq-card" onclick="openFaqModal('seed')">
+  <div class="faq-card-img" style="background:linear-gradient(135deg,#E8F0E5,#F0FAF0)">🌱</div>
+  <div class="faq-card-body">
+    <p class="faq-card-tag">Seed cycling</p>
+    <h3 class="faq-card-title">Seed Cycling: The simplest daily habit to support your hormones</h3>
+    <p class="faq-card-teaser">Four seeds. Two phases. One small routine that can support your body during your cycle.
+🌱</p>
+    <p class="faq-read">Click to read the full article →</p>
+  </div>
+</div>
      <!-- Card 3 — nutrition -->
     <div class="faq-card" onclick="openFaqModal('nutrition')">
         <div class="faq-card-img" style="background:linear-gradient(135deg,#E8F5E5,#F0FAF0)">🥗</div>
@@ -4005,15 +4026,34 @@ function switchNutrientTab(key, btn) {
 }
   
 function switchFtab(tableId,panelKey,btn){var strip=document.querySelector('.ftab-strip[data-table="'+tableId+'"]');if(!strip)return;strip.querySelectorAll('.ftab').forEach(function(b){b.classList.remove('active');});strip.closest('.food-table-block').querySelectorAll('.ftab-panel').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');var t=document.getElementById(tableId+'-'+panelKey);if(t)t.classList.add('active');}
-function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');document.querySelectorAll('.nav-links a[data-page]').forEach(function(a){a.classList.toggle('active-nav',a.dataset.page===id);});window.scrollTo({top:0,behavior:'smooth'});if(id==='recipes'){setTimeout(function(){renderRecipes();},50);}closeDrawer();updateBackBtn(id);}
+
+  var _pageHistory = [];
+var _currentPage = 'home';
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  var pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  document.querySelectorAll('.nav-links a[data-page]').forEach(function(a){a.classList.toggle('active-nav',a.dataset.page===id);});
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='recipes'){setTimeout(function(){renderRecipes();},50);}
+  // Restore symptom intro if it was hidden
+  if(id!=='cheatsheet'){var intro=document.querySelector('.symptom-cheat-intro');if(intro&&intro._hidden){intro.style.display='';intro._hidden=false;}}
+  closeDrawer();
+  // Track page history
+  if(_currentPage && _currentPage!==id){_pageHistory.push(_currentPage);if(_pageHistory.length>30)_pageHistory.shift();}
+  _currentPage=id;
+  updateBackBtn(id);
+}
 function updateBackBtn(id){
   var btn = document.getElementById('backBtn');
   if (!btn) return;
   btn.style.display = (id === 'home') ? 'none' : 'flex';
-  
-  /* When on the article page, clicking back goes to FAQ */
   btn.onclick = function() {
-    showPage(id === 'faqarticle' ? (window._faqReturnPage || 'faq') : 'home');
+    var prev = _pageHistory.length > 0 ? _pageHistory[_pageHistory.length-1] : 'home';
+    if(_pageHistory.length > 0) _pageHistory.pop();
+    _currentPage = null; // prevent double-push during navigation
+    showPage(prev);
+    setTimeout(function(){ _currentPage = prev; }, 10);
   };
 }
 
@@ -4069,33 +4109,33 @@ function toggleCalc() {
 }
   
 const RECIPES=[
-  {emoji:'🥗',name:'Red Lentils & Spinach Coconut Dhal',desc:'A warm, deeply nourishing curry rich in iron, magnesium, and anti-inflammatory spices, ideal during the menstrual phase to replenish iron levels, reduce fatigue, and soothe cramps.',time:'10 min + 20 min cooking',img:'linear-gradient(135deg,#FAE8EB,#FFF0F5)',phase:'menstrual',meal:'dinner',nutrients:['iron','fiber','b6','magnesium'],conditions:['vegan','lactosefree','autoimmune']},
+  {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/dahl.jpg',emoji:'🥗',name:'Red Lentils & Spinach Coconut Dhal',desc:'A warm, deeply nourishing curry rich in iron, magnesium, and anti-inflammatory spices, ideal during the menstrual phase to replenish iron levels, reduce fatigue, and soothe cramps.',time:'10 min + 20 min cooking',img:'linear-gradient(135deg,#FAE8EB,#FFF0F5)',phase:'menstrual',meal:'dinner',nutrients:['iron','fiber','b6','magnesium'],conditions:['vegan','lactosefree','autoimmune']},
   {emoji:'🍲',name:'Ginger Salmon with Roasted Beets',desc:'Omega-rich salmon with sweet roasted beets and ginger glaze.',time:'30 min',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'menstrual',meal:'dinner',nutrients:['omega3','iron','vitaminD'],conditions:['glutenfree','lactosefree']},
-  {emoji:'🥣',name:'Warm Oat Bowl with Dates & Tahini',desc:'Creamy oats with medjool dates, tahini swirl, and cinnamon.',time:'10 min',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'menstrual',meal:'breakfast',nutrients:['iron','magnesium','fiber'],conditions:['vegan','lactosefree']},
-  {emoji:'🍵',name:'Golden Turmeric Latte',desc:'Anti-inflammatory turmeric latte. Add a square of dark chocolate.',time:'5 min',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'menstrual',meal:'snack',nutrients:['magnesium'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
- {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/rizcomplet.jpg',name:'Sauted Vegetables Bowl',desc:'A perfectly balanced plate with complex carbs + protein + B6, helping stabilize mood and reduce cravings.',time:'20 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dinner',nutrients:['b6','magnesium','iron'],conditions:['vegetarian','glutenfree']},
-  {emoji:'🍲',name:'Smoky Sweet Potato & Black Bean Chili',desc:'A rich, smoky plant-based chili combining sweet potatoes and black beans, ideal during the luteal phase to stabilize blood sugar, reduce cravings, and support mood.',time:'15 min prep + 30 min cooking',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'luteal',meal:'dinner',nutrients:['iron','fiber','magnesium'],conditions:['vegan','glutenfree','lactosefree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/granola2.jpg',emoji:'🥣',name:'Homemade High-fiber Granola',desc:'A crunchy, nutrient-dense granola rich in fiber, magnesium, and healthy fats, to stabilize blood sugar & reduce cravings.',time:'10 min prep + 25 min baking',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'luteal',meal:'breakfast',nutrients:['iron','magnesium','fiber','omega3'],conditions:['vegetarian','lactosefree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/golden.jpg',emoji:'🍵',name:'Golden Turmeric Latte',desc:'Anti-inflammatory turmeric latte. With a square of dark chocolate to feel cosy at home.',time:'5 min prep + 5 min heating',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'menstrual',meal:'snack',nutrients:['magnesium','b6'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
+ {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/rizcomplet.jpg',name:'Vegetables Stir-Fry',desc:'A perfectly balanced plate with complex carbs + protein + B6, helping stabilize mood and reduce cravings.',time:'20 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dinner',nutrients:['b6','magnesium','iron'],conditions:['vegetarian','glutenfree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/chili.jpg',emoji:'🍲',name:'Smoky Sweet Potato & Black Bean Chili',desc:'A rich, smoky plant-based chili combining sweet potatoes and black beans, ideal during the luteal phase to stabilize blood sugar, reduce cravings, and support mood.',time:'15 min prep + 30 min cooking',img:'linear-gradient(135deg,#FAE8EB,#FFF5F7)',phase:'luteal',meal:'dinner',nutrients:['iron','fiber','magnesium'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🥣',name:'Spring Green Smoothie Bowl',desc:'Spirulina, frozen banana, cucumber and hemp seeds with kiwi.',time:'10 min',img:'linear-gradient(135deg,#E8F0E5,#F0F8EC)',phase:'follicular',meal:'breakfast',nutrients:['fiber','vitaminD'],conditions:['vegan','glutenfree','lactosefree']},
-  {emoji:'🥗',name:'Quinoa Tabbouleh',desc:'Bright quinoa tabbouleh with parsley, mint, cucumber and lemon.',time:'20 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'lunch',nutrients:['fiber','b6'],conditions:['vegan','glutenfree','lactosefree']},
-  {emoji:'🥚',name:'Poached Eggs on Sprouted Rye',desc:'Two poached eggs on sprouted rye with avocado and micro herbs.',time:'15 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'breakfast',nutrients:['vitaminD','b6'],conditions:['vegetarian','lactosefree']},
-  {emoji:'🌯',name:'Sardines Grilled Cheese',desc:'Combinines omega-3, calcium, and protein, ideal during the luteal phase to support mood, reduce inflammation, and help with PMS symptoms like irritability and fatigue.',time:'15 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'luteal',meal:'lunch',nutrients:['calcium','magnesium','omega3','b6'],conditions:[]},
+  {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/quinoa.jpg',emoji:'🥗',name:'Quinoa Tabbouleh',desc:'Bright quinoa tabbouleh with parsley, mint, cucumber and lemon.',time:'20 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'lunch',nutrients:['fiber','b6'],conditions:['vegan','glutenfree','lactosefree']},
+  {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/muffins.jpg',emoji:'🥚',name:'Zucchini, Sun-Dried Tomato & Parmesan Muffins',desc:'Soft and savory muffins packed with zucchini, sun-dried tomatoes, and parmesan, for a refill of protein and fiber.',time:'15 min prep + 25 min baking',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'snack',nutrients:['fiber','calcium'],conditions:['vegetarian','lactosefree']},
+  {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/sardines3.jpg',emoji:'🌯',name:'Sardines Grilled Cheese Sandwich',desc:'Combinines omega-3, calcium, and protein, ideal during the luteal phase to support mood, reduce inflammation, and help with PMS symptoms like irritability and fatigue.',time:'15 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'luteal',meal:'lunch',nutrients:['calcium','magnesium','omega3','b6'],conditions:[]},
   {emoji:'🫐',name:'Flaxseed & Berry Yogurt Parfait',desc:'Layered Greek yogurt, mixed berries, flaxseeds and honey.',time:'5 min',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'snack',nutrients:['omega3','fiber','calcium'],conditions:['vegetarian','glutenfree']},
   {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/lemon.jpg',name:'Lemon Chia Pudding',desc:'Zesty lemon-infused chia pudding with light coconut cream top.',time:'5 min + chill',img:'linear-gradient(135deg,#E8F0E5,#F5FAF2)',phase:'follicular',meal:'dessert',nutrients:['omega3','fiber','calcium'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🍓',name:'Açaí Bowl with Seeds & Mango',desc:'Rich açaí base topped with fresh mango, pumpkin seeds, coconut.',time:'8 min',img:'linear-gradient(135deg,#FAF0E0,#FFF8EC)',phase:'ovulatory',meal:'breakfast',nutrients:['fiber'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
   {emoji:'🥗',name:'Raw Berry Antioxidant Salad',desc:'Mixed berries, pomegranate, walnuts and mint with orange blossom dressing.',time:'8 min',img:'linear-gradient(135deg,#FAF0E0,#FFFAF0)',phase:'ovulatory',meal:'lunch',nutrients:['fiber','omega3'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
   {emoji:'🥑',name:'Avocado & Seed Toast',desc:'Sourdough with smashed avocado, pumpkin seeds, chilli flakes and lime.',time:'5 min',img:'linear-gradient(135deg,#FAF0E0,#FFFAF0)',phase:'ovulatory',meal:'snack',nutrients:['fiber','vitaminD'],conditions:['vegan','lactosefree']},
   {emoji:'🐟',name:'Grilled Salmon & Broccoli Tahini',desc:'Wild salmon fillet with charred broccoli and creamy sesame tahini dressing.',time:'25 min',img:'linear-gradient(135deg,#FAF0E0,#FFFAF0)',phase:'ovulatory',meal:'dinner',nutrients:['omega3','vitaminD','calcium'],conditions:['glutenfree','lactosefree']},
-  {emoji:'🥔',name:'Sweet Potato Gratin',desc:'A warm, comforting dish rich in complex carbs and vitamin B6, helping stabilize mood and reduce PMS symptoms like irritability and fatigue.',time:'10 min + 35min oven',img:'linear-gradient(135deg,#FAF0E0,#FFFAF0)',phase:'luteal',meal:'dinner',nutrients:['magnesium','b6','fiber'],conditions:['vegan','glutenfree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',emoji:'🥔',name:'Sweet Potato Gratin',desc:'A warm, comforting dish rich in complex carbs and vitamin B6, helping stabilize mood and reduce PMS symptoms like irritability and fatigue.',time:'10 min + 35min oven',img:'linear-gradient(135deg,#FAF0E0,#FFFAF0)',phase:'luteal',meal:'dinner',nutrients:['magnesium','b6','fiber'],conditions:['vegan','glutenfree']},
   {emoji:'🌾',name:'Warm Oat & Almond Butter Bowl',desc:'Steel-cut oats with almond butter swirl, banana and sea salt.',time:'10 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'breakfast',nutrients:['magnesium','fiber','b6'],conditions:['vegan','glutenfree','lactosefree']},
-  {emoji:'🍲',name:'Golden Turmeric & Sweet Potato Coconut Soup',desc:'A warming, anti-inflammatory soup combining turmeric, ginger, and coconut milk, ideal during the menstrual phase to reduce inflammation, soothe cramps, and support recovery.',time:'10 min prep + 25 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'menstrual',meal:'dinner',nutrients:['magnesium','b6','fiber'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
-  {emoji:'🍫',name:'Dark Chocolate Energy Balls',desc:'No-bake bliss balls with 70% cacao, almonds, oats, and no-added sugar.',time:'10 min prep + 30 min chilling',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'snack',nutrients:['magnesium','iron','fiber'],conditions:['vegan','glutenfree','lactosefree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/pumpkin.jpg',emoji:'🍲',name:'Golden Turmeric & Sweet Potato Coconut Soup',desc:'A warming, anti-inflammatory soup combining turmeric, ginger, and coconut milk, ideal during the menstrual phase to reduce inflammation, soothe cramps, and support recovery.',time:'10 min prep + 25 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'menstrual',meal:'dinner',nutrients:['magnesium','b6','fiber'],conditions:['vegan','glutenfree','lactosefree','autoimmune']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/balls.jpg',emoji:'🍫',name:'Dark Chocolate Energy Balls',desc:'No-bake bliss balls with 70% cacao, almonds, oats, and no-added sugar.',time:'10 min prep + 30 min chilling',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'snack',nutrients:['magnesium','iron','fiber'],conditions:['vegan','glutenfree','lactosefree']},
   {emoji:'🍗',name:'Turkey & Brown Rice Nourish Bowl',desc:'Roasted turkey over brown rice with steamed broccoli and miso dressing.',time:'25 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['b6','calcium','fiber'],conditions:['glutenfree','lactosefree']},
   {emoji:'🥜',name:'Magnesium Trail Mix',desc:'Almonds, cashews, pumpkin seeds and dried mango — perfectly portioned.',time:'5 min',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'snack',nutrients:['magnesium','iron'],conditions:['vegan','glutenfree','lactosefree']},
-  {emoji:'🍌',name:'Banana Bread',desc:'Rich in vitamin B6, magnesium, and slow carbs, this no-added sugar recipe support mood, reduce craving and stabilize energy.',time:'10 min + 50 min oven',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dessert',nutrients:['magnesium','fiber','b6','omega3'],conditions:['vegetarian','lactosefree','autoimmune']},
-  {emoji:'🥘',name:'Spiced Creamy Chickpea Skillet',desc:'A quick, protein-rich dish with crispy chickpeas and warming spices, ideal for the luteal phase to reduce cravings and support stable energy.',time:'10 min prep + 15 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['magnesium','fiber','iron'],conditions:['vegan','lactosefree','glutenfree']},
-  {emoji:'🍝',name:'Creamy Comfort Lasagna',desc:'Comforting lasagna with a classic French-style béchamel, to provide warmth, stable energy, and reduce cravings.',time:'10 min prep + 15 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['magnesium','fiber'],conditions:['vegetarian']},
-  {emoji:'🥗',name:'Warm Quinoa Bowl with Roasted Vegetables & Feta',desc:'A warm, nourishing bowl with quinoa, roasted vegetables, and feta, ideal for the follicular phase to support energy, digestion, and hormone balance.',time:'15 min prep + 30 min oven',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['fiber','magnesium','b6'],conditions:['vegetarian','glutenfree']},
-   {emoji:'🎃',name:'Coconut Pumpkin Soup',desc:'A creamy, comforting soup ideal to calm the body, reduce stress, and support digestion.',time:'10 min prep + 25 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dinner',nutrients:['magnesium','fiber','b6'],conditions:['vegan','lactosefree','glutenfree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/banana.jpg',emoji:'🍌',name:'Banana Bread',desc:'Rich in vitamin B6, magnesium, and slow carbs, this no-added sugar recipe support mood, reduce craving and stabilize energy.',time:'10 min + 50 min oven',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dessert',nutrients:['magnesium','fiber','b6','omega3'],conditions:['vegetarian','lactosefree','autoimmune']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/skillet.jpg',emoji:'🥘',name:'Spiced Creamy Chickpea Skillet',desc:'A quick, protein-rich dish with crispy chickpeas and warming spices, ideal for the luteal phase to reduce cravings and support stable energy.',time:'10 min prep + 15 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['magnesium','fiber','iron'],conditions:['vegan','lactosefree','glutenfree']},
+  {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/lasagna.jpg',emoji:'🍝',name:'Creamy Comfort Lasagna',desc:'Comforting lasagna with a classic French-style béchamel, to provide warmth, stable energy, and reduce cravings.',time:'10 min prep + 15 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['magnesium','fiber'],conditions:['vegetarian']},
+  {imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/quinoa.jpg',emoji:'🥗',name:'Warm Quinoa Bowl with Roasted Vegetables & Feta',desc:'A warm, nourishing bowl with quinoa, roasted vegetables, and feta, ideal for the follicular phase to support energy, digestion, and hormone balance.',time:'15 min prep + 30 min oven',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'lunch',nutrients:['fiber','magnesium','b6'],conditions:['vegetarian','glutenfree']},
+   {imageUrl:'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/coconut.jpg',emoji:'🎃',name:'Coconut Pumpkin Soup',desc:'A creamy, comforting soup ideal to calm the body, reduce stress, and support digestion.',time:'10 min prep + 25 min cooking',img:'linear-gradient(135deg,#EDE8F5,#F8F5FC)',phase:'luteal',meal:'dinner',nutrients:['magnesium','fiber','b6'],conditions:['vegan','lactosefree','glutenfree']},
 ];
 
 
@@ -4140,7 +4180,7 @@ const RECIPE_DETAILS={
     imageEmoji:'🥔'
   },
 
-  'Sardines Grilled Cheese':{
+  'Sardines Grilled Cheese Sandwich':{
     phase:'luteal',meal:'lunch',time:'15 min',serves:1,
     desc:'Combines omega-3, calcium, and protein, ideal during the luteal phase to support mood, reduce inflammation, and help with PMS symptoms like irritability and fatigue.',
     nutrients:['calcium','magnesium','omega3','b6'],conditions:[],
@@ -4152,7 +4192,7 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/sardines3.jpg',
      
     imageEmoji:'🌯'
   },
@@ -4193,7 +4233,7 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/skillet.jpg',
      
     imageEmoji:'🌯'
   },
@@ -4237,7 +4277,54 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/chili.jpg',
+     
+    imageEmoji:'🌯'
+  },
+
+  
+
+  'Zucchini, Sun-Dried Tomato & Parmesan Muffins':{
+    phase:'follicular',meal:'snack',time:'15 min prep + 25 min baking',serves:6,
+    desc:'Soft and savory muffins packed with zucchini, sun-dried tomatoes, and parmesan, for a refill of protein and fiber.',
+    nutrients:['protein','fiber','calcium'],
+    conditions:['vegetarian'],
+    
+    macros:{kcal:180,protein:'7g',carbs:'15g',fats:'10g'},
+    
+    ingredients:[
+        {qty:'1',ing:'zucchini'},
+        {qty:'80g',ing:'sun-dried tomatoes'},
+        {qty:'60g',ing:'grated parmesan'},
+        {qty:'2',ing:'eggs'},
+        {qty:'140g',ing:'flour'},
+        {qty:'1 tsp',ing:'baking powder'},
+        {qty:'80ml',ing:'plant-based milk'},
+        {qty:'40ml',ing:'olive oil'},
+        {qty:'1 clove',ing:'garlic'},
+        {qty:'to taste',ing:'salt, pepper'},
+        {qty:'optional',ing:'herbs (thyme, oregano)'}
+    ],
+    
+    steps:[
+        'Preheat oven to 180°C',
+        'Grate zucchini or mix them with a mixer (it is okay if there is still some pieces inside)',
+        'Finely chop sun-dried tomatoes',
+        'In a bowl, whisk eggs, plant-based milk, and olive oil',
+        'Add minced garlic, salt, pepper, and herbs',
+        'Mix in flour and baking powder',
+        'Add zucchini, tomatoes, and grated parmesan',
+        'Divide batter into muffin tins (place some naking paper in the mold to prevent them from sticking)',
+        'Bake for 20–25 minutes until golden and set. To check if cooked, plant a knife in one muffin. If you cannot see any batter sticking on the knife, muffins are cooked!',
+        'Let cool slightly before removing from molds'
+    ],
+    
+    tip:'If the muffins come out a bit soggy, try next time to squeeze the chopped / mixed zucchini with a clean towel to remove excess water.<br>Add a sprinkle of parmesan on top before baking for a crispy, golden crust.<br>Perfect to freeze and reheat for quick snacks.',
+    /* ── PHOTO: to use a real image later, set imageUrl to a relative or absolute path,
+       e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
+       Leave as null to keep the emoji fallback.                     
+       */
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/muffins.jpg',
      
     imageEmoji:'🌯'
   },
@@ -4254,7 +4341,99 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/banana.jpg',
+     
+    imageEmoji:'🌯'
+  },
+
+ 'Homemade High-fiber Granola':{
+   phase:'luteal',
+    meal:'breakfast',
+    time:'10 min prep + 25 min baking',
+    serves:6,
+    desc:'A crunchy, nutrient-dense granola rich in fiber, magnesium, and healthy fats, ideal during the luteal phase to stabilize blood sugar, reduce cravings, and support digestion.',
+    
+     nutrients:['fiber','magnesium','iron','omega3'],
+    conditions:['vegetarian','lactosefree'],
+    
+    macros:{kcal:280,protein:'8g',carbs:'30g',fats:'14g'},
+    
+    
+    ingredients:[
+        {qty:'200g',ing:'rolled oats (granola base)'},
+        {qty:'2 tbsp',ing:'ground flaxseeds'},
+        {qty:'2 tbsp',ing:'chia seeds'},
+        {qty:'80g',ing:'almonds (roughly chopped or halved)'},
+        {qty:'50g',ing:'pumpkin seeds'},
+        {qty:'40g',ing:'coconut flakes'},
+        {qty:'2 tbsp',ing:'honey'},
+        {qty:'2 tbsp',ing:'peanut butter'},
+        {qty:'60g',ing:'dark chocoloate or dried cranberries (added after baking)'},
+        {qty:'1 pinch',ing:'salt'},
+        {qty:'optional',ing:'cinnamon or vanilla extract'}
+    ],
+    
+    steps:[
+        'Preheat oven to 170°C',
+        'In a large bowl, mix oats, ground flaxseeds (better absorption when they are grinded), chia seeds, almonds, pumpkin seeds, coconut flakes, and salt',
+        'In a small saucepan, gently warm honey and peanut butter until smooth and combined',
+        'Pour the wet mixture over dry ingredients and mix well to coat evenly',
+        'Spread mixture evenly on a baking tray lined with parchment paper',
+        'Bake for 20–25 minutes, stirring halfway for even browning',
+        'Remove from oven and let cool completely (it will crisp up)',
+        'Add chopped dark chocolate pieces or dried cranberries once cooled and mix gently',
+        'Serve on top of a bowl of greek yogurt for a perfect breakfast'
+    ],
+    
+    tip:'Do not add chocolate or cranberries before baking or they will melt or burn.<br>For chunky granola, press the mixture firmly onto the tray and avoid stirring too much.<br>Store in an airtight container for up to 2 weeks.',
+    /* ── PHOTO: to use a real image later, set imageUrl to a relative or absolute path,
+       e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
+       Leave as null to keep the emoji fallback.                     
+       */
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/granola2.jpg',
+     
+    imageEmoji:'🌯'
+  },
+  
+
+ 'Golden Turmeric Latte':{
+    phase:'menstrual',
+    meal:'drink',
+    time:'5 min prep + 5 min heating',
+    serves:1,
+    desc:'A warm, soothing latte made with turmeric, ginger, and spices, ideal during the menstrual phase to reduce inflammation, ease cramps, and promote relaxation.',
+    
+    nutrients:['magnesium','b6'],
+    conditions:['vegan','lactosefree','glutenfree'],
+    
+    macros:{kcal:120,protein:'2g',carbs:'10g',fats:'8g'},
+    
+    ingredients:[
+        {qty:'250ml',ing:'plant-based milk (almond, oat or coconut)'},
+        {qty:'1/2 tsp',ing:'turmeric powder (or 1 tsp fresh grated)'},
+        {qty:'1/2 tsp',ing:'fresh grated ginger'},
+        {qty:'1 pinch',ing:'black pepper'},
+        {qty:'1/2 tsp',ing:'cinnamon'},
+        {qty:'1 tsp',ing:'honey or maple syrup'},
+        {qty:'1/2 tsp',ing:'coconut oil (optional)'},
+        {qty:'1/2 tsp',ing:'vanilla extract (optional)'}
+    ],
+    
+    steps:[
+        'In a small saucepan, gently heat the plant-based milk (do not boil)',
+        'Add turmeric, ginger, cinnamon, and black pepper',
+        'Whisk continuously for 3–5 minutes to infuse flavors',
+        'Add honey (or maple syrup) and optional coconut oil',
+        'Blend or whisk vigorously for a slightly frothy texture',
+        'Pour into a cup and serve warm'
+    ],
+    
+    tip:'Always add black pepper to activate turmeric absorption.<br>For a café-style texture, blend the latte for 10–15 seconds to create a natural foam.<br>Add a pinch of nutmeg or cardamom for a more complex, gourmet flavor.',
+    /* ── PHOTO: to use a real image later, set imageUrl to a relative or absolute path,
+       e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
+       Leave as null to keep the emoji fallback.                     
+       */
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/golden.jpg',
      
     imageEmoji:'🌯'
   },
@@ -4298,7 +4477,7 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/quinoa.jpg',
      
     imageEmoji:'🌯'
   },
@@ -4353,7 +4532,7 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/lasagna.jpg',
      
     imageEmoji:'🍝'
   },
@@ -4390,7 +4569,7 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/coconut.jpg',
      
     imageEmoji:'🎃'
   },
@@ -4432,7 +4611,8 @@ const RECIPE_DETAILS={
     ],
     
     tip:'Roast the sweet potato and carrot at 200°C for 20 min before adding them to the soup for a deeper, slightly caramelized flavor.<br>Drizzle with olive oil before serving for a richer texture and better nutrient absorption.<br>Black pepper boosts turmeric absorption, be sure to include it!',
-     
+
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/pumpkin.jpg',
     imageEmoji:'🌯'
   },
 
@@ -4476,7 +4656,7 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/balls.jpg',
      
     imageEmoji:'🌯'
   },
@@ -4525,42 +4705,14 @@ const RECIPE_DETAILS={
        e.g.  imageUrl: 'images/lemon-chia-pudding.jpg'
        Leave as null to keep the emoji fallback.                     
        */
-     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/gratin.png',
+     imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/dahl.jpg',
      
     imageEmoji:'🌯'
  },
-  
-  
-  'Sauted Vegetables Bowl':{
-  phase:'luteal', meal:'dinner', time:'20 min', serves:1,
-  desc:'A perfectly balanced plate with complex carbs + protein + B6, helping stabilize mood and reduce cravings.',
-  nutrients:['b6','magnesium','iron'],
-  conditions:['vegetarian','glutenfree'],
-  macros:{kcal:500, protein:'20g', carbs:'60g', fats:'18g'},
-  ingredients:[
-    {qty:'70g',  ing:'brown rice'},
-    {qty:'1',    ing:'egg'},
-    {qty:'1',    ing:'zucchini'},
-    {qty:'1',    ing:'carrot'},
-    {qty:'1 tbsp',     ing:'olive oil'},
-    {qty:'Pinch',     ing:'salt'},
-    {qty:'1',    ing:'garlic clove'},
-    {qty:'1 tbsp',     ing:'tahini sauce (optional)'}
-  ],
-  steps:[
-    'Cook rice with salt and a bay leaf until tender.',
-    'Bring a small pot to the boil. Cook the egg for exactly 6 min 30 sec, then transfer immediately to an ice bath — this gives you a perfectly jammy yolk.',
-    'In a pan, heat a drizzle of olive oil over medium heat. Add the minced garlic clove and cook for 30 seconds until fragrant.',
-    'Add the chopped carrot and zucchini. Sauté for 6–8 minutes until slightly golden at the edges.',
-    'Deglaze the pan with a splash of water or soy sauce and toss to coat.',
-    'Assemble the bowl: rice first, then vegetables, then the peeled egg halved on top.',
-    'Drizzle with olive oil or tahini sauce. Season and serve immediately.'
-  ],
-  tip:'Prep a big batch of rice on Sunday — it keeps 3–4 days in the fridge and halves your weeknight cook time. <br>Add toasted pumpkin seeds or walnuts for extra crunch and a magnesium boost.',
-  imageUrl: 'https://raw.githubusercontent.com/saintolivelucie-eng/try2/main/rizcomplet.jpg',
-  imageEmoji:'🥔'
-},
+ 
 };
+  
+  
 
 const filterState={meal:null,phase:null,nutrient:[],condition:[],symptom:[]};
 
@@ -4605,7 +4757,12 @@ function renderRecipes(){
   var scored=RECIPES.map(function(r){return{r:r,s:scoreRecipe(r)};}).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;});
   if(!scored.length){grid.style.display='block';grid.innerHTML='<div style="text-align:center;padding:3rem;"><p style="font-size:1rem;color:var(--taupe);margin-bottom:1rem;">No exact matches — try removing a filter or two.</p><button class="btn-ghost" onclick="clearRecipeFilters()">Clear filters →</button></div>';return;}
   grid.style.display='grid';
-  grid.innerHTML=scored.map(function(x){var r=x.r;var phaseTag='<span class="rr-tag '+PHASE_TAG_CLASS[r.phase]+'">'+PHASE_LABELS[r.phase]+'</span>';var nutTags=r.nutrients.slice(0,2).map(function(n){return'<span class="rr-tag rrt-n">'+NUTRIENT_LABELS[n]+'</span>';}).join('');var dots=r.nutrients.map(function(n){return'<span class="rr-dot" style="background:'+(DOT_COLORS[n]||'#ccc')+'"></span>';}).join('');var hasFull=!!RECIPE_DETAILS[r.name];var badge=hasFull?'<div class="rr-view-badge">Tap to view full recipe →</div>':'';var click=hasFull?'onclick="openRecipeModal(\''+r.name.replace(/'/g,"\\'")+'\')\" style="cursor:pointer"':'';return'<div class="rr-card" '+click+'><div class="rr-img" style="background-image:url(' + r.imageUrl + ');"></div><div class="rr-body"><div class="rr-tags">'+phaseTag+nutTags+'</div><p class="rr-name">'+r.name+'</p><p class="rr-desc">'+r.desc+'</p><div class="rr-meta"><span class="rr-time">⏱ '+r.time+'</span><div class="rr-dots">'+dots+'</div></div></div>'+badge+'</div>';}).join('');
+  grid.innerHTML=scored.map(function(x){var r=x.r;var phaseTag='<span class="rr-tag '+PHASE_TAG_CLASS[r.phase]+'">'+PHASE_LABELS[r.phase]+'</span>';var nutTags=r.nutrients.slice(0,2).map(function(n){return'<span class="rr-tag rrt-n">'+NUTRIENT_LABELS[n]+'</span>';}).join('');
+                                        var dots=r.nutrients.map(function(n){return'<span class="rr-dot" style="background:'+(DOT_COLORS[n]||'#ccc')+'"></span>';}).join('');
+                                        var hasFull=!!RECIPE_DETAILS[r.name];
+                                        var badge=hasFull?'<div class="rr-view-badge">Tap to view full recipe →</div>':'';
+                                        var click=hasFull?'onclick="openRecipeModal(\''+r.name.replace(/'/g,"\\'")+'\')\" style="cursor:pointer"':'';
+                                        return'<div class="rr-card" '+click+'><div class="rr-img"><img src="'+r.imageUrl+'" alt="'+r.name+'}";"></div><div class="rr-body"><div class="rr-tags">'+phaseTag+nutTags+'</div><p class="rr-name">'+r.name+'</p><p class="rr-desc">'+r.desc+'</p><div class="rr-meta"><span class="rr-time">⏱ '+r.time+'</span><div class="rr-dots">'+dots+'</div></div></div>'+badge+'</div>';}).join('');
 }
 window.renderRecipes=renderRecipes;
 
@@ -4751,6 +4908,32 @@ var FAQ_ARTICLES = {
   cta: { text: `Button label text`, action: `showPage('mycycle')` }
 },                    
 
+seed: {
+  tag: `Seed Cycling`,
+  emoji: `🌱`,
+  bg: `linear-gradient(135deg,#E8F0E5,#F0FAF0)`,  /* banner background */
+  title: `How seed cycling can help you during your cycle`,
+  intro: `Cycle cycling, a miracle or a real nutritional value ?`,
+  sections: [
+    {
+      icon: `🔬`,
+      heading: `Section heading`,
+      content: `<p class="faq-article-p">Your paragraph text here. Use <strong>bold</strong> for emphasis.</p>
+                <div class="faq-callout"><p><em>Optional pull quote or highlight in a pink callout block.</em></p></div>`
+    },
+    {
+      icon: `🥗`,
+      heading: `Section with food list`,
+      content: `<p class="faq-article-p">Intro text before the food list.</p>`,
+      foods: [
+        { emoji: `🫐`, name: `Food name`, why: `Why it helps and what it does.` },
+        { emoji: `🥜`, name: `Another food`, why: `Explanation.` }
+      ]
+    }
+  ],
+  cta: { text: `Button label text`, action: `showPage('mycycle')` }
+}, 
+  
   hormones: {
     tag: `Understanding your cycle`,
     emoji: `📊`,
